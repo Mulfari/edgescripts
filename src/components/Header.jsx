@@ -12,8 +12,10 @@ const Header = () => {
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isSupportDropdownVisible, setIsSupportDropdownVisible] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
   const [isProductsSubmenuVisible, setIsProductsSubmenuVisible] = useState(false);
+  const [isSupportSubmenuVisible, setIsSupportSubmenuVisible] = useState(false);
   const hideDropdownTimeout = useRef(null);
   const hideDropdownDelay = 300; // Tiempo de retraso en ms
   const mobileMenuRef = useRef(null);
@@ -47,30 +49,52 @@ const Header = () => {
     }, hideDropdownDelay);
   };
 
+  const handleSupportMouseEnter = () => {
+    clearTimeout(hideDropdownTimeout.current);
+    setIsSupportDropdownVisible(true);
+  };
+
+  const handleSupportMouseLeave = () => {
+    hideDropdownTimeout.current = setTimeout(() => {
+      setIsSupportDropdownVisible(false);
+    }, hideDropdownDelay);
+  };
+
   const toggleMobileMenu = () => {
     setIsMobileMenuVisible(!isMobileMenuVisible);
   };
 
   const toggleProductsSubmenu = () => {
     setIsProductsSubmenuVisible(!isProductsSubmenuVisible);
+    if (!isProductsSubmenuVisible) {
+      setIsSupportSubmenuVisible(false);
+    }
+  };
+
+  const toggleSupportSubmenu = () => {
+    setIsSupportSubmenuVisible(!isSupportSubmenuVisible);
+    if (!isSupportSubmenuVisible) {
+      setIsProductsSubmenuVisible(false);
+    }
   };
 
   const handleClickOutside = (event) => {
     if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
       setIsMobileMenuVisible(false);
       setIsProductsSubmenuVisible(false);
+      setIsSupportSubmenuVisible(false);
     }
   };
 
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
-      <div className="container mx-auto flex justify-between items-center px-4 md:px-6 transition-all duration-300 ease-in-out">
+      <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
         <div className="transition-all duration-300 ease-in-out">
-          <div className="text-xl md:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
-          {!isSmall && <div className="text-xs md:text-sm text-gray-400 transition-opacity duration-300 ease-in-out">Vanguard in Scripts</div>}
+          <div className="text-xl lg:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
+          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out">Vanguard in Scripts</div>}
         </div>
-        <nav className="hidden md:flex space-x-4 md:space-x-12 font-play relative text-sm md:text-lg items-center">
-          <Link to="/" className="nav-item">Inicio</Link>
+        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center">
+          <Link to="/" className="nav-item">Home</Link>
           <div 
             className="relative group" 
             onMouseEnter={handleMouseEnter} 
@@ -79,7 +103,7 @@ const Header = () => {
             <Link to="/products" className="nav-item" onMouseEnter={handleMouseEnter}>Products</Link>
             {isDropdownVisible && (
               <div 
-                className="absolute left-0 top-full w-40 md:w-56 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
+                className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 style={{ opacity: isDropdownVisible ? 1 : 0, transform: isDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
@@ -125,10 +149,45 @@ const Header = () => {
               </div>
             )}
           </div>
-          <a href="#nosotros" className="nav-item">Nosotros</a>
-          <a href="#contacto" className="nav-item">Contacto</a>
+          <a href="#how-to-install" className="nav-item">How to install</a>
+          <div 
+            className="relative group" 
+            onMouseEnter={handleSupportMouseEnter} 
+            onMouseLeave={handleSupportMouseLeave}
+          >
+            <Link to="#support" className="nav-item" onMouseEnter={handleSupportMouseEnter}>Support</Link>
+            {isSupportDropdownVisible && (
+              <div 
+                className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
+                onMouseEnter={handleSupportMouseEnter}
+                onMouseLeave={handleSupportMouseLeave}
+                style={{ opacity: isSupportDropdownVisible ? 1 : 0, transform: isSupportDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
+              >
+                <ul className="py-2">
+                  <li>
+                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                      <i className="fas fa-question-circle mr-3"></i>
+                      FAQ
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                      <i className="fas fa-envelope mr-3"></i>
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
+                      <i className="fas fa-file-contract mr-3"></i>
+                      Terms and Conditions
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </nav>
-        <div className="hidden md:flex space-x-8 font-play"> {/* Incrementa el espacio entre los íconos */}
+        <div className="hidden lg:flex space-x-8 font-play"> {/* Incrementa el espacio entre los íconos */}
           <button className="icon-button">
             <i className="fas fa-user-circle text-3xl"></i>
           </button>
@@ -136,7 +195,7 @@ const Header = () => {
             <i className="fas fa-shopping-cart text-3xl"></i>
           </button>
         </div>
-        <div className="md:hidden flex items-center space-x-4">
+        <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button">
             <i className="fas fa-user-circle text-3xl"></i>
           </button>
@@ -149,10 +208,10 @@ const Header = () => {
         </div>
       </div>
       {isMobileMenuVisible && (
-        <div ref={mobileMenuRef} className="mobile-menu md:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+        <div ref={mobileMenuRef} className="mobile-menu lg:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
           style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}> {/* Ajusta el margen y el ancho */}
           <nav className="flex flex-col py-2">
-            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Inicio</Link> {/* Ajusta el padding izquierdo */}
+            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Home</Link> {/* Ajusta el padding izquierdo */}
             <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center"> {/* Ajusta el padding izquierdo */}
               Products
               <i className={`fas ${isProductsSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
@@ -185,8 +244,27 @@ const Header = () => {
                 </Link>
               </div>
             )}
-            <Link to="#nosotros" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Nosotros</Link> {/* Ajusta el padding izquierdo */}
-            <Link to="#contacto" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Contacto</Link> {/* Ajusta el padding izquierdo */}
+            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">How to install</Link> {/* Ajusta el padding izquierdo */}
+            <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center"> {/* Ajusta el padding izquierdo */}
+              Support
+              <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+            </button>
+            {isSupportSubmenuVisible && (
+              <div className="pl-10 transition-all duration-300 ease-in-out"> {/* Ajusta el padding izquierdo */}
+                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                  <i className="fas fa-question-circle mr-3"></i>
+                  FAQ
+                </Link>
+                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                  <i className="fas fa-envelope mr-3"></i>
+                  Contact
+                </Link>
+                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center whitespace-nowrap">
+                  <i className="fas fa-file-contract mr-3"></i>
+                  Terms and Conditions
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
       )}
@@ -228,12 +306,12 @@ const Header = () => {
           align-items: center;
           justify-content: center;
           padding: 0.5rem;
+          border: 2px solid transparent;
+          border-radius: 8px;
         }
         .icon-button:hover {
-          color: #1E3A8A; /* Cambia el color al azul oscuro */
-          border: 2px solid #1E3A8A; /* Añade un borde azul oscuro */
-          border-radius: 8px; /* Hace el fondo redondeado */
-          background-color: transparent; /* Fondo transparente */
+          color: #3B82F6; /* Cambia el color al azul del logo */
+          border-color: #3B82F6; /* Añade un borde azul del logo */
         }
       `}</style>
     </header>
