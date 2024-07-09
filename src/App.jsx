@@ -5,7 +5,7 @@ import Inicio from './components/Inicio';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProductosPage from './components/ProductosPage';
-import ProductDetail from './components/ProductDetail';
+import ProductWarzone from './components/ProductWarzone';  // Importa el nuevo componente
 import InfoSection from './components/InfoSection';
 import Paso from './components/Paso';
 import Reviews from './components/Reviews';
@@ -33,12 +33,12 @@ const App = () => {
         />
         <Route path="/products" element={<ProductosPage />} />
         <Route
-          path="/products/:category"
+          path="/products/warzone"
           element={
             <>
               <Header />
               <Inicio />
-              <ProductDetail />
+              <ProductWarzone />
               <Footer />
             </>
           }
