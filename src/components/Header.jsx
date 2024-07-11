@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
+import { FaTimesCircle } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
-import valorantLogo from '../assets/Categorias/valorantlogo.jpg';
-import csgoLogo from '../assets/Categorias/csgologo.jpg';
-import fortniteLogo from '../assets/Categorias/fortnitelogo.jpg';
-import xdefiantLogo from '../assets/Categorias/xdefiantlogo.png';
-import theFinalsLogo from '../assets/Categorias/thefinalslogo.webp';
 
-const Header = () => {
+const Header = ({ cartItems, removeFromCart }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -16,9 +12,12 @@ const Header = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
   const [isProductsSubmenuVisible, setIsProductsSubmenuVisible] = useState(false);
   const [isSupportSubmenuVisible, setIsSupportSubmenuVisible] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const hideDropdownTimeout = useRef(null);
-  const hideDropdownDelay = 300; // Tiempo de retraso en ms
+  const hideDropdownDelay = 300;
   const mobileMenuRef = useRef(null);
+  const cartRef = useRef(null);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -36,11 +35,12 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [lastScrollY, isMobileMenuVisible]);
+  }, [lastScrollY, isMobileMenuVisible, isCartVisible]);
 
   const handleMouseEnter = () => {
     clearTimeout(hideDropdownTimeout.current);
     setIsDropdownVisible(true);
+    setIsSupportDropdownVisible(false);
   };
 
   const handleMouseLeave = () => {
@@ -52,6 +52,7 @@ const Header = () => {
   const handleSupportMouseEnter = () => {
     clearTimeout(hideDropdownTimeout.current);
     setIsSupportDropdownVisible(true);
+    setIsDropdownVisible(false);
   };
 
   const handleSupportMouseLeave = () => {
@@ -84,6 +85,21 @@ const Header = () => {
       setIsProductsSubmenuVisible(false);
       setIsSupportSubmenuVisible(false);
     }
+
+    if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.icon-button')) {
+      setIsCartVisible(false);
+    }
+  };
+
+  const toggleCart = () => {
+    if (cartItems.length > 0) {
+      setIsCartVisible(!isCartVisible);
+    } else {
+      setIsNotificationVisible(true);
+      setTimeout(() => {
+        setIsNotificationVisible(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -113,36 +129,6 @@ const Header = () => {
                     <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100">
                       <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
                       Warzone
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/products/valorant" className="flex items-center px-4 py-2 hover:bg-gray-100">
-                      <img src={valorantLogo} alt="Valorant" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
-                      Valorant
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/products/csgo" className="flex items-center px-4 py-2 hover:bg-gray-100">
-                      <img src={csgoLogo} alt="Counter-Strike" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
-                      Counter-Strike
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/products/fortnite" className="flex items-center px-4 py-2 hover:bg-gray-100">
-                      <img src={fortniteLogo} alt="Fortnite" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
-                      Fortnite
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/products/xdefiant" className="flex items-center px-4 py-2 hover:bg-gray-100">
-                      <img src={xdefiantLogo} alt="XDefiant" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
-                      XDefiant
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/products/thefinals" className="flex items-center px-4 py-2 hover:bg-gray-100">
-                      <img src={theFinalsLogo} alt="The Finals" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
-                      The Finals
                     </Link>
                   </li>
                 </ul>
@@ -187,20 +173,26 @@ const Header = () => {
             )}
           </div>
         </nav>
-        <div className="hidden lg:flex space-x-8 font-play"> {/* Incrementa el espacio entre los íconos */}
+        <div className="hidden lg:flex space-x-8 font-play">
           <button className="icon-button">
             <i className="fas fa-user-circle text-3xl"></i>
           </button>
-          <button className="icon-button">
+          <button className="icon-button relative" onClick={toggleCart}>
             <i className="fas fa-shopping-cart text-3xl"></i>
+            {cartItems.length > 0 && (
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
+            )}
           </button>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button">
             <i className="fas fa-user-circle text-3xl"></i>
           </button>
-          <button className="icon-button">
+          <button className="icon-button relative" onClick={toggleCart}>
             <i className="fas fa-shopping-cart text-3xl"></i>
+            {cartItems.length > 0 && (
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
+            )}
           </button>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
             <i className="fas fa-bars text-3xl"></i>
@@ -209,48 +201,28 @@ const Header = () => {
       </div>
       {isMobileMenuVisible && (
         <div ref={mobileMenuRef} className="mobile-menu lg:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
-          style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}> {/* Ajusta el margen y el ancho */}
+          style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}>
           <nav className="flex flex-col py-2">
-            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Home</Link> {/* Ajusta el padding izquierdo */}
-            <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center"> {/* Ajusta el padding izquierdo */}
+            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Home</Link>
+            <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Products
               <i className={`fas ${isProductsSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isProductsSubmenuVisible && (
-              <div className="pl-10 transition-all duration-300 ease-in-out"> {/* Ajusta el padding izquierdo */}
+              <div className="pl-10 transition-all duration-300 ease-in-out">
                 <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
                   <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
-                <Link to="/products/valorant" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
-                  <img src={valorantLogo} alt="Valorant" className="w-6 h-6 mr-3" />
-                  Valorant
-                </Link>
-                <Link to="/products/csgo" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
-                  <img src={csgoLogo} alt="Counter-Strike" className="w-6 h-6 mr-3" />
-                  Counter-Strike
-                </Link>
-                <Link to="/products/fortnite" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
-                  <img src={fortniteLogo} alt="Fortnite" className="w-6 h-6 mr-3" />
-                  Fortnite
-                </Link>
-                <Link to="/products/xdefiant" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
-                  <img src={xdefiantLogo} alt="XDefiant" className="w-6 h-6 mr-3" />
-                  XDefiant
-                </Link>
-                <Link to="/products/thefinals" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
-                  <img src={theFinalsLogo} alt="The Finals" className="w-6 h-6 mr-3" />
-                  The Finals
-                </Link>
               </div>
             )}
-            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">How to install</Link> {/* Ajusta el padding izquierdo */}
-            <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center"> {/* Ajusta el padding izquierdo */}
+            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">How to install</Link>
+            <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Support
               <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isSupportSubmenuVisible && (
-              <div className="pl-10 transition-all duration-300 ease-in-out"> {/* Ajusta el padding izquierdo */}
+              <div className="pl-10 transition-all duration-300 ease-in-out">
                 <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
                   <i className="fas fa-question-circle mr-3"></i>
                   FAQ
@@ -268,15 +240,64 @@ const Header = () => {
           </nav>
         </div>
       )}
+      {isCartVisible && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={toggleCart}>
+          <div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-80 bg-white shadow-2xl h-full z-50 rounded-l-lg transition-transform transform ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
+            <div className="p-4 border-b border-gray-300 flex justify-between items-center">
+              <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
+              <button onClick={toggleCart} className="text-gray-600 hover:text-gray-900">
+                <i className="fas fa-times text-xl"></i>
+              </button>
+            </div>
+            <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(100% - 64px - 64px)' }}>
+              {cartItems.length === 0 ? (
+                <p className="text-gray-700">Your cart is empty.</p>
+              ) : (
+                <ul className="divide-y divide-gray-200">
+                  {cartItems.map((item, index) => (
+                    <li key={index} className="py-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-900">{item.descripcion}</span>
+                        <span>{item.precioDescuento}</span>
+                        <button onClick={() => removeFromCart(index)} className="text-red-600 hover:text-red-800">
+                          <i className="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                      <div className="text-gray-700 text-sm mt-2">
+                        <p><strong>Product:</strong> {item.option}</p>
+                        <p><strong>Brand:</strong> {item.brand}</p>
+                        <p><strong>DPI:</strong> {item.dpi}</p>
+                        <p><strong>Sensitivity:</strong> {item.sensitivity}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="p-4 border-t border-gray-300 flex justify-between items-center">
+              <span className="text-lg font-bold text-gray-900">Total: {cartItems.reduce((total, item) => total + parseFloat(item.precioDescuento), 0).toFixed(2)}$</span>
+              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isNotificationVisible && (
+        <div className="fixed bottom-4 right-4 bg-red-600 text-white border border-red-700 p-4 rounded-lg shadow-lg flex items-center">
+          <FaTimesCircle className="text-white mr-2" />
+          <span>Your cart is empty.</span>
+        </div>
+      )}
       <style jsx>{`
         .nav-item {
           position: relative;
-          padding: 1rem 1.5rem; /* Aumenta el área de hover */
+          padding: 1rem 1.5rem;
           color: white;
           text-decoration: none;
-          font-size: 1.125rem; /* Aumenta el tamaño de la fuente */
+          font-size: 1.125rem;
           display: flex;
-          align-items: center; /* Alinea los elementos verticalmente */
+          align-items: center;
           transition: all 0.3s ease-in-out;
         }
         .nav-item::before {
@@ -286,7 +307,7 @@ const Header = () => {
           height: 3px;
           bottom: 0;
           left: 0;
-          background-color: #3B82F6; /* Color azul del logo */
+          background-color: #3B82F6;
           visibility: hidden;
           transition: all 0.3s ease-in-out;
         }
@@ -310,12 +331,19 @@ const Header = () => {
           border-radius: 8px;
         }
         .icon-button:hover {
-          color: #3B82F6; /* Cambia el color al azul del logo */
-          border-color: #3B82F6; /* Añade un borde azul del logo */
+          color: #3B82F6;
+          border-color: #3B82F6;
+        }
+        .cart-panel {
+          transition: transform 0.3s ease-in-out;
         }
       `}</style>
     </header>
   );
+};
+
+Header.defaultProps = {
+  cartItems: [],
 };
 
 export default Header;

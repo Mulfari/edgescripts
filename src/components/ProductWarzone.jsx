@@ -1,11 +1,9 @@
-// src/components/ProductWarzone.js
-
 import React, { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaCheckCircle } from 'react-icons/fa';
 import productImage from '../assets/Categorias/wzlogo.png';
 import logitechLogo from '../assets/Categorias/logitechlogo.png';
 import razerLogo from '../assets/Categorias/razerlogo.png';
-import cardImage from '../assets/wzinicio2.png'; // Asegúrate de que esta ruta sea correcta
+import cardImage from '../assets/wzinicio2.png';
 
 const productos = [
   { id: 1, imagen: productImage, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true, reviews: 10, detalles: 'Detalles del producto', caracteristicas: ['Característica 1', 'Característica 2'] },
@@ -23,18 +21,14 @@ const Breadcrumb = () => (
 );
 
 const ProgressBar = ({ step }) => (
-  <div className="flex justify-center mb-6">
-    {[1, 2, 3].map((s) => (
-      <div key={s} className="relative w-1/3 mx-1">
-        <div className="absolute top-0 left-0 h-2 w-full bg-gray-300 rounded-full"></div>
-        <div
-          className={`absolute top-0 left-0 h-2 bg-blue-500 rounded-full transition-all duration-700 ease-in-out ${
-            step >= s ? 'progress-bar-fill' : ''
-          }`}
-          style={{ width: step >= s ? '100%' : '0%' }}
-        ></div>
-      </div>
-    ))}
+  <div className="flex flex-col items-center mb-6">
+    <div className="relative w-full flex justify-between">
+      {[1, 2, 3].map((s) => (
+        <div key={s} className="relative w-1/3">
+          <div className={`absolute top-0 left-0 h-2 ${s <= step ? 'bg-blue-500' : 'bg-gray-300'} rounded-full transition-all duration-700 ease-in-out`} style={{ width: '100%' }}></div>
+        </div>
+      ))}
+    </div>
   </div>
 );
 
@@ -75,7 +69,7 @@ const Step1 = ({ handleOptionChange }) => {
   const plans = [
     {
       title: '1 weapon',
-      price: '5.99',
+      price: '14.99',
       description: 'Perfect for casual gamers or those just starting out.',
       features: [
         'Access to all game servers',
@@ -85,7 +79,7 @@ const Step1 = ({ handleOptionChange }) => {
     },
     {
       title: '2 weapons',
-      price: '9.99',
+      price: '24.99',
       description: 'For serious gamers who demand the best performance.',
       features: [
         'Access to all game servers',
@@ -96,7 +90,7 @@ const Step1 = ({ handleOptionChange }) => {
     },
     {
       title: 'Custom',
-      price: 'Contact us',
+      price: '39.99',
       description: 'For the ultimate gaming experience.',
       features: [
         'Access to all game servers',
@@ -145,30 +139,27 @@ const Step2 = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, ha
   return (
     <div className="flex flex-col mt-6 h-full">
       <label className="block text-gray-700 mb-4 text-2xl font-semibold">Step 2: Choose your device</label>
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">Select brand:</label>
-        <div className="flex space-x-4">
-          {[
-            { id: 'logitech', src: logitechLogo, alt: 'Logitech' },
-            { id: 'razer', src: razerLogo, alt: 'Razer' },
-          ].map((brand) => (
-            <button
-              key={brand.id}
-              className={`p-2 border rounded-md focus:outline-none transition-colors duration-300 ${
-                selectedBrand === brand.id ? 'border-blue-500 bg-blue-100' : 'border-gray-300 hover:bg-gray-100'
-              }`}
-              onClick={() => handleBrandSelection(brand.id)}
-            >
-              <img src={brand.src} alt={brand.alt} className="h-10 w-auto" />
-            </button>
-          ))}
-        </div>
+      <div className="flex space-x-4 mb-4">
+        {[
+          { id: 'logitech', src: logitechLogo, alt: 'Logitech' },
+          { id: 'razer', src: razerLogo, alt: 'Razer' },
+        ].map((brand) => (
+          <button
+            key={brand.id}
+            className={`p-2 border rounded-md focus:outline-none transition-colors duration-300 ${
+              selectedBrand === brand.id ? 'border-blue-500 bg-blue-100' : 'border-gray-300 hover:bg-gray-100'
+            }`}
+            onClick={() => handleBrandSelection(brand.id)}
+          >
+            <img src={brand.src} alt={brand.alt} className="h-10 w-auto" />
+          </button>
+        ))}
       </div>
       <div className="mb-4 flex items-center space-x-4">
         <label className="block text-gray-700 mb-2">Select DPI:</label>
         <input
           type="number"
-          className="block w-48 p-2 border border-gray-300 rounded-md"
+          className="block w-32 p-2 border border-gray-300 rounded-md"
           value={dpi}
           onChange={handleDpiInput}
           min="1"
@@ -180,7 +171,7 @@ const Step2 = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, ha
         <label className="block text-gray-700 mb-2">Sensitivity:</label>
         <input
           type="number"
-          className="block w-48 p-2 border border-gray-300 rounded-md"
+          className="block w-32 p-2 border border-gray-300 rounded-md"
           value={sensitivity}
           onChange={handleSensitivityInput}
           min="1"
@@ -196,7 +187,7 @@ const Step2 = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, ha
   );
 };
 
-const Step3 = ({ option, brand, dpi, sensitivity, handleBackStep }) => (
+const Step3 = ({ option, brand, dpi, sensitivity, handleBackStep, handleAddToCart }) => (
   <div className="flex flex-col mt-6 h-full">
     <label className="block text-gray-700 mb-4 text-2xl font-semibold">Step 3: Checkout</label>
     <div className="p-4 border border-gray-300 rounded-md mb-4">
@@ -207,7 +198,23 @@ const Step3 = ({ option, brand, dpi, sensitivity, handleBackStep }) => (
     </div>
     <div className="flex justify-between mt-4">
       <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300" onClick={handleBackStep}>Back</button>
-      <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-800">Add to Cart</button>
+      <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-800" onClick={handleAddToCart}>Add to Cart</button>
+    </div>
+  </div>
+);
+
+const OrderCompleted = ({ handleCheckout, handleViewProducts, handleBack }) => (
+  <div className="flex flex-col mt-6 h-full">
+    <label className="block text-gray-700 mb-4 text-2xl font-semibold">Order Completed</label>
+    <div className="p-4 border border-gray-300 rounded-md mb-4">
+      <p className="text-gray-900">Your order has been successfully added to the cart.</p>
+    </div>
+    <div className="flex justify-between mt-4">
+      <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300" onClick={handleBack}>Back</button>
+      <div className="flex space-x-4">
+        <button className="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700" onClick={handleViewProducts}>View More Products</button>
+        <button className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700" onClick={handleCheckout}>Proceed to Checkout</button>
+      </div>
     </div>
   </div>
 );
@@ -238,13 +245,14 @@ const ProductReviews = ({ reviews }) => (
   </div>
 );
 
-const ProductCard = ({ productDetail }) => {
+const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
   const [step, setStep] = useState(1);
   const [option, setOption] = useState('');
   const [brand, setBrand] = useState('');
   const [dpi, setDpi] = useState('');
   const [sensitivity, setSensitivity] = useState('');
   const [error, setError] = useState('');
+  const [notification, setNotification] = useState(false);
 
   const handleOptionChange = (option) => {
     setOption(option);
@@ -283,8 +291,52 @@ const ProductCard = ({ productDetail }) => {
     setError('');
   };
 
+  const handleAddToCart = () => {
+    const prices = {
+      '1 weapon': '14.99',
+      '2 weapons': '24.99',
+      'Custom': '39.99'
+    };
+    const product = {
+      option,
+      brand,
+      dpi,
+      sensitivity,
+      descripcion: productDetail.descripcion,
+      precioDescuento: prices[option],
+    };
+    addToCart(product);
+    setStep(4); // Move to Order Completed after adding to cart
+    setOption('');
+    setBrand('');
+    setDpi('');
+    setSensitivity('');
+    setNotification(true);
+    setTimeout(() => {
+      setNotification(false);
+    }, 3000);
+  };
+
+  const handleCheckout = () => {
+    // Handle checkout process
+  };
+
+  const handleViewProducts = () => {
+    // Handle view more products process
+  };
+
+  const handleBack = () => {
+    setStep(1); // Restart the process
+  };
+
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-6 transition-all duration-500 min-h-[500px]">
+    <div className="bg-white shadow-md rounded-lg p-6 mb-6 transition-all duration-500 min-h-[500px] relative">
+      {notification && (
+        <div className="fixed bottom-4 right-4 bg-white text-black border border-black p-4 rounded-lg shadow-lg flex items-center">
+          <FaCheckCircle className="text-green-500 mr-2" />
+          <span>Product added to cart!</span>
+        </div>
+      )}
       <div className="flex flex-col lg:flex-row">
         <div className="flex-shrink-0 relative w-full lg:w-1/3">
           <h1 className="text-2xl font-bold text-gray-900 mb-2 text-center">{productDetail.descripcion}</h1>
@@ -299,7 +351,7 @@ const ProductCard = ({ productDetail }) => {
           </div>
         </div>
         <div className="mt-4 lg:mt-0 lg:ml-6 w-full lg:w-2/3">
-          <ProgressBar step={step} />
+          {step !== 4 && <ProgressBar step={step} />}
           {error && <p className="text-red-500">{error}</p>}
           {step === 1 && (
             <Step1 handleOptionChange={handleOptionChange} />
@@ -314,7 +366,21 @@ const ProductCard = ({ productDetail }) => {
             />
           )}
           {step === 3 && (
-            <Step3 option={option} brand={brand} dpi={dpi} sensitivity={sensitivity} handleBackStep={() => handleBackStep(2)} />
+            <Step3
+              option={option}
+              brand={brand}
+              dpi={dpi}
+              sensitivity={sensitivity}
+              handleBackStep={() => handleBackStep(2)}
+              handleAddToCart={handleAddToCart}
+            />
+          )}
+          {step === 4 && (
+            <OrderCompleted
+              handleCheckout={handleCheckout}
+              handleViewProducts={handleViewProducts}
+              handleBack={handleBack}
+            />
           )}
         </div>
       </div>
@@ -325,7 +391,7 @@ const ProductCard = ({ productDetail }) => {
   );
 };
 
-const ProductWarzone = () => {
+const ProductWarzone = ({ cartItems, addToCart, removeFromCart }) => {
   const category = "Warzone";
   const productsInCategory = productos.filter(product => product.categoria === category);
 
@@ -334,7 +400,7 @@ const ProductWarzone = () => {
       <div className="container mx-auto px-4">
         <Breadcrumb />
         {productsInCategory.map(productDetail => (
-          <ProductCard key={productDetail.id} productDetail={productDetail} />
+          <ProductCard key={productDetail.id} productDetail={productDetail} addToCart={addToCart} removeFromCart={removeFromCart} />
         ))}
       </div>
     </div>
