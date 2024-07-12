@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaTimesCircle } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 
-const Header = ({ cartItems, removeFromCart }) => {
+const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -173,9 +173,16 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </div>
         </nav>
-        <div className="hidden lg:flex space-x-8 font-play">
-          <button className="icon-button">
-            <i className="fas fa-user-circle text-3xl"></i>
+        <div className="hidden lg:flex space-x-8 font-play items-center">
+          <button className="icon-button relative" onClick={() => {}}>
+            <i className="fas fa-user-circle text-3xl text-white"></i>
+            {user ? (
+              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+              </div>
+            ) : (
+              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
+            )}
           </button>
           <button className="icon-button relative" onClick={toggleCart}>
             <i className="fas fa-shopping-cart text-3xl"></i>
@@ -185,8 +192,15 @@ const Header = ({ cartItems, removeFromCart }) => {
           </button>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
-          <button className="icon-button">
-            <i className="fas fa-user-circle text-3xl"></i>
+          <button className="icon-button relative" onClick={() => {}}>
+            <i className="fas fa-user-circle text-3xl text-white"></i>
+            {user ? (
+              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+              </div>
+            ) : (
+              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
+            )}
           </button>
           <button className="icon-button relative" onClick={toggleCart}>
             <i className="fas fa-shopping-cart text-3xl"></i>
