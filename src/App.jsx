@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './index.css';
 import Inicio from './components/Inicio';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -122,29 +121,9 @@ const App = () => {
         <Header cartItems={cartItems} removeFromCart={removeFromCart} user={user} handleLogout={handleLogout} />
         <div className="Content">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Inicio />
-                  <InfoSection />
-                  <AfterBefore />
-                  <Paso />
-                  <Purchase />
-                  <Reviews />
-                </>
-              }
-            />
+            <Route path="/" element={<><Inicio /><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
             <Route path="/products" element={<ProductosPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />} />
-            <Route
-              path="/products/warzone"
-              element={
-                <>
-                  <Inicio />
-                  <ProductWarzone cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
-                </>
-              }
-            />
+            <Route path="/products/warzone" element={<><Inicio /><ProductWarzone cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} /></>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} user={user} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />

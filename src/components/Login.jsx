@@ -48,15 +48,8 @@ const Login = ({ handleLogin, user }) => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          Login
-        </button>
-        <p className="mt-4">
-          Don't have an account? <Link to="/register" className="text-blue-600">Register</Link>
-        </p>
+        <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Login</button>
+        <p className="mt-4">Don't have an account? <Link to="/register" className="text-blue-600">Register</Link></p>
       </form>
     </div>
   );
