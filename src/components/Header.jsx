@@ -174,22 +174,26 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
           </div>
         </nav>
         <div className="hidden lg:flex space-x-8 font-play items-center">
-          <button className="icon-button relative">
-            <i className="fas fa-user-circle text-3xl text-white"></i>
+          <div className="relative">
+            <button className="icon-button" onClick={toggleCart}>
+              <i className="fas fa-shopping-cart text-3xl"></i>
+              {cartItems.length > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
+              )}
+            </button>
+          </div>
+          <div className="relative">
+            <button className="icon-button">
+              <i className="fas fa-user-circle text-3xl text-white"></i>
+            </button>
             {user ? (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
+              <Link to="/login" className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
             )}
-          </button>
-          <button className="icon-button relative" onClick={toggleCart}>
-            <i className="fas fa-shopping-cart text-3xl"></i>
-            {cartItems.length > 0 && (
-              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
-            )}
-          </button>
+          </div>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative">
