@@ -7,11 +7,11 @@ const Login = ({ handleLogin }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const success = await handleLogin(email, password);
     if (success) {
-      navigate('/'); // Redirige a la página principal después de iniciar sesión
+      navigate('/');
     } else {
       setError('Invalid email or password');
     }
@@ -19,7 +19,7 @@ const Login = ({ handleLogin }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg">
+      <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && <p className="text-red-500">{error}</p>}
         <div className="mb-4">
