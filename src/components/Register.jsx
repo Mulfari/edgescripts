@@ -8,16 +8,9 @@ const Register = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;  // Utiliza import.meta.env para acceder a la variable
-  console.log('Backend URL:', backendUrl);
-
-  if (!backendUrl) {
-    console.error('VITE_BACKEND_URL is not defined');
-  }
-
   const handleRegister = async (email, password) => {
     try {
-      const response = await fetch(`${backendUrl}/api/auth/register`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         {error && <p className="text-red-500">{error}</p>}

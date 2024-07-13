@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
       <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && (

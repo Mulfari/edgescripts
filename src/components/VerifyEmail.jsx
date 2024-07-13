@@ -15,7 +15,7 @@ const VerifyEmail = () => {
         const data = await response.json();
         setMessage(data.message);
       } catch (error) {
-        console.error('Error verifying email:', error); // Log para más información
+        console.error('Error verifying email:', error);
         setMessage('Error verifying email.');
       }
     };
@@ -24,7 +24,7 @@ const VerifyEmail = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Email Verification</h2>
         <p className="text-black bg-gray-200 p-2 rounded-md">
