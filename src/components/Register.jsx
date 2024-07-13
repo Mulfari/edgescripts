@@ -10,7 +10,7 @@ const Register = () => {
 
   const handleRegister = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {  // Asegúrate de que esta URL es correcta
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {  // Cambia la URL aquí
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
