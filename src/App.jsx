@@ -34,6 +34,9 @@ const App = () => {
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <Routes>
             <Route path="/products/*" element={<InicioProducts />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
@@ -41,9 +44,6 @@ const App = () => {
               <Route path="/" element={<><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
               <Route path="/products" element={<ProductosPage />} />
               <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/verify-email" element={<VerifyEmail />} />
             </Routes>
           </div>
           <Footer className="Footer" />
