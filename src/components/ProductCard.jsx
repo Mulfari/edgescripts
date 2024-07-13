@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { FaStar, FaCheckCircle } from 'react-icons/fa';
+import ProgressBar from './ProgressBar';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
+import OrderCompleted from './OrderCompleted';
+import ProductDetails from './ProductDetails';
+import ProductDescription from './ProductDescription';
+import ProductReviews from './ProductReviews';
 
-const ProductCard = ({ productDetail, addToCart }) => {
+const ProductCard = ({ productDetail, addToCart, cartItems, removeFromCart }) => {
   const [step, setStep] = useState(1);
   const [option, setOption] = useState('');
   const [brand, setBrand] = useState('');

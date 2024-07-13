@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Breadcrumb from './Breadcrumb';
 import ProductCard from './ProductCard';
 import productImage from '../assets/Categorias/wzlogo.png';
@@ -8,25 +8,16 @@ const productos = [
   // Otros productos de Warzone...
 ];
 
-const ProductWarzone = () => {
+const ProductWarzone = ({ addToCart, removeFromCart, cartItems }) => {
   const category = "Warzone";
   const productsInCategory = productos.filter(product => product.categoria === category);
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
-  };
-
-  const removeFromCart = (index) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
-  };
 
   return (
     <div className="bg-gray-100 min-h-screen py-6">
       <div className="container mx-auto px-4">
         <Breadcrumb />
         {productsInCategory.map(productDetail => (
-          <ProductCard key={productDetail.id} productDetail={productDetail} addToCart={addToCart} removeFromCart={removeFromCart} />
+          <ProductCard key={productDetail.id} productDetail={productDetail} addToCart={addToCart} removeFromCart={removeFromCart} cartItems={cartItems} />
         ))}
       </div>
     </div>
