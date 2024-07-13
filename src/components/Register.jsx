@@ -8,9 +8,15 @@ const Register = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Verifica que la variable de entorno esté definida
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  if (!backendUrl) {
+    console.error('REACT_APP_BACKEND_URL is not defined');
+  }
+
   const handleRegister = async (email, password) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {
+      const response = await fetch(`${backendUrl}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
