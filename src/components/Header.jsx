@@ -181,15 +181,17 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
             )}
           </button>
           <div className="relative">
-            <button className="icon-button">
+            <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
               <i className="fas fa-user-circle text-3xl text-white"></i>
             </button>
-            {user ? (
+            {isDropdownVisible && (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                {user ? (
+                  <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                ) : (
+                  <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
+                )}
               </div>
-            ) : (
-              <Link to="/login" className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
             )}
           </div>
         </div>
