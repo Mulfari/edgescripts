@@ -1,39 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        if (data.verified) {
-          navigate('/'); // Redirige a la página principal después de iniciar sesión
-        } else {
-          setError('Account not verified. Please check your email for verification link.');
-        }
-      } else {
-        setError(data.error || 'Invalid email or password');
-      }
-    } catch (error) {
-      setError('An error occurred');
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleLogin(email, password);
+    const success = await handleLogin(email, password);
+    if (success) {
+      navigate('/'); // Redirige a la página principal después de iniciar sesión
+    } else {
+      setError('Invalid email or password');
+    }
   };
 
   return (

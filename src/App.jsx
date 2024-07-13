@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './index.css';
 import Inicio from './components/Inicio';
 import Header from './components/Header';
@@ -38,22 +38,48 @@ const App = () => {
     setCartItems(newCartItems);
   };
 
-  const handleLogin = (email, password) => {
-    const isValidUser = email === 'test@test.com' && password === 'password';
-    if (isValidUser) {
-      const user = { email };
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      return true;
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUser(data.user);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      return false;
     }
-    return false;
   };
 
-  const handleRegister = (email, password) => {
-    const user = { email };
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    return true;
+  const handleRegister = async (email, password) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Error registering:', error);
+      return false;
+    }
   };
 
   const handleLogout = () => {
@@ -95,7 +121,7 @@ const App = () => {
             <Route path="/verify-email" element={<VerifyEmail />} />
           </Routes>
         </div>
-        <Footer />
+        <Footer className="Footer" />
       </div>
     </Router>
   );
