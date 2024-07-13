@@ -13,7 +13,7 @@ import AfterBefore from './components/AfterBefore';
 import Purchase from './components/Purchase';
 import Login from './components/Login';
 import Register from './components/Register';
-import VerifyEmail from './components/VerifyEmail'; // Importar el componente VerifyEmail
+import VerifyEmail from './components/VerifyEmail';
 
 const App = () => {
   const getInitialCartItems = () => {
