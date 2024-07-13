@@ -16,21 +16,29 @@ import Register from './components/Register';
 import VerifyEmail from './components/VerifyEmail'; // Importar el componente VerifyEmail
 
 const App = () => {
-  const [cartItems, setCartItems] = useState(() => {
+  const getInitialCartItems = () => {
     const savedCart = localStorage.getItem('cartItems');
     return savedCart ? JSON.parse(savedCart) : [];
-  });
-  const [user, setUser] = useState(() => {
+  };
+
+  const getInitialUser = () => {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
-  });
+  };
+
+  const [cartItems, setCartItems] = useState(getInitialCartItems);
+  const [user, setUser] = useState(getInitialUser);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
   }, [user]);
 
   const addToCart = (product) => {
