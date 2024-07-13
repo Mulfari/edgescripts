@@ -71,6 +71,7 @@ const App = () => {
       });
       const data = await response.json();
       if (response.ok) {
+        localStorage.setItem('token', data.token); // Guardar el token
         setUser(data.user);
         return true;
       } else {
@@ -106,7 +107,36 @@ const App = () => {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token'); // Eliminar el token
   };
+
+  const checkUserAuthentication = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setUser(data.user);
+        } else {
+          handleLogout();
+        }
+      } catch (error) {
+        console.error('Error verifying token:', error);
+        handleLogout();
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkUserAuthentication();
+  }, []);
 
   return (
     <Router>
