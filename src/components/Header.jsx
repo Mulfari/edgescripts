@@ -174,7 +174,7 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
           </div>
         </nav>
         <div className="hidden lg:flex space-x-8 font-play items-center">
-          <button className="icon-button relative" onClick={() => {}}>
+          <button className="icon-button relative">
             <i className="fas fa-user-circle text-3xl text-white"></i>
             {user ? (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
@@ -192,7 +192,7 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
           </button>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
-          <button className="icon-button relative" onClick={() => {}}>
+          <button className="icon-button relative">
             <i className="fas fa-user-circle text-3xl text-white"></i>
             {user ? (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
