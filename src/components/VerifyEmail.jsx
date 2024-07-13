@@ -11,10 +11,11 @@ const VerifyEmail = () => {
 
     const verifyEmail = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/verify-email?token=${token}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-email?token=${token}`);
         const data = await response.json();
         setMessage(data.message);
       } catch (error) {
+        console.error('Error verifying email:', error); // Log para más información
         setMessage('Error verifying email.');
       }
     };
