@@ -61,38 +61,70 @@ const App = () => {
     localStorage.removeItem('user');
   };
 
+  const Layout = ({ children }) => (
+    <>
+      <Header cartItems={cartItems} removeFromCart={removeFromCart} user={user} handleLogout={handleLogout} />
+      {children}
+      <Footer />
+    </>
+  );
+
   return (
     <Router>
-      <Header cartItems={cartItems} removeFromCart={removeFromCart} user={user} handleLogout={handleLogout} />
       <Routes>
         <Route
           path="/"
           element={
-            <>
+            <Layout>
               <Inicio />
               <InfoSection />
               <AfterBefore />
               <Paso />
               <Purchase />
               <Reviews />
-              <Footer />
-            </>
+            </Layout>
           }
         />
-        <Route path="/products" element={<ProductosPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />} />
+        <Route
+          path="/products"
+          element={
+            <Layout>
+              <ProductosPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+            </Layout>
+          }
+        />
         <Route
           path="/products/warzone"
           element={
-            <>
-              <Inicio />
+            <Layout>
               <ProductWarzone cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
-              <Footer />
-            </>
+            </Layout>
           }
         />
-        <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/register" element={<Register handleRegister={handleRegister} />} />
-        <Route path="/verify-email" element={<VerifyEmail />} /> {/* Añadir la ruta VerifyEmail */}
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <Login handleLogin={handleLogin} />
+            </Layout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Layout>
+              <Register handleRegister={handleRegister} />
+            </Layout>
+          }
+        />
+        <Route
+          path="/verify-email"
+          element={
+            <Layout>
+              <VerifyEmail />
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
   );
