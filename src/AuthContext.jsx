@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
   
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Invalid response from server');
+        throw new Error('Received non-JSON response from server');
       }
   
       const data = await response.json();
@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
       console.error('Error logging in:', error);
       return false;
     }
-  };
+  };  
   
   const logout = () => {
     localStorage.removeItem('user');
