@@ -23,20 +23,24 @@ const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ username: email, password }),
       });
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
-        return true;
-      } else {
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error logging in:', errorData);
         return false;
       }
+  
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(data.user);
+      return true;
     } catch (error) {
       console.error('Error logging in:', error);
       return false;
     }
   };
+  
 
   const logout = () => {
     localStorage.removeItem('user');
