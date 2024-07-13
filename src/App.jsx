@@ -62,7 +62,7 @@ const App = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const App = () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
