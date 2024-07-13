@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
@@ -16,16 +16,26 @@ import Register from './components/Register';
 import VerifyEmail from './components/VerifyEmail';
 
 const App = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]);
+  };
+
+  const removeFromCart = (index) => {
+    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  };
+
   return (
     <AuthProvider>
       <Router>
         <div className="App">
-          <Header />
+          <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <div className="Content">
             <Routes>
               <Route path="/" element={<><Inicio /><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
               <Route path="/products" element={<ProductosPage />} />
-              <Route path="/products/warzone" element={<><Inicio /><ProductWarzone /></>} />
+              <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
