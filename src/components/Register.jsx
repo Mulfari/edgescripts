@@ -8,10 +8,11 @@ const Register = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Verifica que la variable de entorno esté definida
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;  // Utiliza import.meta.env para acceder a la variable
+  console.log('Backend URL:', backendUrl);
+
   if (!backendUrl) {
-    console.error('REACT_APP_BACKEND_URL is not defined');
+    console.error('VITE_BACKEND_URL is not defined');
   }
 
   const handleRegister = async (email, password) => {
