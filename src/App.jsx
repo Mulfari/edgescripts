@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
 import Inicio from './components/Inicio';
 import Header from './components/Header';
@@ -79,27 +79,6 @@ const App = () => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      return false;
-    }
-  };
-
-  const handleRegister = async (email, password) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error('Error registering:', error);
       return false;
     }
   };
