@@ -24,18 +24,13 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify({ username: email, password }),
       });
 
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Received non-JSON response from server');
-      }
-
-      const data = await response.json();
-
       if (!response.ok) {
-        console.error('Error logging in:', data);
+        const errorData = await response.json();
+        console.error('Error logging in:', errorData);
         return false;
       }
 
+      const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
@@ -63,9 +58,11 @@ const AuthProvider = ({ children }) => {
             'Authorization': `Bearer ${token}`,
           },
         });
+
         if (!response.ok) {
           throw new Error('Token verification failed');
         }
+
         const data = await response.json();
         setUser(data.user);
       } catch (error) {
