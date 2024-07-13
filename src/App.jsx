@@ -71,7 +71,7 @@ const App = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', data.token); // Guardar el token
+        localStorage.setItem('token', data.token);
         setUser(data.user);
         return true;
       } else {
@@ -107,7 +107,7 @@ const App = () => {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
-    localStorage.removeItem('token'); // Eliminar el token
+    localStorage.removeItem('token');
   };
 
   const checkUserAuthentication = async () => {
