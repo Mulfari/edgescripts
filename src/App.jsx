@@ -121,12 +121,11 @@ const App = () => {
             'Authorization': `Bearer ${token}`,
           },
         });
-        const data = await response.json();
-        if (response.ok) {
-          setUser(data.user);
-        } else {
-          handleLogout();
+        if (!response.ok) {
+          throw new Error('Token verification failed');
         }
+        const data = await response.json();
+        setUser(data.user);
       } catch (error) {
         console.error('Error verifying token:', error);
         handleLogout();
