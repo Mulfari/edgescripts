@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
+import InicioProducts from './components/InicioProducts';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProductosPage from './components/ProductosPage';
@@ -31,9 +32,13 @@ const App = () => {
       <Router>
         <div className="App">
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
+          <Routes>
+            <Route path="/products/*" element={<InicioProducts />} />
+            <Route path="*" element={<Inicio />} />
+          </Routes>
           <div className="Content">
             <Routes>
-              <Route path="/" element={<><Inicio /><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
+              <Route path="/" element={<><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
               <Route path="/products" element={<ProductosPage />} />
               <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
               <Route path="/login" element={<Login />} />
