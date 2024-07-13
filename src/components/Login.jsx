@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,24 +18,22 @@ const Login = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        navigate('/'); // Redirige a la página principal después de iniciar sesión
-        return true;
+        if (data.verified) {
+          navigate('/'); // Redirige a la página principal después de iniciar sesión
+        } else {
+          setError('Account not verified. Please check your email for verification link.');
+        }
       } else {
         setError(data.error || 'Invalid email or password');
-        return false;
       }
     } catch (error) {
       setError('An error occurred');
-      return false;
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await handleLogin(email, password);
-    if (!success) {
-      setError('Invalid email or password');
-    }
+    await handleLogin(email, password);
   };
 
   return (
