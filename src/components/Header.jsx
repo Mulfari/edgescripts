@@ -3,8 +3,10 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
 import { FaTimesCircle } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
+import { useAuth } from '../AuthContext';
 
-const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
+const Header = ({ cartItems, removeFromCart }) => {
+  const { user, logout } = useAuth();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -187,7 +189,7 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
             {isDropdownVisible && (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 {user ? (
-                  <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
                 ) : (
                   <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
                 )}
