@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
-const Login = ({ handleLogin, user }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
+  const { login } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const success = await handleLogin(email, password);
+    const success = await login(email, password);
     if (success) {
       navigate('/');
     } else {
@@ -48,8 +44,15 @@ const Login = ({ handleLogin, user }) => {
             required
           />
         </div>
-        <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Login</button>
-        <p className="mt-4">Don't have an account? <Link to="/register" className="text-blue-600">Register</Link></p>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+        >
+          Login
+        </button>
+        <p className="mt-4">
+          Don't have an account? <Link to="/register" className="text-blue-600">Register</Link>
+        </p>
       </form>
     </div>
   );
