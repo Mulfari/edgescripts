@@ -24,13 +24,18 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify({ username: email, password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error logging in:', errorData);
-        return false;
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Received non-JSON response from server');
       }
 
       const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Error logging in:', data);
+        return false;
+      }
+
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
