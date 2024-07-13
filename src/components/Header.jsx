@@ -200,16 +200,6 @@ const Header = ({ cartItems, removeFromCart, user, handleLogout }) => {
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
-          <button className="icon-button relative">
-            <i className="fas fa-user-circle text-3xl text-white"></i>
-            {user ? (
-              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
-              </div>
-            ) : (
-              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
-            )}
-          </button>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
             <i className="fas fa-bars text-3xl"></i>
           </button>
