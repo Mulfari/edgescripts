@@ -63,36 +63,40 @@ const App = () => {
 
   return (
     <Router>
-      <Header cartItems={cartItems} removeFromCart={removeFromCart} user={user} handleLogout={handleLogout} />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Inicio />
-              <InfoSection />
-              <AfterBefore />
-              <Paso />
-              <Purchase />
-              <Reviews />
-            </>
-          }
-        />
-        <Route path="/products" element={<ProductosPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />} />
-        <Route
-          path="/products/warzone"
-          element={
-            <>
-              <Inicio />
-              <ProductWarzone cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
-            </>
-          }
-        />
-        <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/register" element={<Register handleRegister={handleRegister} />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
-      </Routes>
-      <Footer />
+      <div className="App">
+        <Header cartItems={cartItems} removeFromCart={removeFromCart} user={user} handleLogout={handleLogout} />
+        <div className="Content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Inicio />
+                  <InfoSection />
+                  <AfterBefore />
+                  <Paso />
+                  <Purchase />
+                  <Reviews />
+                </>
+              }
+            />
+            <Route path="/products" element={<ProductosPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />} />
+            <Route
+              path="/products/warzone"
+              element={
+                <>
+                  <Inicio />
+                  <ProductWarzone cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+                </>
+              }
+            />
+            <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+            <Route path="/register" element={<Register handleRegister={handleRegister} />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   );
 };
