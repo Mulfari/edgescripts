@@ -18,12 +18,22 @@ import VerifyEmail from './components/VerifyEmail'; // Importar el componente Ve
 const App = () => {
   const getInitialCartItems = () => {
     const savedCart = localStorage.getItem('cartItems');
-    return savedCart ? JSON.parse(savedCart) : [];
+    try {
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error parsing cartItems from localStorage", error);
+      return [];
+    }
   };
 
   const getInitialUser = () => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+      console.error("Error parsing user from localStorage", error);
+      return null;
+    }
   };
 
   const [cartItems, setCartItems] = useState(getInitialCartItems);
