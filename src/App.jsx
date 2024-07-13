@@ -33,8 +33,8 @@ const App = () => {
         <div className="App">
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <Routes>
-            <Route path="/" element={<Inicio />} />
             <Route path="/products/*" element={<InicioProducts />} />
+            <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
             <Routes>
