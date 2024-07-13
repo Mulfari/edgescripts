@@ -27,7 +27,9 @@ const VerifyEmail = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Email Verification</h2>
-        <p>{message}</p>
+        <p className="text-black bg-gray-200 p-2 rounded-md">
+          {message}
+        </p>
       </div>
     </div>
   );

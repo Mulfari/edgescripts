@@ -23,7 +23,11 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center">
       <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && (
+          <p className="text-red-500 bg-gray-200 p-2 rounded-md mb-4">
+            {error}
+          </p>
+        )}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
           <input
