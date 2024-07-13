@@ -26,8 +26,20 @@ const App = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    if (cartItems.length > 0) {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    } else {
+      localStorage.removeItem('cartItems');
+    }
   }, [cartItems]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
