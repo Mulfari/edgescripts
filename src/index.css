@@ -16,6 +16,27 @@
   }
 }
 
+/* Estilo personalizado para el título dinámico */
+.titulo-dinamico {
+  @apply text-3xl md:text-5xl lg:text-6xl;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+  .titulo-dinamico {
+    font-size: 2rem;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .titulo-dinamico {
+    font-size: 2.5rem;
+    left: 40% !important;
+  }
+}
+
 :root {
   --color-red: #FF3B3B;
   --color-blue-dark: #1E3A8A;
