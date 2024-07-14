@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTimesCircle } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
 const Header = ({ cartItems, removeFromCart }) => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -104,6 +105,11 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -189,7 +195,10 @@ const Header = ({ cartItems, removeFromCart }) => {
             {isDropdownVisible && (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 {user ? (
-                  <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  <>
+                    <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
+                    <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  </>
                 ) : (
                   <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
                 )}
@@ -246,6 +255,12 @@ const Header = ({ cartItems, removeFromCart }) => {
                   Terms and Conditions
                 </Link>
               </div>
+            )}
+            {user && (
+              <>
+                <Link to="/dashboard" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Dashboard</Link>
+                <button onClick={handleLogout} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300">Logout</button>
+              </>
             )}
           </nav>
         </div>
