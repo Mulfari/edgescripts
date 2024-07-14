@@ -41,10 +41,6 @@ const Register = () => {
       setError('Passwords do not match');
       return;
     }
-    if (!email || !password || !confirmPassword) {
-      setError('Please fill out all fields');
-      return;
-    }
     const success = await handleRegister(email, password);
     if (success) {
       setEmail('');
@@ -106,39 +102,43 @@ const Register = () => {
           </div>
           <div className="mb-4 relative">
             <label className="block text-gray-700 mb-2">Password</label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Enter your password"
-            />
-            <button
-              type="button"
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-700"
-              onClick={toggleShowPassword}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-700"
+                onClick={toggleShowPassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           <div className="mb-6 relative">
             <label className="block text-gray-700 mb-2">Confirm Password</label>
-            <input
-              type={showConfirmPassword ? 'text' : 'password'}
-              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              placeholder="Confirm your password"
-            />
-            <button
-              type="button"
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-700"
-              onClick={toggleShowConfirmPassword}
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                placeholder="Confirm your password"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-700"
+                onClick={toggleShowConfirmPassword}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           <button
             type="submit"
