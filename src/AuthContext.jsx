@@ -1,6 +1,4 @@
-// AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -8,7 +6,6 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -30,17 +27,17 @@ const AuthProvider = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Error logging in:', errorData);
-        return { success: false, error: errorData.error };
+        return false;
       }
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
-      return { success: true };
+      return true;
     } catch (error) {
       console.error('Error logging in:', error);
-      return { success: false, error: 'An error occurred' };
+      return false;
     }
   };
 
@@ -48,25 +45,6 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setUser(null);
-    navigate('/login');
-  };
-
-  const getPurchaseHistory = async (userId) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases?userId=${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch purchase history');
-      }
-      const data = await response.json();
-      return data.purchases;
-    } catch (error) {
-      console.error('Error fetching purchase history:', error);
-      return [];
-    }
   };
 
   const checkAuth = async () => {
@@ -99,7 +77,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, getPurchaseHistory }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
