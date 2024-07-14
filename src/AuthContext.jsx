@@ -51,24 +51,6 @@ const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
-  const getPurchaseHistory = async (userId) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases?userId=${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch purchase history');
-      }
-      const data = await response.json();
-      return data.purchases;
-    } catch (error) {
-      console.error('Error fetching purchase history:', error);
-      return [];
-    }
-  };
-
   const checkAuth = async () => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -89,7 +71,7 @@ const AuthProvider = ({ children }) => {
         setUser(data.user);
       } catch (error) {
         console.error('Error verifying token:', error);
-        logout();
+        logout(); // Navigate to login after logging out
       }
     }
   };
@@ -99,7 +81,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, getPurchaseHistory }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
