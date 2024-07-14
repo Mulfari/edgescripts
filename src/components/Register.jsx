@@ -29,7 +29,7 @@ const Register = () => {
       return false;
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
