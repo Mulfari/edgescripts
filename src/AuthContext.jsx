@@ -73,7 +73,6 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        console.log('Verifying token:', token); // Registro de depuración
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify`, {
           method: 'POST',
           headers: {
@@ -83,20 +82,15 @@ const AuthProvider = ({ children }) => {
         });
 
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Error response text:', errorText); // Registro de depuración
           throw new Error('Token verification failed');
         }
 
         const data = await response.json();
-        console.log('Token verified successfully:', data); // Registro de depuración
         setUser(data.user);
       } catch (error) {
         console.error('Error verifying token:', error);
-        logout(); // Navigate to login after logging out
+        logout();
       }
-    } else {
-      console.log('No token found in localStorage'); // Registro de depuración
     }
   };
 
