@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
@@ -9,7 +9,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth(); // Obtener el usuario desde el contexto
+
+  useEffect(() => {
+    if (user) {
+      navigate('/'); // Redirigir a la página de inicio si el usuario está logueado
+    }
+  }, [user, navigate]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
