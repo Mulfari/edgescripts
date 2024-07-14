@@ -15,7 +15,6 @@ import Purchase from './components/Purchase';
 import Login from './components/Login';
 import Register from './components/Register';
 import VerifyEmail from './components/VerifyEmail';
-import UserDashboard from './components/UserDashboard'; // Importa el componente Dashboard
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -38,7 +37,6 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
-            <Route path="/dashboard" element={<UserDashboard />} /> {/* Añade la ruta del Dashboard */}
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
