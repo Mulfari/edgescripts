@@ -57,6 +57,7 @@ const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
+          body: JSON.stringify({ token }),
         });
 
         if (!response.ok) {
