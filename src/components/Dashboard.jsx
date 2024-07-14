@@ -32,12 +32,14 @@ const Dashboard = () => {
           <div className="flex flex-wrap justify-center">
             <div className="w-full lg:w-2/3 text-left">
               <h4 className="text-xl font-semibold text-gray-800 mb-4">Products</h4>
-              <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
-                <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
-                <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
-                <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+                  <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
+                  <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
+                  <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
+                </div>
+                {/* Agrega más productos aquí si es necesario */}
               </div>
-              {/* Agrega más productos aquí si es necesario */}
             </div>
             <div className="w-full lg:w-1/3 text-center mt-4 lg:mt-0 lg:ml-8">
               <p className="text-gray-700">No purchases found.</p>
