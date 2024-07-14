@@ -10,8 +10,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center transition-transform transform duration-500 ease-in-out">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Dashboard</h2>
         <p className="text-xl text-gray-700">Welcome, {user.username}!</p>
       </div>
