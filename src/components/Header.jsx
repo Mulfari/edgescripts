@@ -189,7 +189,10 @@ const Header = ({ cartItems, removeFromCart }) => {
             {isDropdownVisible && (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 {user ? (
-                  <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  <>
+                    <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
+                    <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  </>
                 ) : (
                   <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
                 )}
