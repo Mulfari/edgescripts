@@ -23,21 +23,23 @@ const Dashboard = () => {
         <hr className="my-4" />
         <div className="mb-6 text-left">
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
-          <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.username}</p>
+          <p className="text-gray-700 mt-2"><strong>Username:</strong> {user.username}</p>
+          <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.email}</p>
         </div>
         <hr className="my-4" />
         <div>
           <h3 className="text-2xl font-semibold text-gray-800 text-center">Purchase History</h3>
           <div className="mt-4 flex justify-between">
-            <div className="text-left">
+            <div className="w-1/2 text-left">
               <h4 className="text-xl font-semibold text-gray-800 mb-2">Products</h4>
               <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
                 <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
                 <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
                 <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
               </div>
+              {/* Agrega más productos aquí si es necesario */}
             </div>
-            <div className="text-center flex-grow ml-8">
+            <div className="w-1/2 text-center">
               <p className="text-gray-700">No purchases found.</p>
             </div>
           </div>
