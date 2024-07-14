@@ -6,6 +6,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (email, password) => {
@@ -19,6 +20,7 @@ const Register = () => {
       });
       const data = await response.json();
       if (response.ok) {
+        setSuccess('Registration successful! Please check your email to verify your address.');
         return true;
       } else {
         setError(data.error || 'Failed to register');
@@ -38,7 +40,9 @@ const Register = () => {
     }
     const success = await handleRegister(email, password);
     if (success) {
-      navigate('/login');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     }
   };
 
@@ -47,6 +51,7 @@ const Register = () => {
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Register</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
+        {success && <p className="text-green-500 mb-4">{success}</p>}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
           <input
@@ -87,7 +92,7 @@ const Register = () => {
           Register
         </button>
         <p className="mt-6 text-center text-gray-700">
-          Ya tienes una cuenta? <Link to="/login" className="text-blue-600 font-semibold">Logeate</Link>
+          Already have an account? <Link to="/login" className="text-blue-600 font-semibold">Login</Link>
         </p>
       </form>
     </div>
