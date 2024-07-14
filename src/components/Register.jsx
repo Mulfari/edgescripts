@@ -77,9 +77,9 @@ const Register = () => {
       {success ? (
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center transition-transform transform duration-500 ease-in-out">
           <FaCheckCircle className="text-green-500 text-5xl mb-4 animate-bounce" />
-          <h2 className="text-3xl font-bold mb-6 text-gray-900">Registro Exitoso</h2>
-          <p className="text-green-500 mb-4">Por favor, revisa tu correo electrónico.</p>
-          <p className="text-gray-700">Serás redirigido en <span className="text-red-500 font-bold">{countdown}</span> segundos...</p>
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">Registration Successful</h2>
+          <p className="text-green-500 mb-4">Please check your email.</p>
+          <p className="text-gray-700">You will be redirected in <span className="text-red-500 font-bold">{countdown}</span> seconds...</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
