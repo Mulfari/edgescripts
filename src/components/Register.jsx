@@ -100,9 +100,9 @@ const Register = () => {
               placeholder="Enter your email"
             />
           </div>
-          <div className="mb-4 relative">
+          <div className="mb-4">
             <label className="block text-gray-700 mb-2">Password</label>
-            <div className="relative">
+            <div className="relative flex items-center">
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -113,16 +113,16 @@ const Register = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-700"
+                className="ml-2 text-gray-700"
                 onClick={toggleShowPassword}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
           </div>
-          <div className="mb-6 relative">
+          <div className="mb-6">
             <label className="block text-gray-700 mb-2">Confirm Password</label>
-            <div className="relative">
+            <div className="relative flex items-center">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -133,7 +133,7 @@ const Register = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-700"
+                className="ml-2 text-gray-700"
                 onClick={toggleShowConfirmPassword}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
