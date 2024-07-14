@@ -41,6 +41,10 @@ const Register = () => {
       setError('Passwords do not match');
       return;
     }
+    if (!email || !password || !confirmPassword) {
+      setError('Please fill out all fields');
+      return;
+    }
     const success = await handleRegister(email, password);
     if (success) {
       setEmail('');
