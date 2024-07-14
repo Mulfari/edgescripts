@@ -45,7 +45,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-3xl font-bold mb-6 text-center">Register</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Register</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
@@ -86,8 +86,8 @@ const Register = () => {
         >
           Register
         </button>
-        <p className="mt-6 text-center">
-          Already have an account? <Link to="/login" className="text-blue-600 font-semibold">Login</Link>
+        <p className="mt-6 text-center text-gray-700">
+          Ya tienes una cuenta? <Link to="/login" className="text-blue-600 font-semibold">Logeate</Link>
         </p>
       </form>
     </div>
