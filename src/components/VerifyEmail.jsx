@@ -12,6 +12,9 @@ const VerifyEmail = () => {
     const verifyEmail = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-email?token=${token}`);
+        if (!response.ok) {
+          throw new Error('Failed to verify email');
+        }
         const data = await response.json();
         setMessage(data.message);
       } catch (error) {
