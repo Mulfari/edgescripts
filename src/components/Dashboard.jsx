@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 const Dashboard = () => {
   const { user } = useAuth();
 
-  // Redirigir al login si el usuario no está autenticado
   if (!user) {
     return <Navigate to="/login" />;
   }
