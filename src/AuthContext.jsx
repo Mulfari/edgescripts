@@ -51,10 +51,29 @@ const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
+  const getPurchaseHistory = async (userId) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases?userId=${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch purchase history');
+      }
+      const data = await response.json();
+      return data.purchases;
+    } catch (error) {
+      console.error('Error fetching purchase history:', error);
+      return [];
+    }
+  };
+
   const checkAuth = async () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
+        console.log('Verifying token:', token); // Registro de depuración
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verify`, {
           method: 'POST',
           headers: {
@@ -64,15 +83,20 @@ const AuthProvider = ({ children }) => {
         });
 
         if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Error response text:', errorText); // Registro de depuración
           throw new Error('Token verification failed');
         }
 
         const data = await response.json();
+        console.log('Token verified successfully:', data); // Registro de depuración
         setUser(data.user);
       } catch (error) {
         console.error('Error verifying token:', error);
         logout(); // Navigate to login after logging out
       }
+    } else {
+      console.log('No token found in localStorage'); // Registro de depuración
     }
   };
 
@@ -81,7 +105,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, getPurchaseHistory }}>
       {children}
     </AuthContext.Provider>
   );
