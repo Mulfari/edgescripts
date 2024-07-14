@@ -11,11 +11,13 @@ const UserDashboard = () => {
       setPurchaseHistory(history);
     };
 
-    fetchPurchaseHistory();
-  }, [user]);
+    if (user) {
+      fetchPurchaseHistory();
+    }
+  }, [user, getPurchaseHistory]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">User Dashboard</h2>
         <div className="mb-6">

@@ -1,4 +1,6 @@
+// AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -27,17 +29,17 @@ const AuthProvider = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Error logging in:', errorData);
-        return false;
+        return { success: false, error: errorData.error };
       }
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
-      return true;
+      return { success: true };
     } catch (error) {
       console.error('Error logging in:', error);
-      return false;
+      return { success: false, error: 'An error occurred' };
     }
   };
 
@@ -45,6 +47,24 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setUser(null);
+  };
+
+  const getPurchaseHistory = async (userId) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases?userId=${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch purchase history');
+      }
+      const data = await response.json();
+      return data.purchases;
+    } catch (error) {
+      console.error('Error fetching purchase history:', error);
+      return [];
+    }
   };
 
   const checkAuth = async () => {
@@ -77,7 +97,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, getPurchaseHistory }}>
       {children}
     </AuthContext.Provider>
   );
