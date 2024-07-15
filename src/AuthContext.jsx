@@ -14,9 +14,8 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, password, cartItems = []) => {
+  const login = async (email, password, callback) => {
     try {
-      console.log('Cart items in login:', cartItems);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
@@ -35,49 +34,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
-
-      console.log('Logged in user:', data.user);
-
-      // Update user details if there are items in the cart
-      if (cartItems.length > 0) {
-        const { brand, dpi, sensibilidad } = data.user;
-        const product = cartItems[0];
-
-        // Only update fields that are currently null
-        const updatedFields = {
-          ...(brand ? {} : { brand: product.brand }),
-          ...(dpi ? {} : { dpi: product.dpi }),
-          ...(sensibilidad ? {} : { sensibilidad: product.sensibilidad }),
-        };
-
-        console.log('Updated fields to be sent:', updatedFields);
-
-        if (Object.keys(updatedFields).length > 0) {
-          const updateResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${data.token}`,
-            },
-            body: JSON.stringify({ id: data.user._id, ...updatedFields }),
-          });
-
-          if (updateResponse.ok) {
-            const updatedData = await updateResponse.json();
-            localStorage.setItem('user', JSON.stringify(updatedData.user));
-            setUser(updatedData.user);
-            console.log('User updated successfully:', updatedData.user);
-          } else {
-            const updateError = await updateResponse.json();
-            console.error('Error updating user:', updateError);
-          }
-        } else {
-          console.log('No fields to update.');
-        }
-      } else {
-        console.log('No items in cart, skipping user update.');
-      }
-
+      if (callback) callback(data.user);
       return true;
     } catch (error) {
       console.error('Error logging in:', error);

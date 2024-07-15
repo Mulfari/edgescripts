@@ -35,7 +35,7 @@ const App = () => {
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <Routes>
             <Route path="/products/*" element={<InicioProducts />} />
-            <Route path="/login" element={<Login cartItems={cartItems} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
