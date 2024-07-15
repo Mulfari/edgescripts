@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
 const Header = ({ cartItems, removeFromCart }) => {
   const { user, logout } = useAuth();
+  const history = useHistory();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -69,7 +70,11 @@ const Header = ({ cartItems, removeFromCart }) => {
   };
 
   const toggleUserMenu = () => {
-    setIsUserMenuVisible(!isUserMenuVisible);
+    if (user) {
+      setIsUserMenuVisible(!isUserMenuVisible);
+    } else {
+      history.push('/login');
+    }
   };
 
   const toggleMobileMenu = () => {
