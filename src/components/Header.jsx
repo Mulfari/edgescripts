@@ -248,18 +248,16 @@ const Header = ({ cartItems, removeFromCart }) => {
         </div>
       )}
       {isUserMenuVisible && (
-        <div ref={userMenuRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            {user ? (
-              <>
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
-                <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
-              </>
-            ) : (
-              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
-            )}
-            <button onClick={toggleUserMenu} className="block px-4 py-2 text-sm hover:bg-gray-100 mt-4">Close</button>
-          </div>
+        <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+          {user ? (
+            <>
+              <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
+              <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+            </>
+          ) : (
+            <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
+          )}
+          <button onClick={toggleUserMenu} className="block px-4 py-2 text-sm hover:bg-gray-100 mt-4">Close</button>
         </div>
       )}
       {isCartVisible && (
