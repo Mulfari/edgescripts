@@ -95,6 +95,11 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -182,7 +187,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                 {user ? (
                   <>
                     <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
-                    <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                    <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
                   </>
                 ) : (
                   <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
