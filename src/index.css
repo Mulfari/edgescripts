@@ -325,6 +325,18 @@ button:focus-visible {
 }
 
 /* Hover styles for Dashboard and Logout */
+.dashboard-link,
+.logout-button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: #1f2937;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
 .dashboard-link:hover,
 .logout-button:hover {
   background-color: #f1f5f9;

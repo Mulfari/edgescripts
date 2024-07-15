@@ -194,8 +194,8 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left dashboard-link">Dashboard</Link>
-                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left logout-button">Logout</button>
+                <button onClick={() => { navigate('/dashboard'); closeMobileMenu(); }} className="dashboard-link">Dashboard</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="logout-button">Logout</button>
               </div>
             )}
           </div>
@@ -213,8 +213,8 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 dashboard-link" onClick={closeMobileMenu}>Dashboard</Link>
-                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 logout-button">Logout</button>
+                <button onClick={() => { navigate('/dashboard'); closeMobileMenu(); }} className="dashboard-link">Dashboard</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="logout-button">Logout</button>
               </div>
             )}
           </div>
@@ -383,6 +383,18 @@ const Header = ({ cartItems, removeFromCart }) => {
           .reduced-spacing .nav-item {
             padding: 0.5rem 0.75rem;
           }
+        }
+        .dashboard-link,
+        .logout-button {
+          display: block;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          text-align: left;
+          color: #1f2937;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.2s, color 0.2s;
         }
         .dashboard-link:hover,
         .logout-button:hover {
