@@ -17,6 +17,7 @@ const Header = ({ cartItems, removeFromCart }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [isUserMenuVisible, setIsUserMenuVisible] = useState(false);
+  const [checkoutNotification, setCheckoutNotification] = useState(false);
   const hideDropdownTimeout = useRef(null);
   const hideDropdownDelay = 300;
   const mobileMenuRef = useRef(null);
@@ -113,7 +114,10 @@ const Header = ({ cartItems, removeFromCart }) => {
     if (user) {
       // Proceed to checkout
     } else {
-      navigate('/login'); // Redirect to login page if user is not logged in
+      setCheckoutNotification(true);
+      setTimeout(() => {
+        setCheckoutNotification(false);
+      }, 3000);
     }
   };
 
@@ -305,31 +309,21 @@ const Header = ({ cartItems, removeFromCart }) => {
                 </ul>
               )}
             </div>
-            <div className="p-4 border-t border-gray-300 flex flex-col items-center">
+            <div className="p-4 border-t border-gray-300 flex flex-col">
               <span className="text-lg font-bold text-gray-900 mb-2">Total: {cartItems.reduce((total, item) => total + parseFloat(item.precioDescuento), 0).toFixed(2)}$</span>
-              <button
-                className={`bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
-                onClick={handleCheckout}
+              <button 
+                className={`bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ${!user ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                onClick={handleCheckout} 
                 disabled={!user}
               >
                 Checkout
               </button>
               {!user && (
-                <div className="text-center mt-4">
-                  <p className="text-red-600">You must be logged in to proceed to checkout.</p>
-                  <button
-                    className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mt-2"
-                    onClick={() => navigate('/login')}
-                  >
-                    Login
-                  </button>
-                  <p className="mt-2">Not registered yet?</p>
-                  <button
-                    className="bg-yellow-600 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 transition duration-300 mt-2"
-                    onClick={() => navigate('/register')}
-                  >
-                    Register
-                  </button>
+                <div className="mt-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg">
+                  <p>You need to log in to complete the purchase.</p>
+                  <p>
+                    <Link to="/register" className="text-blue-600 hover:underline">Register here</Link> if you don't have an account.
+                  </p>
                 </div>
               )}
             </div>
@@ -340,6 +334,12 @@ const Header = ({ cartItems, removeFromCart }) => {
         <div className="fixed bottom-4 right-4 bg-red-600 text-white border border-red-700 p-4 rounded-lg shadow-lg flex items-center">
           <FaTimesCircle className="text-white mr-2" />
           <span>Your cart is empty.</span>
+        </div>
+      )}
+      {checkoutNotification && (
+        <div className="fixed bottom-4 right-4 bg-yellow-600 text-white border border-yellow-700 p-4 rounded-lg shadow-lg flex items-center">
+          <FaTimesCircle className="text-white mr-2" />
+          <span>You need to log in to complete the purchase.</span>
         </div>
       )}
       <style jsx>{`
