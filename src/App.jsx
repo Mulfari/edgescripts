@@ -15,17 +15,17 @@ import Purchase from './components/Purchase';
 import Login from './components/Login';
 import Register from './components/Register';
 import VerifyEmail from './components/VerifyEmail';
-import Dashboard from './components/Dashboard';  // Importar el nuevo componente Dashboard
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+    setCartItems([product]); // Reemplaza el contenido del carrito con el nuevo artículo
   };
 
-  const removeFromCart = (index) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  const removeFromCart = () => {
+    setCartItems([]); // Elimina el artículo del carrito
   };
 
   return (
@@ -38,7 +38,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
-            <Route path="/dashboard" element={<Dashboard />} />  // Añadir ruta para el Dashboard
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
