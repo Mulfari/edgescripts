@@ -250,6 +250,26 @@ const Header = ({ cartItems, removeFromCart }) => {
                 </Link>
               </div>
             )}
+            <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
+              <Link to="/dashboard" className="nav-item text-left flex items-center w-full">
+                <FaUserCircle className="text-2xl mr-3" />
+                Profile
+              </Link>
+            </div>
+            {user ? (
+              <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
+                <button onClick={logout} className="text-left w-full">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
+                <Link to="/login" className="nav-item text-left flex items-center w-full">
+                  <FaUserCircle className="text-2xl mr-3" />
+                  Login
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
       )}
