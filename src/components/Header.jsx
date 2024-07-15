@@ -40,7 +40,7 @@ const Header = ({ cartItems, removeFromCart }) => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [lastScrollY, isMobileMenuVisible, isCartVisible]);
+  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
 
   const handleClickOutside = (event) => {
     if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
