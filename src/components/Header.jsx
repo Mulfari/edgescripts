@@ -97,7 +97,7 @@ const Header = ({ cartItems, removeFromCart }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    window.location.reload();
   };
 
   return (
