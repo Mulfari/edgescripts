@@ -4,9 +4,10 @@ import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
-const Header = ({ cartItems, removeFromCart }) => {
+const Header = () => {
   const { user, login, logout, updateUser } = useAuth();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -23,6 +24,11 @@ const Header = ({ cartItems, removeFromCart }) => {
   const mobileMenuRef = useRef(null);
   const cartRef = useRef(null);
   const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartItems(storedCartItems);
+  }, []);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -322,7 +328,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                         <p><strong>Product:</strong> {item.option}</p>
                         <p><strong>Brand:</strong> {item.brand}</p>
                         <p><strong>DPI:</strong> {item.dpi}</p>
-                        <p><strong>Sensitivity:</strong> {item.sensitivity}</p>
+                        <p><strong>Sensitivity:</strong> {item.sensibilidad}</p>
                       </div>
                     </li>
                   ))}
@@ -457,10 +463,6 @@ const Header = ({ cartItems, removeFromCart }) => {
       `}</style>
     </header>
   );
-};
-
-Header.defaultProps = {
-  cartItems: [],
 };
 
 export default Header;
