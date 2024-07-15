@@ -238,25 +238,13 @@ const Header = ({ cartItems, removeFromCart }) => {
                   <i className="fas fa-envelope mr-3"></i>
                   Contact
                 </Link>
-                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center whitespace-nowrap">
+                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center whitespace-nowrap">
                   <i className="fas fa-file-contract mr-3"></i>
                   Terms and Conditions
                 </Link>
               </div>
             )}
           </nav>
-        </div>
-      )}
-      {isUserMenuVisible && (
-        <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-          {user ? (
-            <>
-              <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
-              <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
-            </>
-          ) : (
-            <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
-          )}
         </div>
       )}
       {isCartVisible && (
