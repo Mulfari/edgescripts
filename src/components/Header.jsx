@@ -257,7 +257,6 @@ const Header = ({ cartItems, removeFromCart }) => {
           ) : (
             <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
           )}
-          <button onClick={toggleUserMenu} className="block px-4 py-2 text-sm hover:bg-gray-100 mt-4">Close</button>
         </div>
       )}
       {isCartVisible && (
