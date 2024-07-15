@@ -106,6 +106,10 @@ const Header = ({ cartItems, removeFromCart }) => {
     setIsSupportSubmenuVisible(false);
   };
 
+  const closeCart = () => {
+    setIsCartVisible(false);
+  };
+
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -190,7 +194,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left dashboard-link">Dashboard</Link>
                 <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
               </div>
             )}
@@ -209,7 +213,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100" onClick={closeMobileMenu}>Dashboard</Link>
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 dashboard-link" onClick={closeMobileMenu}>Dashboard</Link>
                 <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
               </div>
             )}
@@ -261,11 +265,11 @@ const Header = ({ cartItems, removeFromCart }) => {
         </div>
       )}
       {isCartVisible && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={toggleCart}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={closeCart}>
           <div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-80 bg-white shadow-2xl h-full z-50 rounded-l-lg transition-transform transform ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-300 flex justify-between items-center">
               <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
-              <button onClick={toggleCart} className="text-gray-600 hover:text-gray-900">
+              <button onClick={closeCart} className="text-gray-600 hover:text-gray-900">
                 <FaTimesCircle className="text-xl" />
               </button>
             </div>
@@ -379,6 +383,10 @@ const Header = ({ cartItems, removeFromCart }) => {
           .reduced-spacing .nav-item {
             padding: 0.5rem 0.75rem;
           }
+        }
+        .dashboard-link:hover {
+          background-color: #f1f5f9;
+          color: #1f2937;
         }
       `}</style>
     </header>

@@ -323,3 +323,9 @@ button:focus-visible {
     padding: 0.5rem 0.75rem;
   }
 }
+
+/* Hover styles for Dashboard */
+.dashboard-link:hover {
+  background-color: #f1f5f9;
+  color: #1f2937;
+}
