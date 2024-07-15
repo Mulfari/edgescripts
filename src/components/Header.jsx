@@ -134,7 +134,7 @@ const Header = ({ cartItems, removeFromCart }) => {
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100 warzone-link">
+                    <Link to="/products/warzone" className="dropdown-item flex items-center warzone-link">
                       <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
                       Warzone
                     </Link>
@@ -159,19 +159,19 @@ const Header = ({ cartItems, removeFromCart }) => {
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
+                    <Link to="/support/faq" className="dropdown-item flex items-center support-link">
                       <i className="fas fa-question-circle mr-3"></i>
                       FAQ
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
+                    <Link to="/support/contact" className="dropdown-item flex items-center support-link">
                       <i className="fas fa-envelope mr-3"></i>
                       Contact
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link whitespace-nowrap">
+                    <Link to="/support/terms" className="dropdown-item flex items-center support-link whitespace-nowrap">
                       <i className="fas fa-file-contract mr-3"></i>
                       Terms and Conditions
                     </Link>
@@ -395,11 +395,14 @@ const Header = ({ cartItems, removeFromCart }) => {
           border: none;
           cursor: pointer;
           transition: background-color 0.2s, color 0.2s;
+          border-radius: 0.5rem;
         }
         .dashboard-link:hover,
         .logout-button:hover {
-          background-color: #f1f5f9;
-          color: #1f2937;
+          background-color: #f3f4f6;
+          border: 1px solid #1f2937;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
         }
         .warzone-link,
         .support-link {
@@ -420,6 +423,19 @@ const Header = ({ cartItems, removeFromCart }) => {
         .hamburger-menu-item:hover {
           background-color: #f3f4f6;
           border: 1px solid #1f2937;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
+        }
+        .dropdown-item {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          transition: all 0.3s ease-in-out;
+        }
+        .dropdown-item:hover {
+          background-color: #f3f4f6;
+          border: 1px solid #1f2937;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
         }
       `}</style>
     </header>
