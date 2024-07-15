@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaStar, FaCheckCircle } from 'react-icons/fa';
 import productImage from '../assets/Categorias/wzlogo.png';
 import logitechLogo from '../assets/Categorias/logitechlogo.png';
@@ -306,11 +306,6 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
       precioDescuento: prices[option],
     };
     addToCart(product);
-    // Save to local storage
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(product);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
     setStep(4); // Move to Order Completed after adding to cart
     setOption('');
     setBrand('');
@@ -399,12 +394,6 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
 const ProductWarzone = ({ addToCart, removeFromCart }) => {
   const category = "Warzone";
   const productsInCategory = productos.filter(product => product.categoria === category);
-
-  useEffect(() => {
-    // Load cart items from local storage
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.forEach(product => addToCart(product));
-  }, [addToCart]);
 
   return (
     <div className="bg-gray-100 min-h-screen py-6">

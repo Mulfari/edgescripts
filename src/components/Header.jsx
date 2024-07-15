@@ -3,11 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
-import { useCart } from '../CartContext';
 
-const Header = () => {
+const Header = ({ cartItems, removeFromCart }) => {
   const { user, login, logout, updateUser } = useAuth();
-  const { cartItems, removeFromCart } = useCart();
   const navigate = useNavigate();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -26,15 +24,6 @@ const Header = () => {
   const cartRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
-
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
       setIsSmall(true);
@@ -43,6 +32,15 @@ const Header = () => {
     }
     setLastScrollY(window.scrollY);
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
 
   const handleClickOutside = (event) => {
     if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
@@ -324,7 +322,7 @@ const Header = () => {
                         <p><strong>Product:</strong> {item.option}</p>
                         <p><strong>Brand:</strong> {item.brand}</p>
                         <p><strong>DPI:</strong> {item.dpi}</p>
-                        <p><strong>Sensitivity:</strong> {item.sensibilidad}</p>
+                        <p><strong>Sensitivity:</strong> {item.sensitivity}</p>
                       </div>
                     </li>
                   ))}
@@ -459,6 +457,10 @@ const Header = () => {
       `}</style>
     </header>
   );
+};
+
+Header.defaultProps = {
+  cartItems: [],
 };
 
 export default Header;
