@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
 
-      // Check and update user data if necessary
+      // Verificar y actualizar datos del usuario si es necesario
       const cart = JSON.parse(localStorage.getItem('cart'));
       if (cart && cart.length > 0) {
         const product = cart[0];
