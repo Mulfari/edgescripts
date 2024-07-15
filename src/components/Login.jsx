@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
 
-const Login = ({ cartItems = [] }) => {
+const Login = ({ cartItems }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

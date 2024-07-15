@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
@@ -18,26 +18,14 @@ import VerifyEmail from './components/VerifyEmail';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
-  const [cartItems, setCartItems] = useState(() => {
-    // Cargar el carrito desde localStorage
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
-  const saveCartToLocalStorage = (items) => {
-    localStorage.setItem('cart', JSON.stringify(items));
-  };
+  const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    const updatedCart = [...cartItems, product]; // Agregar el nuevo artículo al carrito
-    setCartItems(updatedCart);
-    saveCartToLocalStorage(updatedCart); // Guardar en localStorage
+    setCartItems([product]); // Reemplaza el contenido del carrito con el nuevo artículo
   };
 
-  const removeFromCart = (index) => {
-    const updatedCart = cartItems.filter((_, i) => i !== index); // Eliminar el artículo del carrito
-    setCartItems(updatedCart);
-    saveCartToLocalStorage(updatedCart); // Guardar en localStorage
+  const removeFromCart = () => {
+    setCartItems([]); // Elimina el artículo del carrito
   };
 
   return (
@@ -47,7 +35,7 @@ const App = () => {
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <Routes>
             <Route path="/products/*" element={<InicioProducts />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login cartItems={cartItems} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
