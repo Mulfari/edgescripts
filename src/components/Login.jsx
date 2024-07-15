@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
 
-const Login = () => {
+const Login = ({ cartItems }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,7 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(email, password);
+    const success = await login(email, password, cartItems);
     if (success) {
       navigate('/');
     } else {

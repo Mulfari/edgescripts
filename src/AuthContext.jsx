@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, password, callback) => {
+  const login = async (email, password, cartItems) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
@@ -34,7 +34,35 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
-      if (callback) callback(data.user);
+
+      // Update user details if necessary
+      const { brand, dpi, sensibilidad } = data.user;
+      const product = cartItems[0];
+
+      if (!brand || !dpi || !sensibilidad) {
+        const updatedUser = {
+          ...data.user,
+          brand: brand || product.brand,
+          dpi: dpi || product.dpi,
+          sensibilidad: sensibilidad || product.sensibilidad,
+        };
+
+        const updateResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${data.token}`,
+          },
+          body: JSON.stringify(updatedUser),
+        });
+
+        if (updateResponse.ok) {
+          const updatedData = await updateResponse.json();
+          localStorage.setItem('user', JSON.stringify(updatedData.user));
+          setUser(updatedData.user);
+        }
+      }
+
       return true;
     } catch (error) {
       console.error('Error logging in:', error);
