@@ -100,6 +100,12 @@ const Header = ({ cartItems, removeFromCart }) => {
     window.location.reload();
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuVisible(false);
+    setIsProductsSubmenuVisible(false);
+    setIsSupportSubmenuVisible(false);
+  };
+
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -203,8 +209,8 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
-                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100" onClick={closeMobileMenu}>Dashboard</Link>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
               </div>
             )}
           </div>
@@ -217,35 +223,35 @@ const Header = ({ cartItems, removeFromCart }) => {
         <div ref={mobileMenuRef} className="mobile-menu lg:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
           style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}>
           <nav className="flex flex-col py-2">
-            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Home</Link>
+            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300" onClick={closeMobileMenu}>Home</Link>
             <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Products
               <i className={`fas ${isProductsSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isProductsSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
                   <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
               </div>
             )}
-            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">How to install</Link>
+            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300" onClick={closeMobileMenu}>How to install</Link>
             <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Support
               <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isSupportSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
                   <i className="fas fa-question-circle mr-3"></i>
                   FAQ
                 </Link>
-                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
                   <i className="fas fa-envelope mr-3"></i>
                   Contact
                 </Link>
-                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center whitespace-nowrap">
+                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center whitespace-nowrap" onClick={closeMobileMenu}>
                   <i className="fas fa-file-contract mr-3"></i>
                   Terms and Conditions
                 </Link>
