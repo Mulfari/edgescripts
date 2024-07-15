@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
+import { useCart } from '../CartContext';
 
 const Header = () => {
   const { user, login, logout, updateUser } = useAuth();
+  const { cartItems, removeFromCart } = useCart();
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([]);
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -26,9 +27,13 @@ const Header = () => {
   const userMenuRef = useRef(null);
 
   useEffect(() => {
-    const storedCartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartItems(storedCartItems);
-  }, []);
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -38,15 +43,6 @@ const Header = () => {
     }
     setLastScrollY(window.scrollY);
   };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
 
   const handleClickOutside = (event) => {
     if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {

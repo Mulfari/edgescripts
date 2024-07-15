@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
+import CartProvider from './CartContext';
 import Inicio from './components/Inicio';
 import InicioProducts from './components/InicioProducts';
 import Header from './components/Header';
@@ -18,39 +19,31 @@ import VerifyEmail from './components/VerifyEmail';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (product) => {
-    setCartItems([product]); // Reemplaza el contenido del carrito con el nuevo artículo
-  };
-
-  const removeFromCart = () => {
-    setCartItems([]); // Elimina el artículo del carrito
-  };
-
   return (
     <AuthProvider>
-      <Router>
-        <div className="App">
-          <Header cartItems={cartItems} removeFromCart={removeFromCart} />
-          <Routes>
-            <Route path="/products/*" element={<InicioProducts />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/verify-email" element={<VerifyEmail />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<Inicio />} />
-          </Routes>
-          <div className="Content">
+      <CartProvider>
+        <Router>
+          <div className="App">
+            <Header />
             <Routes>
-              <Route path="/" element={<><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
-              <Route path="/products" element={<ProductosPage />} />
-              <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
+              <Route path="/products/*" element={<InicioProducts />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/verify-email" element={<VerifyEmail />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={<Inicio />} />
             </Routes>
+            <div className="Content">
+              <Routes>
+                <Route path="/" element={<><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
+                <Route path="/products" element={<ProductosPage />} />
+                <Route path="/products/warzone" element={<ProductWarzone />} />
+              </Routes>
+            </div>
+            <Footer className="Footer" />
           </div>
-          <Footer className="Footer" />
-        </div>
-      </Router>
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 };
