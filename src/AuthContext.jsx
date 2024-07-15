@@ -34,6 +34,25 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
+
+      // Check and update user data if necessary
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      if (cart && cart.length > 0) {
+        const product = cart[0];
+        const { brand, dpi, sensibilidad } = product;
+        const updateFields = {};
+        if (data.user.brand === null) updateFields.brand = brand;
+        if (data.user.dpi === null) updateFields.dpi = dpi;
+        if (data.user.sensibilidad === null) updateFields.sensibilidad = sensibilidad;
+
+        if (Object.keys(updateFields).length > 0) {
+          await updateUser(data.user._id, updateFields);
+          const updatedUser = { ...data.user, ...updateFields };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          setUser(updatedUser);
+        }
+      }
+
       if (callback) callback(data.user);
       return true;
     } catch (error) {
