@@ -324,8 +324,15 @@ button:focus-visible {
   }
 }
 
-/* Hover styles for Dashboard */
-.dashboard-link:hover {
+/* Hover styles for Dashboard and Logout */
+.dashboard-link:hover,
+.logout-button:hover {
   background-color: #f1f5f9;
   color: #1f2937;
+}
+
+/* Estilos de texto para Warzone y Support en negro */
+.warzone-link,
+.support-link {
+  color: black;
 }

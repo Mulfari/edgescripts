@@ -134,7 +134,7 @@ const Header = ({ cartItems, removeFromCart }) => {
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100 warzone-link">
                       <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
                       Warzone
                     </Link>
@@ -159,19 +159,19 @@ const Header = ({ cartItems, removeFromCart }) => {
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
                       <i className="fas fa-question-circle mr-3"></i>
                       FAQ
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
                       <i className="fas fa-envelope mr-3"></i>
                       Contact
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
+                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link whitespace-nowrap">
                       <i className="fas fa-file-contract mr-3"></i>
                       Terms and Conditions
                     </Link>
@@ -195,7 +195,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left dashboard-link">Dashboard</Link>
-                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left logout-button">Logout</button>
               </div>
             )}
           </div>
@@ -214,7 +214,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 dashboard-link" onClick={closeMobileMenu}>Dashboard</Link>
-                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 logout-button">Logout</button>
               </div>
             )}
           </div>
@@ -234,7 +234,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {isProductsSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
+                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center warzone-link" onClick={closeMobileMenu}>
                   <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
@@ -247,15 +247,15 @@ const Header = ({ cartItems, removeFromCart }) => {
             </button>
             {isSupportSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
+                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-question-circle mr-3"></i>
                   FAQ
                 </Link>
-                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center" onClick={closeMobileMenu}>
+                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-envelope mr-3"></i>
                   Contact
                 </Link>
-                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center whitespace-nowrap" onClick={closeMobileMenu}>
+                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center support-link whitespace-nowrap" onClick={closeMobileMenu}>
                   <i className="fas fa-file-contract mr-3"></i>
                   Terms and Conditions
                 </Link>
@@ -384,9 +384,14 @@ const Header = ({ cartItems, removeFromCart }) => {
             padding: 0.5rem 0.75rem;
           }
         }
-        .dashboard-link:hover {
+        .dashboard-link:hover,
+        .logout-button:hover {
           background-color: #f1f5f9;
           color: #1f2937;
+        }
+        .warzone-link,
+        .support-link {
+          color: black;
         }
       `}</style>
     </header>
