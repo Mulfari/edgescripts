@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
 const Header = ({ cartItems, removeFromCart }) => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -16,10 +17,12 @@ const Header = ({ cartItems, removeFromCart }) => {
   const [isSupportSubmenuVisible, setIsSupportSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [isUserMenuVisible, setIsUserMenuVisible] = useState(false);
   const hideDropdownTimeout = useRef(null);
   const hideDropdownDelay = 300;
   const mobileMenuRef = useRef(null);
   const cartRef = useRef(null);
+  const userMenuRef = useRef(null);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -37,30 +40,41 @@ const Header = ({ cartItems, removeFromCart }) => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [lastScrollY, isMobileMenuVisible, isCartVisible]);
+  }, [lastScrollY, isMobileMenuVisible, isCartVisible, isUserMenuVisible]);
 
-  const handleMouseEnter = () => {
-    clearTimeout(hideDropdownTimeout.current);
-    setIsDropdownVisible(true);
-    setIsSupportDropdownVisible(false);
+  const handleClickOutside = (event) => {
+    if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
+      setIsMobileMenuVisible(false);
+      setIsProductsSubmenuVisible(false);
+      setIsSupportSubmenuVisible(false);
+    }
+
+    if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.icon-button')) {
+      setIsCartVisible(false);
+    }
+
+    if (isUserMenuVisible && userMenuRef.current && !userMenuRef.current.contains(event.target) && !event.target.closest('.user-icon-button')) {
+      setIsUserMenuVisible(false);
+    }
   };
 
-  const handleMouseLeave = () => {
-    hideDropdownTimeout.current = setTimeout(() => {
-      setIsDropdownVisible(false);
-    }, hideDropdownDelay);
+  const toggleCart = () => {
+    if (cartItems.length > 0) {
+      setIsCartVisible(!isCartVisible);
+    } else {
+      setIsNotificationVisible(true);
+      setTimeout(() => {
+        setIsNotificationVisible(false);
+      }, 3000);
+    }
   };
 
-  const handleSupportMouseEnter = () => {
-    clearTimeout(hideDropdownTimeout.current);
-    setIsSupportDropdownVisible(true);
-    setIsDropdownVisible(false);
-  };
-
-  const handleSupportMouseLeave = () => {
-    hideDropdownTimeout.current = setTimeout(() => {
-      setIsSupportDropdownVisible(false);
-    }, hideDropdownDelay);
+  const toggleUserMenu = () => {
+    if (user) {
+      setIsUserMenuVisible(!isUserMenuVisible);
+    } else {
+      navigate('/login');
+    }
   };
 
   const toggleMobileMenu = () => {
@@ -81,27 +95,19 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
-  const handleClickOutside = (event) => {
-    if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
-      setIsMobileMenuVisible(false);
-      setIsProductsSubmenuVisible(false);
-      setIsSupportSubmenuVisible(false);
-    }
-
-    if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.icon-button')) {
-      setIsCartVisible(false);
-    }
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
   };
 
-  const toggleCart = () => {
-    if (cartItems.length > 0) {
-      setIsCartVisible(!isCartVisible);
-    } else {
-      setIsNotificationVisible(true);
-      setTimeout(() => {
-        setIsNotificationVisible(false);
-      }, 3000);
-    }
+  const closeMobileMenu = () => {
+    setIsMobileMenuVisible(false);
+    setIsProductsSubmenuVisible(false);
+    setIsSupportSubmenuVisible(false);
+  };
+
+  const closeCart = () => {
+    setIsCartVisible(false);
   };
 
   return (
@@ -109,26 +115,26 @@ const Header = ({ cartItems, removeFromCart }) => {
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
         <div className="transition-all duration-300 ease-in-out">
           <div className="text-xl lg:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
-          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out">Vanguard in Scripts</div>}
+          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out whitespace-nowrap">Vanguard in Scripts</div>}
         </div>
-        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center">
+        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center reduced-spacing">
           <Link to="/" className="nav-item">Home</Link>
           <div 
             className="relative group" 
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => setIsDropdownVisible(true)} 
+            onMouseLeave={() => setIsDropdownVisible(false)}
           >
-            <Link to="/products" className="nav-item" onMouseEnter={handleMouseEnter}>Products</Link>
+            <Link to="/products" className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</Link>
             {isDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                onMouseEnter={() => setIsDropdownVisible(true)}
+                onMouseLeave={() => setIsDropdownVisible(false)}
                 style={{ opacity: isDropdownVisible ? 1 : 0, transform: isDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100 warzone-link">
                       <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
                       Warzone
                     </Link>
@@ -137,35 +143,35 @@ const Header = ({ cartItems, removeFromCart }) => {
               </div>
             )}
           </div>
-          <a href="#how-to-install" className="nav-item">How to install</a>
+          <a href="#how-to-install" className="nav-item single-line">How to install</a>
           <div 
             className="relative group" 
-            onMouseEnter={handleSupportMouseEnter} 
-            onMouseLeave={handleSupportMouseLeave}
+            onMouseEnter={() => setIsSupportDropdownVisible(true)} 
+            onMouseLeave={() => setIsSupportDropdownVisible(false)}
           >
-            <Link to="#support" className="nav-item" onMouseEnter={handleSupportMouseEnter}>Support</Link>
+            <Link to="#support" className="nav-item" onMouseEnter={() => setIsSupportDropdownVisible(true)}>Support</Link>
             {isSupportDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
-                onMouseEnter={handleSupportMouseEnter}
-                onMouseLeave={handleSupportMouseLeave}
+                onMouseEnter={() => setIsSupportDropdownVisible(true)}
+                onMouseLeave={() => setIsSupportDropdownVisible(false)}
                 style={{ opacity: isSupportDropdownVisible ? 1 : 0, transform: isSupportDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
               >
                 <ul className="py-2">
                   <li>
-                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/support/faq" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
                       <i className="fas fa-question-circle mr-3"></i>
                       FAQ
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <Link to="/support/contact" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link">
                       <i className="fas fa-envelope mr-3"></i>
                       Contact
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
+                    <Link to="/support/terms" className="flex items-center px-4 py-2 hover:bg-gray-100 support-link whitespace-nowrap">
                       <i className="fas fa-file-contract mr-3"></i>
                       Terms and Conditions
                     </Link>
@@ -177,38 +183,43 @@ const Header = ({ cartItems, removeFromCart }) => {
         </nav>
         <div className="hidden lg:flex space-x-8 font-play items-center">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-3xl" />
+            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
-            <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
-              <FaUserCircle className="text-3xl text-white" />
+            <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
+              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
             </button>
-            {isDropdownVisible && (
-              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-                {user ? (
-                  <>
-                    <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
-                    <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
-                  </>
-                ) : (
-                  <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
-                )}
+            {user && isUserMenuVisible && (
+              <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                <button onClick={() => { navigate('/dashboard'); closeMobileMenu(); }} className="dashboard-link">Dashboard</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="logout-button">Logout</button>
               </div>
             )}
           </div>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-3xl" />
+            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
+          <div className="relative">
+            <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
+              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
+            </button>
+            {user && isUserMenuVisible && (
+              <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                <button onClick={() => { navigate('/dashboard'); closeMobileMenu(); }} className="dashboard-link">Dashboard</button>
+                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="logout-button">Logout</button>
+              </div>
+            )}
+          </div>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
-            <FaBars className="text-3xl" />
+            <FaBars className="text-3xl hover:text-blue-500 transition duration-300" />
           </button>
         </div>
       </div>
@@ -216,57 +227,37 @@ const Header = ({ cartItems, removeFromCart }) => {
         <div ref={mobileMenuRef} className="mobile-menu lg:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
           style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}>
           <nav className="flex flex-col py-2">
-            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">Home</Link>
+            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300" onClick={closeMobileMenu}>Home</Link>
             <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Products
               <i className={`fas ${isProductsSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isProductsSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center warzone-link" onClick={closeMobileMenu}>
                   <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
               </div>
             )}
-            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300">How to install</Link>
+            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300 single-line" onClick={closeMobileMenu}>How to install</Link>
             <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Support
               <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isSupportSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-question-circle mr-3"></i>
                   FAQ
                 </Link>
-                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center">
+                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-envelope mr-3"></i>
                   Contact
                 </Link>
-                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center whitespace-nowrap">
+                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center support-link whitespace-nowrap" onClick={closeMobileMenu}>
                   <i className="fas fa-file-contract mr-3"></i>
                   Terms and Conditions
-                </Link>
-              </div>
-            )}
-            <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
-              <Link to="/dashboard" className="nav-item text-left flex items-center w-full">
-                <FaUserCircle className="text-2xl mr-3" />
-                Profile
-              </Link>
-            </div>
-            {user ? (
-              <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
-                <button onClick={logout} className="text-left w-full">
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
-                <Link to="/login" className="nav-item text-left flex items-center w-full">
-                  <FaUserCircle className="text-2xl mr-3" />
-                  Login
                 </Link>
               </div>
             )}
@@ -274,11 +265,11 @@ const Header = ({ cartItems, removeFromCart }) => {
         </div>
       )}
       {isCartVisible && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={toggleCart}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={closeCart}>
           <div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-80 bg-white shadow-2xl h-full z-50 rounded-l-lg transition-transform transform ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-300 flex justify-between items-center">
               <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
-              <button onClick={toggleCart} className="text-gray-600 hover:text-gray-900">
+              <button onClick={closeCart} className="text-gray-600 hover:text-gray-900">
                 <FaTimesCircle className="text-xl" />
               </button>
             </div>
@@ -369,6 +360,50 @@ const Header = ({ cartItems, removeFromCart }) => {
         }
         .cart-panel {
           transition: transform 0.3s ease-in-out;
+        }
+        @media (max-width: 1024px) {
+          .nav-item {
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
+          }
+        }
+        @media (max-width: 768px) {
+          .nav-item {
+            font-size: 0.875rem;
+            padding: 0.5rem 0.75rem;
+          }
+        }
+        .single-line {
+          white-space: nowrap;
+        }
+        .reduced-spacing .nav-item {
+          padding: 0.75rem 1rem;
+        }
+        @media (max-width: 768px) {
+          .reduced-spacing .nav-item {
+            padding: 0.5rem 0.75rem;
+          }
+        }
+        .dashboard-link,
+        .logout-button {
+          display: block;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          text-align: left;
+          color: #1f2937;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.2s, color 0.2s;
+        }
+        .dashboard-link:hover,
+        .logout-button:hover {
+          background-color: #f1f5f9;
+          color: #1f2937;
+        }
+        .warzone-link,
+        .support-link {
+          color: black;
         }
       `}</style>
     </header>

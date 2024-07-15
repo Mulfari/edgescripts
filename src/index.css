@@ -305,3 +305,34 @@ button:focus-visible {
     flex: 1 1 100%;
   }
 }
+
+/* Estilo para forzar una sola línea en How to install */
+.single-line {
+  white-space: nowrap;
+}
+
+/* Ajustes responsivos para reducir espacio entre enlaces del menú */
+@media (max-width: 1024px) {
+  .reduced-spacing .nav-item {
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reduced-spacing .nav-item {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Hover styles for Dashboard and Logout */
+.dashboard-link:hover,
+.logout-button:hover {
+  background-color: #f1f5f9;
+  color: #1f2937;
+}
+
+/* Estilos de texto para Warzone y Support en negro */
+.warzone-link,
+.support-link {
+  color: black;
+}
