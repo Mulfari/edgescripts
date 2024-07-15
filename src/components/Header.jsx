@@ -111,7 +111,7 @@ const Header = ({ cartItems, removeFromCart }) => {
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
         <div className="transition-all duration-300 ease-in-out">
           <div className="text-xl lg:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
-          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out whitespace-nowrap">Vanguard in Scripts</div>}
+          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out">Vanguard in Scripts</div>}
         </div>
         <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center">
           <Link to="/" className="nav-item">Home</Link>
@@ -179,33 +179,33 @@ const Header = ({ cartItems, removeFromCart }) => {
         </nav>
         <div className="hidden lg:flex space-x-8 font-play items-center">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
+            <FaShoppingCart className="text-3xl" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
             <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
-              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
+              <FaUserCircle className="text-3xl text-white" />
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
-                <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
               </div>
             )}
           </div>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
+            <FaShoppingCart className="text-3xl" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
             <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
-              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
+              <FaUserCircle className="text-3xl text-white" />
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
@@ -215,7 +215,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </div>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
-            <FaBars className="text-3xl hover:text-blue-500 transition duration-300" />
+            <FaBars className="text-3xl" />
           </button>
         </div>
       </div>
@@ -356,17 +356,6 @@ const Header = ({ cartItems, removeFromCart }) => {
         }
         .cart-panel {
           transition: transform 0.3s ease-in-out;
-        }
-        @media (max-width: 1024px) {
-          .nav-item {
-            font-size: 1rem;
-          }
-        }
-        @media (max-width: 768px) {
-          .nav-item {
-            font-size: 0.875rem;
-            padding: 0.75rem 1rem;
-          }
         }
       `}</style>
     </header>
