@@ -227,35 +227,35 @@ const Header = ({ cartItems, removeFromCart }) => {
         <div ref={mobileMenuRef} className="mobile-menu lg:hidden absolute left-0 top-full bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
           style={{ opacity: isMobileMenuVisible ? 1 : 0, transform: isMobileMenuVisible ? 'translateY(0)' : 'translateY(10px)', margin: '0 20px', width: 'calc(100% - 40px)' }}>
           <nav className="flex flex-col py-2">
-            <Link to="/" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300" onClick={closeMobileMenu}>Home</Link>
-            <button onClick={toggleProductsSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
+            <Link to="/" className="hamburger-menu-item" onClick={closeMobileMenu}>Home</Link>
+            <button onClick={toggleProductsSubmenu} className="hamburger-menu-item text-left flex justify-between items-center">
               Products
               <i className={`fas ${isProductsSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isProductsSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center warzone-link" onClick={closeMobileMenu}>
+                <Link to="/products/warzone" className="hamburger-menu-item flex items-center warzone-link" onClick={closeMobileMenu}>
                   <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
               </div>
             )}
-            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300 single-line" onClick={closeMobileMenu}>How to install</Link>
-            <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
+            <Link to="#how-to-install" className="hamburger-menu-item single-line" onClick={closeMobileMenu}>How to install</Link>
+            <button onClick={toggleSupportSubmenu} className="hamburger-menu-item text-left flex justify-between items-center">
               Support
               <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
             </button>
             {isSupportSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
-                <Link to="/support/faq" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
+                <Link to="/support/faq" className="hamburger-menu-item flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-question-circle mr-3"></i>
                   FAQ
                 </Link>
-                <Link to="/support/contact" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center support-link" onClick={closeMobileMenu}>
+                <Link to="/support/contact" className="hamburger-menu-item flex items-center support-link" onClick={closeMobileMenu}>
                   <i className="fas fa-envelope mr-3"></i>
                   Contact
                 </Link>
-                <Link to="/support/terms" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items=center support-link whitespace-nowrap" onClick={closeMobileMenu}>
+                <Link to="/support/terms" className="hamburger-menu-item flex items=center support-link whitespace-nowrap" onClick={closeMobileMenu}>
                   <i className="fas fa-file-contract mr-3"></i>
                   Terms and Conditions
                 </Link>
@@ -404,6 +404,31 @@ const Header = ({ cartItems, removeFromCart }) => {
         .warzone-link,
         .support-link {
           color: black;
+        }
+        .hamburger-menu-item {
+          position: relative;
+          padding: 1rem 1.5rem;
+          color: #1f2937;
+          text-decoration: none;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          transition: all 0.3s ease-in-out;
+        }
+        .hamburger-menu-item::before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          bottom: 0;
+          left: 0;
+          background-color: #3B82F6;
+          visibility: hidden;
+          transition: all 0.3s ease-in-out;
+        }
+        .hamburger-menu-item:hover::before {
+          visibility: visible;
+          width: 100%;
         }
       `}</style>
     </header>
