@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
-          body: JSON.stringify({ token }), // Asegúrate de enviar el token en el body
+          body: JSON.stringify({ token }),
         });
 
         if (!response.ok) {
@@ -73,12 +73,40 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async (id, fields) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id, ...fields }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error updating user:', errorData);
+        return false;
+      }
+
+      const data = await response.json();
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(data.user);
+      return true;
+    } catch (error) {
+      console.error('Error updating user:', error);
+      return false;
+    }
+  };
+
   useEffect(() => {
     checkAuth();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
