@@ -35,11 +35,11 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
 
-      // Update user details if necessary
-      const { brand, dpi, sensibilidad } = data.user;
-      const product = cartItems[0];
+      // Update user details if there are items in the cart
+      if (cartItems.length > 0) {
+        const { brand, dpi, sensibilidad } = data.user;
+        const product = cartItems[0];
 
-      if (!brand || !dpi || !sensibilidad) {
         const updatedUser = {
           ...data.user,
           brand: brand || product.brand,
