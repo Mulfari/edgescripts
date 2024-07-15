@@ -171,7 +171,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/support/terms" className="dropdown-item flex items-center support-link whitespace-nowrap">
+                    <Link to="/support/terms" className="dropdown-item flex items=center support-link whitespace-nowrap">
                       <i className="fas fa-file-contract mr-3"></i>
                       Terms and Conditions
                     </Link>
@@ -323,25 +323,13 @@ const Header = ({ cartItems, removeFromCart }) => {
           display: flex;
           align-items: center;
           transition: all 0.3s ease-in-out;
+          border-bottom: 3px solid transparent; /* Inicialmente transparente */
         }
-        .nav-item::before {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 3px;
-          bottom: 0;
-          left: 0;
-          background-color: #3B82F6;
-          visibility: hidden;
-          transition: all 0.3s ease-in-out;
+        .nav-item:hover {
+          border-bottom: 3px solid #3B82F6; /* Cambia el color al hacer hover */
         }
-        .nav-item:hover::before {
-          visibility: visible;
-          width: 100%;
-        }
-        .group:hover .nav-item::before {
-          visibility: visible;
-          width: 100%;
+        .group:hover .nav-item {
+          border-bottom: 3px solid #3B82F6; /* Asegura que el borde aparezca al hover en el grupo */
         }
         .icon-button {
           background-color: transparent;
