@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
@@ -18,6 +17,7 @@ const Header = ({ cartItems, removeFromCart }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [isUserMenuVisible, setIsUserMenuVisible] = useState(false);
+  const [checkoutNotification, setCheckoutNotification] = useState(false);
   const hideDropdownTimeout = useRef(null);
   const hideDropdownDelay = 300;
   const mobileMenuRef = useRef(null);
@@ -108,6 +108,17 @@ const Header = ({ cartItems, removeFromCart }) => {
 
   const closeCart = () => {
     setIsCartVisible(false);
+  };
+
+  const handleCheckout = () => {
+    if (user) {
+      // Proceed to checkout
+    } else {
+      setCheckoutNotification(true);
+      setTimeout(() => {
+        setCheckoutNotification(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -300,7 +311,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             </div>
             <div className="p-4 border-t border-gray-300 flex justify-between items-center">
               <span className="text-lg font-bold text-gray-900">Total: {cartItems.reduce((total, item) => total + parseFloat(item.precioDescuento), 0).toFixed(2)}$</span>
-              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300" onClick={handleCheckout}>
                 Checkout
               </button>
             </div>
@@ -311,6 +322,12 @@ const Header = ({ cartItems, removeFromCart }) => {
         <div className="fixed bottom-4 right-4 bg-red-600 text-white border border-red-700 p-4 rounded-lg shadow-lg flex items-center">
           <FaTimesCircle className="text-white mr-2" />
           <span>Your cart is empty.</span>
+        </div>
+      )}
+      {checkoutNotification && (
+        <div className="fixed bottom-4 right-4 bg-yellow-600 text-white border border-yellow-700 p-4 rounded-lg shadow-lg flex items-center">
+          <FaTimesCircle className="text-white mr-2" />
+          <span>You need to log in to complete the purchase.</span>
         </div>
       )}
       <style jsx>{`
