@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
@@ -18,14 +18,26 @@ import VerifyEmail from './components/VerifyEmail';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // Cargar el carrito desde localStorage
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
-  const addToCart = (product) => {
-    setCartItems([product]); // Reemplaza el contenido del carrito con el nuevo artículo
+  const saveCartToLocalStorage = (items) => {
+    localStorage.setItem('cart', JSON.stringify(items));
   };
 
-  const removeFromCart = () => {
-    setCartItems([]); // Elimina el artículo del carrito
+  const addToCart = (product) => {
+    const updatedCart = [...cartItems, product]; // Agregar el nuevo artículo al carrito
+    setCartItems(updatedCart);
+    saveCartToLocalStorage(updatedCart); // Guardar en localStorage
+  };
+
+  const removeFromCart = (index) => {
+    const updatedCart = cartItems.filter((_, i) => i !== index); // Eliminar el artículo del carrito
+    setCartItems(updatedCart);
+    saveCartToLocalStorage(updatedCart); // Guardar en localStorage
   };
 
   return (
