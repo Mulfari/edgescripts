@@ -47,6 +47,8 @@ const AuthProvider = ({ children }) => {
           ...(sensibilidad ? {} : { sensibilidad: product.sensibilidad }),
         };
 
+        console.log('Updated fields:', updatedFields);
+
         if (Object.keys(updatedFields).length > 0) {
           const updateResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
             method: 'PUT',
@@ -61,6 +63,7 @@ const AuthProvider = ({ children }) => {
             const updatedData = await updateResponse.json();
             localStorage.setItem('user', JSON.stringify(updatedData.user));
             setUser(updatedData.user);
+            console.log('User updated successfully:', updatedData.user);
           } else {
             const updateError = await updateResponse.json();
             console.error('Error updating user:', updateError);
