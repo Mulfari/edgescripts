@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
-import { FaTimesCircle } from 'react-icons/fa';
+import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
@@ -177,14 +177,14 @@ const Header = ({ cartItems, removeFromCart }) => {
         </nav>
         <div className="hidden lg:flex space-x-8 font-play items-center">
           <button className="icon-button relative" onClick={toggleCart}>
-            <i className="fas fa-shopping-cart text-3xl"></i>
+            <FaShoppingCart className="text-3xl" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
             <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
-              <i className="fas fa-user-circle text-3xl text-white"></i>
+              <FaUserCircle className="text-3xl text-white" />
             </button>
             {isDropdownVisible && (
               <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
@@ -202,13 +202,13 @@ const Header = ({ cartItems, removeFromCart }) => {
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative" onClick={toggleCart}>
-            <i className="fas fa-shopping-cart text-3xl"></i>
+            <FaShoppingCart className="text-3xl" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
-            <i className="fas fa-bars text-3xl"></i>
+            <FaBars className="text-3xl" />
           </button>
         </div>
       </div>
@@ -259,7 +259,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             <div className="p-4 border-b border-gray-300 flex justify-between items-center">
               <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
               <button onClick={toggleCart} className="text-gray-600 hover:text-gray-900">
-                <i className="fas fa-times text-xl"></i>
+                <FaTimesCircle className="text-xl" />
               </button>
             </div>
             <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(100% - 64px - 64px)' }}>
@@ -273,7 +273,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                         <span className="text-gray-900">{item.descripcion}</span>
                         <span>{item.precioDescuento}</span>
                         <button onClick={() => removeFromCart(index)} className="text-red-600 hover:text-red-800">
-                          <i className="fas fa-trash-alt"></i>
+                          <FaTimesCircle />
                         </button>
                       </div>
                       <div className="text-gray-700 text-sm mt-2">
