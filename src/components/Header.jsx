@@ -197,9 +197,17 @@ const Header = ({ cartItems, removeFromCart }) => {
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
-          <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
-            <FaUserCircle className="text-3xl text-white" />
-          </button>
+          <div className="relative">
+            <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
+              <FaUserCircle className="text-3xl text-white" />
+            </button>
+            {user && isUserMenuVisible && (
+              <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
+                <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+              </div>
+            )}
+          </div>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
             <FaBars className="text-3xl" />
           </button>
