@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
-import { FaTimesCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
+import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
@@ -182,6 +182,23 @@ const Header = ({ cartItems, removeFromCart }) => {
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
+          <div className="relative">
+            <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
+              <FaUserCircle className="text-3xl text-white" />
+            </button>
+            {isDropdownVisible && (
+              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+                {user ? (
+                  <>
+                    <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
+                    <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Logout</button>
+                  </>
+                ) : (
+                  <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Login</Link>
+                )}
+              </div>
+            )}
+          </div>
         </div>
         <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative" onClick={toggleCart}>
