@@ -121,6 +121,11 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
+  const handleNavigateAndCloseCart = (path) => {
+    navigate(path);
+    closeCart();
+  };
+
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -322,7 +327,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                 <div className="mt-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg">
                   <p>You need to log in to complete the purchase.</p>
                   <p>
-                    <Link to="/register" className="text-blue-600 hover:underline">Register here</Link> if you don't have an account.
+                    <Link to="/login" className="text-blue-600 hover:underline" onClick={() => handleNavigateAndCloseCart('/login')}>Login here</Link> or <Link to="/register" className="text-blue-600 hover:underline" onClick={() => handleNavigateAndCloseCart('/register')}>Register here</Link> if you don't have an account.
                   </p>
                 </div>
               )}
