@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaTimesCircle, FaUserCircle, FaShoppingCart, FaBars } from 'react-icons/fa';
 import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
 const Header = ({ cartItems, removeFromCart }) => {
   const { user, logout } = useAuth();
-  const history = useHistory();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -70,11 +69,7 @@ const Header = ({ cartItems, removeFromCart }) => {
   };
 
   const toggleUserMenu = () => {
-    if (user) {
-      setIsUserMenuVisible(!isUserMenuVisible);
-    } else {
-      history.push('/login');
-    }
+    setIsUserMenuVisible(!isUserMenuVisible);
   };
 
   const toggleMobileMenu = () => {
@@ -245,6 +240,21 @@ const Header = ({ cartItems, removeFromCart }) => {
               </div>
             )}
           </nav>
+        </div>
+      )}
+      {isUserMenuVisible && (
+        <div ref={userMenuRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            {user ? (
+              <>
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
+                <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+              </>
+            ) : (
+              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
+            )}
+            <button onClick={toggleUserMenu} className="block px-4 py-2 text-sm hover:bg-gray-100 mt-4">Close</button>
+          </div>
         </div>
       )}
       {isCartVisible && (
