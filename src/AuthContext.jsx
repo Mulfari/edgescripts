@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
           ...(sensibilidad ? {} : { sensibilidad: product.sensibilidad }),
         };
 
-        console.log('Updated fields:', updatedFields);
+        console.log('Updated fields to be sent:', updatedFields);
 
         if (Object.keys(updatedFields).length > 0) {
           const updateResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
@@ -70,7 +70,11 @@ const AuthProvider = ({ children }) => {
             const updateError = await updateResponse.json();
             console.error('Error updating user:', updateError);
           }
+        } else {
+          console.log('No fields to update.');
         }
+      } else {
+        console.log('No items in cart, skipping user update.');
       }
 
       return true;
