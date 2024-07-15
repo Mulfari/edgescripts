@@ -414,21 +414,10 @@ const Header = ({ cartItems, removeFromCart }) => {
           display: flex;
           align-items: center;
           transition: all 0.3s ease-in-out;
+          border: 1px solid transparent;
         }
-        .hamburger-menu-item::before {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 3px;
-          bottom: 0;
-          left: 0;
-          background-color: #3B82F6;
-          visibility: hidden;
-          transition: all 0.3s ease-in-out;
-        }
-        .hamburger-menu-item:hover::before {
-          visibility: visible;
-          width: 100%;
+        .hamburger-menu-item:hover {
+          border-color: black;
         }
       `}</style>
     </header>
