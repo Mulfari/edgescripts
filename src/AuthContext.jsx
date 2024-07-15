@@ -35,6 +35,8 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
 
+      console.log('Logged in user:', data.user);
+
       // Update user details if there are items in the cart
       if (cartItems.length > 0) {
         const { brand, dpi, sensibilidad } = data.user;
