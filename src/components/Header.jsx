@@ -113,7 +113,7 @@ const Header = ({ cartItems, removeFromCart }) => {
           <div className="text-xl lg:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
           {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out whitespace-nowrap">Vanguard in Scripts</div>}
         </div>
-        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center">
+        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center reduced-spacing">
           <Link to="/" className="nav-item">Home</Link>
           <div 
             className="relative group" 
@@ -360,16 +360,25 @@ const Header = ({ cartItems, removeFromCart }) => {
         @media (max-width: 1024px) {
           .nav-item {
             font-size: 1rem;
+            padding: 0.75rem 1rem;
           }
         }
         @media (max-width: 768px) {
           .nav-item {
             font-size: 0.875rem;
-            padding: 0.75rem 1rem;
+            padding: 0.5rem 0.75rem;
           }
         }
         .single-line {
           white-space: nowrap;
+        }
+        .reduced-spacing .nav-item {
+          padding: 0.75rem 1rem;
+        }
+        @media (max-width: 768px) {
+          .reduced-spacing .nav-item {
+            padding: 0.5rem 0.75rem;
+          }
         }
       `}</style>
     </header>
