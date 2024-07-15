@@ -5,7 +5,7 @@ import wzLogo from '../assets/Categorias/wzlogo.png';
 import { useAuth } from '../AuthContext';
 
 const Header = ({ cartItems, removeFromCart }) => {
-  const { user, logout } = useAuth();
+  const { user, login, logout, updateUser } = useAuth();
   const navigate = useNavigate();
   const [isSmall, setIsSmall] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -108,6 +108,21 @@ const Header = ({ cartItems, removeFromCart }) => {
 
   const closeCart = () => {
     setIsCartVisible(false);
+  };
+
+  const handleLogin = async (email, password) => {
+    const success = await login(email, password, async (loggedInUser) => {
+      if (cartItems.length > 0) {
+        const { brand, dpi, sensibilidad } = cartItems[0];
+        await updateUser(loggedInUser._id, { brand, dpi, sensibilidad });
+      }
+    });
+    if (success) {
+      closeMobileMenu();
+      closeCart();
+    } else {
+      console.error('Login failed');
+    }
   };
 
   const handleCheckout = () => {

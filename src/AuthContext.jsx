@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, callback) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
@@ -34,6 +34,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
+      if (callback) callback(data.user);
       return true;
     } catch (error) {
       console.error('Error logging in:', error);

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from '../AuthContext';
 import { FaStar, FaCheckCircle } from 'react-icons/fa';
 import productImage from '../assets/Categorias/wzlogo.png';
 import logitechLogo from '../assets/Categorias/logitechlogo.png';
@@ -247,7 +246,6 @@ const ProductReviews = ({ reviews }) => (
 );
 
 const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
-  const { user, updateUser } = useAuth();
   const [step, setStep] = useState(1);
   const [option, setOption] = useState('');
   const [brand, setBrand] = useState('');
@@ -265,25 +263,16 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
   const handleBrandChange = (brand) => {
     setBrand(brand);
     setError('');
-    if (user) {
-      updateUser(user._id, { brand });
-    }
   };
 
   const handleDpiChange = (dpi) => {
     setDpi(dpi);
     setError('');
-    if (user) {
-      updateUser(user._id, { dpi });
-    }
   };
 
   const handleSensitivityChange = (sensitivity) => {
     setSensitivity(sensitivity);
     setError('');
-    if (user) {
-      updateUser(user._id, { sensibilidad: sensitivity });
-    }
   };
 
   const handleNextStep = (nextStep) => {
@@ -302,7 +291,7 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
     setError('');
   };
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     const prices = {
       '1 weapon': '14.99',
       '2 weapons': '24.99',
@@ -316,20 +305,16 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
       descripcion: productDetail.descripcion,
       precioDescuento: prices[option],
     };
-
-    if (!user) {
-      setNotification(true);
-      setTimeout(() => setNotification(false), 3000);
-      return;
-    }
-
-    await updateUser(user._id, { brand, dpi, sensibilidad: sensitivity });
     addToCart(product);
     setStep(4); // Move to Order Completed after adding to cart
     setOption('');
     setBrand('');
     setDpi('');
     setSensitivity('');
+    setNotification(true);
+    setTimeout(() => {
+      setNotification(false);
+    }, 3000);
   };
 
   const handleCheckout = () => {
