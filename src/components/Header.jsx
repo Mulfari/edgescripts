@@ -139,7 +139,7 @@ const Header = ({ cartItems, removeFromCart }) => {
               </div>
             )}
           </div>
-          <a href="#how-to-install" className="nav-item">How to install</a>
+          <a href="#how-to-install" className="nav-item single-line">How to install</a>
           <div 
             className="relative group" 
             onMouseEnter={() => setIsSupportDropdownVisible(true)} 
@@ -236,7 +236,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                 </Link>
               </div>
             )}
-            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300" onClick={closeMobileMenu}>How to install</Link>
+            <Link to="#how-to-install" className="block py-2 pl-6 pr-4 hover:bg-gray-100 transition-colors duration-300 single-line" onClick={closeMobileMenu}>How to install</Link>
             <button onClick={toggleSupportSubmenu} className="block py-2 pl-6 pr-4 text-left hover:bg-gray-100 transition-colors duration-300 flex justify-between items-center">
               Support
               <i className={`fas ${isSupportSubmenuVisible ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
@@ -367,6 +367,9 @@ const Header = ({ cartItems, removeFromCart }) => {
             font-size: 0.875rem;
             padding: 0.75rem 1rem;
           }
+        }
+        .single-line {
+          white-space: nowrap;
         }
       `}</style>
     </header>

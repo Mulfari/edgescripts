@@ -305,3 +305,8 @@ button:focus-visible {
     flex: 1 1 100%;
   }
 }
+
+/* Estilo para forzar una sola línea en How to install */
+.single-line {
+  white-space: nowrap;
+}
