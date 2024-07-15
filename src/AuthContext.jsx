@@ -39,11 +39,11 @@ const AuthProvider = ({ children }) => {
       const cart = JSON.parse(localStorage.getItem('cart'));
       if (cart && cart.length > 0) {
         const product = cart[0];
-        const { brand, dpi, sensibilidad } = product;
+        const { brand, dpi, sensitivity } = product;
         const updateFields = {};
         if (data.user.brand === null) updateFields.brand = brand;
         if (data.user.dpi === null) updateFields.dpi = dpi;
-        if (data.user.sensibilidad === null) updateFields.sensibilidad = sensibilidad;
+        if (data.user.sensitivity === null) updateFields.sensitivity = sensitivity;
 
         if (Object.keys(updateFields).length > 0) {
           await updateUser(data.user._id, updateFields);
