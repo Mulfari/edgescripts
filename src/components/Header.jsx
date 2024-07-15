@@ -207,6 +207,9 @@ const Header = ({ cartItems, removeFromCart }) => {
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
+          <button className="icon-button relative" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
+            <FaUserCircle className="text-3xl text-white" />
+          </button>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
             <FaBars className="text-3xl" />
           </button>
