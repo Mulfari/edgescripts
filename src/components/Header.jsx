@@ -385,10 +385,7 @@ const Header = ({ cartItems, removeFromCart }) => {
           }
         }
         .dashboard-link,
-        .logout-button,
-        .nav-item,
-        .warzone-link,
-        .support-link {
+        .logout-button {
           display: block;
           width: 100%;
           padding: 0.5rem 1rem;
@@ -397,19 +394,12 @@ const Header = ({ cartItems, removeFromCart }) => {
           background-color: transparent;
           border: none;
           cursor: pointer;
-          transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+          transition: background-color 0.2s, color 0.2s;
         }
         .dashboard-link:hover,
-        .logout-button:hover,
-        .nav-item:hover,
-        .warzone-link:hover,
-        .support-link:hover {
+        .logout-button:hover {
           background-color: #f1f5f9;
           color: #1f2937;
-          border-left: 2px solid black;
-          border-right: 2px solid black;
-          border-top: 2px solid black;
-          border-bottom: 2px solid black;
         }
         .warzone-link,
         .support-link {
