@@ -16,10 +16,12 @@ const Header = ({ cartItems, removeFromCart }) => {
   const [isSupportSubmenuVisible, setIsSupportSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [isUserMenuVisible, setIsUserMenuVisible] = useState(false);
   const hideDropdownTimeout = useRef(null);
   const hideDropdownDelay = 300;
   const mobileMenuRef = useRef(null);
   const cartRef = useRef(null);
+  const userMenuRef = useRef(null);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -39,28 +41,35 @@ const Header = ({ cartItems, removeFromCart }) => {
     };
   }, [lastScrollY, isMobileMenuVisible, isCartVisible]);
 
-  const handleMouseEnter = () => {
-    clearTimeout(hideDropdownTimeout.current);
-    setIsDropdownVisible(true);
-    setIsSupportDropdownVisible(false);
+  const handleClickOutside = (event) => {
+    if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
+      setIsMobileMenuVisible(false);
+      setIsProductsSubmenuVisible(false);
+      setIsSupportSubmenuVisible(false);
+    }
+
+    if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.icon-button')) {
+      setIsCartVisible(false);
+    }
+
+    if (isUserMenuVisible && userMenuRef.current && !userMenuRef.current.contains(event.target) && !event.target.closest('.user-icon-button')) {
+      setIsUserMenuVisible(false);
+    }
   };
 
-  const handleMouseLeave = () => {
-    hideDropdownTimeout.current = setTimeout(() => {
-      setIsDropdownVisible(false);
-    }, hideDropdownDelay);
+  const toggleCart = () => {
+    if (cartItems.length > 0) {
+      setIsCartVisible(!isCartVisible);
+    } else {
+      setIsNotificationVisible(true);
+      setTimeout(() => {
+        setIsNotificationVisible(false);
+      }, 3000);
+    }
   };
 
-  const handleSupportMouseEnter = () => {
-    clearTimeout(hideDropdownTimeout.current);
-    setIsSupportDropdownVisible(true);
-    setIsDropdownVisible(false);
-  };
-
-  const handleSupportMouseLeave = () => {
-    hideDropdownTimeout.current = setTimeout(() => {
-      setIsSupportDropdownVisible(false);
-    }, hideDropdownDelay);
+  const toggleUserMenu = () => {
+    setIsUserMenuVisible(!isUserMenuVisible);
   };
 
   const toggleMobileMenu = () => {
@@ -81,29 +90,6 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
-  const handleClickOutside = (event) => {
-    if (isMobileMenuVisible && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
-      setIsMobileMenuVisible(false);
-      setIsProductsSubmenuVisible(false);
-      setIsSupportSubmenuVisible(false);
-    }
-
-    if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.icon-button')) {
-      setIsCartVisible(false);
-    }
-  };
-
-  const toggleCart = () => {
-    if (cartItems.length > 0) {
-      setIsCartVisible(!isCartVisible);
-    } else {
-      setIsNotificationVisible(true);
-      setTimeout(() => {
-        setIsNotificationVisible(false);
-      }, 3000);
-    }
-  };
-
   return (
     <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
@@ -115,15 +101,15 @@ const Header = ({ cartItems, removeFromCart }) => {
           <Link to="/" className="nav-item">Home</Link>
           <div 
             className="relative group" 
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => setIsDropdownVisible(true)} 
+            onMouseLeave={() => setIsDropdownVisible(false)}
           >
-            <Link to="/products" className="nav-item" onMouseEnter={handleMouseEnter}>Products</Link>
+            <Link to="/products" className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</Link>
             {isDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                onMouseEnter={() => setIsDropdownVisible(true)}
+                onMouseLeave={() => setIsDropdownVisible(false)}
                 style={{ opacity: isDropdownVisible ? 1 : 0, transform: isDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
               >
                 <ul className="py-2">
@@ -140,15 +126,15 @@ const Header = ({ cartItems, removeFromCart }) => {
           <a href="#how-to-install" className="nav-item">How to install</a>
           <div 
             className="relative group" 
-            onMouseEnter={handleSupportMouseEnter} 
-            onMouseLeave={handleSupportMouseLeave}
+            onMouseEnter={() => setIsSupportDropdownVisible(true)} 
+            onMouseLeave={() => setIsSupportDropdownVisible(false)}
           >
-            <Link to="#support" className="nav-item" onMouseEnter={handleSupportMouseEnter}>Support</Link>
+            <Link to="#support" className="nav-item" onMouseEnter={() => setIsSupportDropdownVisible(true)}>Support</Link>
             {isSupportDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
-                onMouseEnter={handleSupportMouseEnter}
-                onMouseLeave={handleSupportMouseLeave}
+                onMouseEnter={() => setIsSupportDropdownVisible(true)}
+                onMouseLeave={() => setIsSupportDropdownVisible(false)}
                 style={{ opacity: isSupportDropdownVisible ? 1 : 0, transform: isSupportDropdownVisible ? 'translateY(0)' : 'translateY(10px)' }}
               >
                 <ul className="py-2">
@@ -183,11 +169,11 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </button>
           <div className="relative">
-            <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
+            <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
               <FaUserCircle className="text-3xl text-white" />
             </button>
-            {isDropdownVisible && (
-              <div className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
+            {isUserMenuVisible && (
+              <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
                 {user ? (
                   <>
                     <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Dashboard</Link>
@@ -207,7 +193,7 @@ const Header = ({ cartItems, removeFromCart }) => {
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
-          <button className="icon-button" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
+          <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
             <FaUserCircle className="text-3xl text-white" />
           </button>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
@@ -254,6 +240,21 @@ const Header = ({ cartItems, removeFromCart }) => {
               </div>
             )}
           </nav>
+        </div>
+      )}
+      {isUserMenuVisible && (
+        <div ref={userMenuRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            {user ? (
+              <>
+                <Link to="/dashboard" className="block px-4 py-2 text-sm hover:bg-gray-100">Dashboard</Link>
+                <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+              </>
+            ) : (
+              <Link to="/login" className="block px-4 py-2 text-sm hover:bg-gray-100">Login</Link>
+            )}
+            <button onClick={toggleUserMenu} className="block px-4 py-2 text-sm hover:bg-gray-100 mt-4">Close</button>
+          </div>
         </div>
       )}
       {isCartVisible && (
