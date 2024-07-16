@@ -20,7 +20,7 @@ const Register = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username: email, password }), // Asegúrate de enviar el campo 'username'
       });
       const data = await response.json();
       if (response.ok) {
