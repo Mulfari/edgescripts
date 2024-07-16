@@ -29,7 +29,12 @@ const Login = () => {
         if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
 
         if (Object.keys(updateFields).length > 0) {
-          await updateUser(loggedInUser._id, updateFields);
+          const result = await updateUser(loggedInUser._id, updateFields);
+          if (result) {
+            console.log('User updated successfully');
+          } else {
+            console.error('Error updating user');
+          }
         }
       }
     });
