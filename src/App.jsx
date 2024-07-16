@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
@@ -20,12 +20,21 @@ import Dashboard from './components/Dashboard';
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
 
+  useEffect(() => {
+    const savedCartItem = JSON.parse(localStorage.getItem('cartItem'));
+    if (savedCartItem) {
+      setCartItems([savedCartItem]);
+    }
+  }, []);
+
   const addToCart = (product) => {
-    setCartItems([product]); // Reemplaza el contenido del carrito con el nuevo artículo
+    setCartItems([product]);
+    localStorage.setItem('cartItem', JSON.stringify(product));
   };
 
   const removeFromCart = () => {
-    setCartItems([]); // Elimina el artículo del carrito
+    setCartItems([]);
+    localStorage.removeItem('cartItem');
   };
 
   return (
