@@ -35,24 +35,6 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
 
-      // Verificar y actualizar datos del usuario si es necesario
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      if (cart && cart.length > 0) {
-        const product = cart[0];
-        const { brand, dpi, sensitivity } = product;
-        const updateFields = {};
-        if (data.user.brand === null) updateFields.brand = brand;
-        if (data.user.dpi === null) updateFields.dpi = dpi;
-        if (data.user.sensitivity === null) updateFields.sensitivity = sensitivity;
-
-        if (Object.keys(updateFields).length > 0) {
-          await updateUser(data.user._id, updateFields);
-          const updatedUser = { ...data.user, ...updateFields };
-          localStorage.setItem('user', JSON.stringify(updatedUser));
-          setUser(updatedUser);
-        }
-      }
-
       if (callback) callback(data.user);
       return true;
     } catch (error) {
