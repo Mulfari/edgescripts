@@ -142,13 +142,13 @@ const Header = ({ cartItems, removeFromCart }) => {
   };
 
   return (
-    <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-2' : 'py-5'}`}>
-      <div className="container mx-auto flex justify-between items-center px-5 lg:px-8 transition-all duration-300 ease-in-out">
+    <header className={`bg-gray-900 shadow-md fixed w-full top-0 left-0 z-50 transition-all duration-300 ease-in-out ${isSmall ? 'py-1' : 'py-4'}`}>
+      <div className="container mx-auto flex justify-between items-center px-4 lg:px-6 transition-all duration-300 ease-in-out">
         <div className="transition-all duration-300 ease-in-out">
-          <div className="text-2xl lg:text-3xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
-          {!isSmall && <div className="text-sm lg:text-base text-gray-400 transition-opacity duration-300 ease-in-out whitespace-nowrap">Vanguard in Scripts</div>}
+          <div className="text-xl lg:text-2xl font-bold text-blue-500" style={{ fontFamily: '"Press Start 2P", cursive' }}>EdgeScripts</div>
+          {!isSmall && <div className="text-xs lg:text-sm text-gray-400 transition-opacity duration-300 ease-in-out whitespace-nowrap">Vanguard in Scripts</div>}
         </div>
-        <nav className="hidden lg:flex space-x-5 lg:space-x-14 font-play relative text-base lg:text-xl items-center reduced-spacing">
+        <nav className="hidden lg:flex space-x-4 lg:space-x-12 font-play relative text-sm lg:text-lg items-center reduced-spacing">
           <Link to="/" className="nav-item">Home</Link>
           <div 
             className="relative group" 
@@ -166,7 +166,7 @@ const Header = ({ cartItems, removeFromCart }) => {
                 <ul className="py-2">
                   <li>
                     <Link to="/products/warzone" className="flex items-center px-4 py-2 hover:bg-gray-100 warzone-link">
-                      <img src={wzLogo} alt="Warzone" className="w-7 h-7 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
+                      <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3 transition-transform duration-300 ease-in-out hover:scale-110" />
                       Warzone
                     </Link>
                   </li>
@@ -212,16 +212,16 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </div>
         </nav>
-        <div className="hidden lg:flex space-x-9 font-play items-center">
+        <div className="hidden lg:flex space-x-8 font-play items-center">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-4xl hover:text-blue-500 transition duration-300" />
+            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
             <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
-              <FaUserCircle className="text-4xl text-white hover:text-blue-500 transition duration-300" />
+              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
@@ -231,16 +231,16 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </div>
         </div>
-        <div className="lg:hidden flex items-center space-x-5">
+        <div className="lg:hidden flex items-center space-x-4">
           <button className="icon-button relative" onClick={toggleCart}>
-            <FaShoppingCart className="text-4xl hover:text-blue-500 transition duration-300" />
+            <FaShoppingCart className="text-3xl hover:text-blue-500 transition duration-300" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{cartItems.length}</span>
             )}
           </button>
           <div className="relative">
             <button className="icon-button user-icon-button" onClick={toggleUserMenu}>
-              <FaUserCircle className="text-4xl text-white hover:text-blue-500 transition duration-300" />
+              <FaUserCircle className="text-3xl text-white hover:text-blue-500 transition duration-300" />
             </button>
             {user && isUserMenuVisible && (
               <div ref={userMenuRef} className="absolute top-full right-0 mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
@@ -250,7 +250,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             )}
           </div>
           <button onClick={toggleMobileMenu} className="icon-button mobile-menu-button">
-            <FaBars className="text-4xl hover:text-blue-500 transition duration-300" />
+            <FaBars className="text-3xl hover:text-blue-500 transition duration-300" />
           </button>
         </div>
       </div>
@@ -266,7 +266,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             {isProductsSubmenuVisible && (
               <div className="pl-10 transition-all duration-300 ease-in-out">
                 <Link to="/products/warzone" className="block py-2 pl-4 pr-4 hover:bg-gray-100 transition-colors duration-300 flex items-center warzone-link" onClick={closeMobileMenu}>
-                  <img src={wzLogo} alt="Warzone" className="w-7 h-7 mr-3" />
+                  <img src={wzLogo} alt="Warzone" className="w-6 h-6 mr-3" />
                   Warzone
                 </Link>
               </div>
@@ -297,11 +297,11 @@ const Header = ({ cartItems, removeFromCart }) => {
       )}
       {isCartVisible && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={closeCart}>
-          <div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-85 bg-white shadow-2xl h-full z-50 rounded-l-lg transition-transform transform ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
+          <div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-80 bg-white shadow-2xl h-full z-50 rounded-l-lg transition-transform transform ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-300 flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-900">Shopping Cart</h2>
+              <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
               <button onClick={closeCart} className="text-gray-600 hover:text-gray-900">
-                <FaTimesCircle className="text-2xl" />
+                <FaTimesCircle className="text-xl" />
               </button>
             </div>
             <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(100% - 64px - 64px)' }}>
@@ -332,7 +332,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             <div className="p-4 border-t border-gray-300 flex flex-col">
               <span className="text-lg font-bold text-gray-900 mb-2">Total: {cartItems.reduce((total, item) => total + parseFloat(item.precioDescuento), 0).toFixed(2)}$</span>
               <button 
-                className={`bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ${!user ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                className={`bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ${!user ? 'opacity-50 cursor-not-allowed' : ''}`} 
                 onClick={handleCheckout} 
                 disabled={!user}
               >
@@ -365,10 +365,10 @@ const Header = ({ cartItems, removeFromCart }) => {
       <style jsx>{`
         .nav-item {
           position: relative;
-          padding: 1.06rem 1.59rem;
+          padding: 1rem 1.5rem;
           color: white;
           text-decoration: none;
-          font-size: 1.19rem;
+          font-size: 1.125rem;
           display: flex;
           align-items: center;
           transition: all 0.3s ease-in-out;
@@ -399,7 +399,7 @@ const Header = ({ cartItems, removeFromCart }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 0.53rem;
+          padding: 0.5rem;
           border: 2px solid transparent;
           border-radius: 8px;
         }
@@ -412,32 +412,32 @@ const Header = ({ cartItems, removeFromCart }) => {
         }
         @media (max-width: 1024px) {
           .nav-item {
-            font-size: 1.06rem;
-            padding: 0.8rem 1.06rem;
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
           }
         }
         @media (max-width: 768px) {
           .nav-item {
-            font-size: 0.93rem;
-            padding: 0.53rem 0.8rem;
+            font-size: 0.875rem;
+            padding: 0.5rem 0.75rem;
           }
         }
         .single-line {
           white-space: nowrap;
         }
         .reduced-spacing .nav-item {
-          padding: 0.8rem 1.06rem;
+          padding: 0.75rem 1rem;
         }
         @media (max-width: 768px) {
           .reduced-spacing .nav-item {
-            padding: 0.53rem 0.8rem;
+            padding: 0.5rem 0.75rem;
           }
         }
         .dashboard-link,
         .logout-button {
           display: block;
           width: 100%;
-          padding: 0.53rem 1.06rem;
+          padding: 0.5rem 1rem;
           text-align: left;
           color: #1f2937;
           background-color: transparent;
