@@ -9,7 +9,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login, updateUser, user } = useAuth(); // Obtener el usuario y updateUser desde el contexto
+  const { login, updateUser, user } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -28,10 +28,12 @@ const Login = () => {
         if (loggedInUser.dpi === null) updateFields.dpi = dpi;
         if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
 
+        console.log('Update Fields:', updateFields);
+
         if (Object.keys(updateFields).length > 0) {
           const result = await updateUser(loggedInUser._id, updateFields);
           if (result) {
-            console.log('User updated successfully');
+            console.log('User updated successfully:', updateFields);
           } else {
             console.error('Error updating user');
           }
