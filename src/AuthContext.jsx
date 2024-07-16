@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Error logging in:', errorData);
-        return false;
+        return { ok: false, error: errorData };
       }
 
       const data = await response.json();
@@ -36,10 +36,10 @@ const AuthProvider = ({ children }) => {
       setUser(data.user);
 
       if (callback) callback(data.user);
-      return true;
+      return { ok: true, data };
     } catch (error) {
       console.error('Error logging in:', error);
-      return false;
+      return { ok: false, error: 'An error occurred during login. Please try again later.' };
     }
   };
 

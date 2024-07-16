@@ -19,30 +19,25 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await login(email, password, async (loggedInUser) => {
-        const cartItem = JSON.parse(localStorage.getItem('cartItem'));
-        if (cartItem && loggedInUser) {
-          const { brand, dpi, sensitivity } = cartItem;
-          const updateFields = {};
-          if (loggedInUser.brand === null) updateFields.brand = brand;
-          if (loggedInUser.dpi === null) updateFields.dpi = dpi;
-          if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
+    const response = await login(email, password, async (loggedInUser) => {
+      const cartItem = JSON.parse(localStorage.getItem('cartItem'));
+      if (cartItem && loggedInUser) {
+        const { brand, dpi, sensitivity } = cartItem;
+        const updateFields = {};
+        if (loggedInUser.brand === null) updateFields.brand = brand;
+        if (loggedInUser.dpi === null) updateFields.dpi = dpi;
+        if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
 
-          if (Object.keys(updateFields).length > 0) {
-            await updateUser(loggedInUser._id, updateFields);
-          }
+        if (Object.keys(updateFields).length > 0) {
+          await updateUser(loggedInUser._id, updateFields);
         }
-      });
-
-      if (response.ok) {
-        navigate('/');
-      } else {
-        const data = await response.json();
-        setError(data.error);
       }
-    } catch (error) {
-      setError('An error occurred. Please try again later.');
+    });
+
+    if (response.ok) {
+      navigate('/');
+    } else {
+      setError(response.error.error || response.error);
     }
   };
 
