@@ -9,7 +9,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login, user } = useAuth(); // Obtener el usuario desde el contexto
+  const { login, updateUser, user } = useAuth(); // Obtener el usuario y updateUser desde el contexto
 
   useEffect(() => {
     if (user) {
@@ -19,7 +19,20 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(email, password);
+    const success = await login(email, password, async (loggedInUser) => {
+      const cartItem = JSON.parse(localStorage.getItem('cartItem'));
+      if (cartItem && loggedInUser) {
+        const { brand, dpi, sensitivity } = cartItem;
+        const updateFields = {};
+        if (loggedInUser.brand === null) updateFields.brand = brand;
+        if (loggedInUser.dpi === null) updateFields.dpi = dpi;
+        if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
+
+        if (Object.keys(updateFields).length > 0) {
+          await updateUser(loggedInUser._id, updateFields);
+        }
+      }
+    });
     if (success) {
       navigate('/');
     } else {
