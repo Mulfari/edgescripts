@@ -33,10 +33,11 @@ const Login = () => {
         }
       }
     });
+
     if (success) {
       navigate('/');
     } else {
-      setError('Invalid email or password');
+      setError('Please verify your email address to log in.');
     }
   };
 
