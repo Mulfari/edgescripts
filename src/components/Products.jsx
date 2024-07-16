@@ -5,19 +5,10 @@ import { FaTag, FaStar, FaSearch } from 'react-icons/fa';
 
 const productos = [
   { id: 1, imagen: productImage, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true },
-  { id: 2, imagen: productImage, descripcion: 'Apex Legends No Recoil Macro', precioOriginal: '', precioDescuento: '14.99 $', descuento: '', categoria: 'Apex Legends', popularidad: 4, nuevo: false },
-  { id: 3, imagen: productImage, descripcion: 'PUBG No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '25%', categoria: 'PUBG', popularidad: 3, nuevo: false },
-  { id: 4, imagen: productImage, descripcion: 'Call Of Duty Black Ops 3 Macro', precioOriginal: '', precioDescuento: '9.99 $', descuento: '', categoria: 'Call of Duty', popularidad: 4, nuevo: true },
-  { id: 5, imagen: productImage, descripcion: 'Call Of Duty Modern Warfare', precioOriginal: '24.99 $', precioDescuento: '18.99 $', descuento: '24%', categoria: 'Call of Duty', popularidad: 5, nuevo: false },
-  { id: 6, imagen: productImage, descripcion: 'Valorant No Recoil Macro', precioOriginal: '', precioDescuento: '14.99 $', descuento: '', categoria: 'Valorant', popularidad: 4, nuevo: false },
-  { id: 7, imagen: productImage, descripcion: 'COD Modern Warfare 2 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Call of Duty', popularidad: 3, nuevo: true },
-  { id: 8, imagen: productImage, descripcion: 'Battlefield 2042 No Recoil Macro', precioOriginal: '', precioDescuento: '18.99 $', descuento: '', categoria: 'Battlefield', popularidad: 5, nuevo: false },
-  { id: 9, imagen: productImage, descripcion: 'CS2 No Recoil Macro', precioOriginal: '', precioDescuento: '14.99 $', descuento: '', categoria: 'CS:GO', popularidad: 2, nuevo: false },
+  // Otros productos de Warzone...
 ];
 
-const categorias = ['Todos', 'Warzone', 'Apex Legends', 'PUBG', 'Call of Duty', 'Valorant', 'Battlefield', 'CS:GO'];
-
-const Products = ({ category }) => {
+const Products = () => {
   const [busqueda, setBusqueda] = useState('');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,16 +18,15 @@ const Products = ({ category }) => {
     setLoading(true);
     const timer = setTimeout(() => setLoading(false), 500); // Simular tiempo de carga
     return () => clearTimeout(timer);
-  }, [category, currentPage]);
+  }, [currentPage]);
 
-  const filtrarProductos = (productos, busqueda, categoria) => {
+  const filtrarProductos = (productos, busqueda) => {
     return productos.filter(producto => 
-      producto.descripcion.toLowerCase().includes(busqueda.toLowerCase()) &&
-      (categoria === 'Todos' || producto.categoria.toLowerCase() === categoria.toLowerCase())
+      producto.descripcion.toLowerCase().includes(busqueda.toLowerCase())
     );
   };
 
-  const productosFiltrados = filtrarProductos(productos, busqueda, category);
+  const productosFiltrados = filtrarProductos(productos, busqueda);
 
   // Obtener productos actuales para paginación
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -53,7 +43,7 @@ const Products = ({ category }) => {
     return currentProducts.map((producto) => (
       <Link 
         key={producto.id}
-        to={`/products/${producto.categoria.toLowerCase()}`}
+        to={`/products/warzone/${producto.id}`}
         className="bg-gray-900 p-6 rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg relative overflow-hidden flex flex-col justify-between group animate-fadeIn"
         style={{ minHeight: '400px' }}
       >
@@ -121,28 +111,15 @@ const Products = ({ category }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center mb-6 space-x-2 category-buttons">
-          {categorias.map((cat) => (
-            <Link
-              key={cat}
-              to={`/products/${cat.toLowerCase()}`}
-              className={`py-2 px-4 rounded-full text-white ${
-                category === cat ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'
-              } transition-colors duration-300`}
-            >
-              {cat}
-            </Link>
-          ))}
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {renderProducts()}
         </div>
-        <div className="pagination">
+        <div className="pagination mt-6 flex justify-center">
           {Array.from({ length: Math.ceil(productosFiltrados.length / productsPerPage) }, (_, i) => (
             <button 
               key={i + 1} 
               onClick={() => paginate(i + 1)} 
-              className={`px-4 py-2 rounded ${currentPage === i + 1 ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'} text-white`}
+              className={`px-4 py-2 mx-1 rounded ${currentPage === i + 1 ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'} text-white`}
               disabled={currentPage === i + 1}
             >
               {i + 1}
