@@ -4,7 +4,7 @@ import productImage from '../assets/Categorias/wzlogo.png'; // Reemplaza con la 
 import { FaTag, FaStar, FaSearch } from 'react-icons/fa';
 
 const productos = [
-  { id: 1, imagen: productImage, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true },
+  { imagen: productImage, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true },
   // Otros productos de Warzone...
 ];
 
@@ -43,7 +43,7 @@ const Products = () => {
     return currentProducts.map((producto) => (
       <Link 
         key={producto.id}
-        to={`/products/warzone/${producto.id}`}
+        to={`/products/warzone`}
         className="bg-gray-900 p-6 rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg relative overflow-hidden flex flex-col justify-between group animate-fadeIn"
         style={{ minHeight: '400px' }}
       >
