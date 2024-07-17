@@ -145,6 +145,8 @@ const Header = ({ cartItems, removeFromCart }) => {
             return;
         }
         window.location.href = checkoutUrl;
+      } else {
+        console.error('No product in the cart');
       }
     } else {
       setCheckoutNotification(true);
