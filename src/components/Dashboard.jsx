@@ -22,11 +22,15 @@ const Dashboard = () => {
           },
         });
 
+        const responseBody = await response.text(); // Obtener la respuesta como texto
+        console.log('Response status:', response.status);
+        console.log('Response body:', responseBody);
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
+        const data = JSON.parse(responseBody); // Convertir la respuesta de texto a JSON
         setPurchases(data.purchases);
       } catch (error) {
         console.error('Error fetching purchases:', error);
