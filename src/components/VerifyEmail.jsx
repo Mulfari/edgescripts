@@ -20,8 +20,8 @@ const VerifyEmail = () => {
         }
         const data = await response.json();
         setMessage(data.message);
+        console.log(data.message); // Log for debugging
 
-        // Iniciar la cuenta regresiva si la verificación es exitosa
         if (data.message === 'Email confirmed successfully') {
           const countdownInterval = setInterval(() => {
             setRedirectCountdown((prev) => {
@@ -43,6 +43,12 @@ const VerifyEmail = () => {
 
     verifyEmail();
   }, [location, navigate]);
+
+  useEffect(() => {
+    if (message === 'Email confirmed successfully') {
+      console.log('Starting countdown'); // Log for debugging
+    }
+  }, [message]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
