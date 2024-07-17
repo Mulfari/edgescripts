@@ -6,7 +6,6 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [redirectMessage, setRedirectMessage] = useState('');
   const [countdown, setCountdown] = useState(6);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     if (!isLoading && message) {
-      setRedirectMessage('You will be redirected in 6 seconds...');
       const interval = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 1) {
@@ -61,11 +59,9 @@ const VerifyEmail = () => {
         ) : (
           <div className="text-black bg-gray-200 p-4 rounded-md text-center">
             <p className="text-lg font-semibold">{message}</p>
-            {redirectMessage && (
-              <p className="mt-4 text-sm text-gray-600">
-                {redirectMessage} {countdown}
-              </p>
-            )}
+            <p className="mt-4 text-sm text-gray-600">
+              You will be redirected in <span className="text-red-600">{countdown}</span> seconds...
+            </p>
           </div>
         )}
       </div>
