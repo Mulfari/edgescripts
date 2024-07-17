@@ -7,6 +7,10 @@ const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [purchases, setPurchases] = useState([]);
+  const [amount, setAmount] = useState('');
+  const [currency, setCurrency] = useState('usd');
+  const [description, setDescription] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchPurchases = async () => {
@@ -18,7 +22,7 @@ const Dashboard = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log('Purchases:', data);  // Agrega este log para verificar los datos
+          console.log('Purchases:', data);  // Verificar los datos aquí
           setPurchases(data);
         } else {
           console.error('Failed to fetch purchases');
@@ -36,6 +40,35 @@ const Dashboard = () => {
   if (!user) {
     return <Navigate to="/login" />;
   }
+
+  const handleCreateCharge = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stripe/charge`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ amount: parseInt(amount, 10) * 100, currency, description })  // Convertir a centavos
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(`Charge created successfully: ${data.id}`);
+        setAmount('');
+        setCurrency('usd');
+        setDescription('');
+        // Fetch purchases again to update the list
+        fetchPurchases();
+      } else {
+        const errorData = await response.json();
+        setMessage(`Failed to create charge: ${errorData.error}`);
+      }
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+  };
 
   const handleEditClick = () => {
     navigate('/recovery-password');
@@ -87,6 +120,49 @@ const Dashboard = () => {
               <p className="text-gray-700">No purchases found.</p>
             </div>
           )}
+        </div>
+        <hr className="my-4" />
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4">Create a Charge</h3>
+          <form onSubmit={handleCreateCharge} className="mb-8 text-left">
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Amount (in USD):</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Currency:</label>
+              <input
+                type="text"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Description:</label>
+              <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg"
+            >
+              Create Charge
+            </button>
+          </form>
+          {message && <p className="text-center text-red-500">{message}</p>}
         </div>
       </div>
     </div>
