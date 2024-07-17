@@ -20,13 +20,11 @@ const VerifyEmail = () => {
         }
         const data = await response.json();
         setMessage(data.message);
-        console.log(data.message); // Log for debugging
-
-        if (data.message === 'Email confirmed successfully') {
-          const countdownInterval = setInterval(() => {
+        if (data.message === 'Email verified successfully') {
+          const countdown = setInterval(() => {
             setRedirectCountdown((prev) => {
               if (prev === 1) {
-                clearInterval(countdownInterval);
+                clearInterval(countdown);
                 navigate('/login');
               }
               return prev - 1;
@@ -44,12 +42,6 @@ const VerifyEmail = () => {
     verifyEmail();
   }, [location, navigate]);
 
-  useEffect(() => {
-    if (message === 'Email confirmed successfully') {
-      console.log('Starting countdown'); // Log for debugging
-    }
-  }, [message]);
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -60,12 +52,16 @@ const VerifyEmail = () => {
             <span className="text-xl text-black">Verifying...</span>
           </div>
         ) : (
-          <div className="flex flex-col items-center">
-            <p className="text-black bg-gray-200 p-4 rounded-md text-center mb-4">{message}</p>
-            {message === 'Email confirmed successfully' && (
-              <p className="text-red-500 text-xl">Redirecting in {redirectCountdown}...</p>
+          <>
+            <p className="text-black bg-gray-200 p-4 rounded-md text-center">
+              {message}
+            </p>
+            {message === 'Email verified successfully' && (
+              <p className="text-black bg-gray-200 p-4 rounded-md text-center">
+                Redirecting in {redirectCountdown}...
+              </p>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
