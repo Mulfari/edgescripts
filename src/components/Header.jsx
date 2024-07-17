@@ -130,19 +130,22 @@ const Header = ({ cartItems, removeFromCart }) => {
       const product = cartItems[0];
       let checkoutUrl = '';
       if (product) {
-        console.log('Product option:', product.option);
-        switch (product.option) {
+        const option = product.option.toLowerCase();
+        console.log('Product option:', option);
+        switch (option) {
           case '1 arma':
+          case '1 weapon':
             checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi';
             break;
           case '2 armas':
+          case '2 weapons':
             checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi2';
             break;
           case 'custom':
             checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi3';
             break;
           default:
-            console.error('Invalid product option:', product.option);
+            console.error('Invalid product option:', option);
             return;
         }
         window.location.href = checkoutUrl;
