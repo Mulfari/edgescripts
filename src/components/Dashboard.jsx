@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { FaUserCircle, FaEdit } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -22,7 +22,6 @@ const Dashboard = () => {
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>
-            <p className="text-xl text-gray-700">{user.username}</p>
           </div>
         </div>
         <hr className="my-4" />
@@ -31,13 +30,13 @@ const Dashboard = () => {
           <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.username}</p>
           <div className="flex items-center mt-2">
             <p className="text-gray-700"><strong>Password:</strong> ••••••••</p>
-            <button
+            <a
               onClick={handleEditClick}
-              className="ml-4 text-blue-500 hover:text-blue-700"
+              className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer"
               title="Change Password"
             >
-              <FaEdit className="text-2xl" />
-            </button>
+              Change Password
+            </a>
           </div>
         </div>
         <hr className="my-4" />
