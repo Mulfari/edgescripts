@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/purchases`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
