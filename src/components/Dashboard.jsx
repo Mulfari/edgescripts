@@ -21,7 +21,8 @@ const Dashboard = () => {
         <div className="flex items-center mb-8">
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Welcome!</h2>
+            <p className="text-gray-700 mt-1">We're glad to have you back!</p>
           </div>
         </div>
         <hr className="my-4" />
@@ -44,9 +45,8 @@ const Dashboard = () => {
           <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4">Purchase History</h3>
           <div className="flex flex-wrap justify-center">
             <div className="w-full lg:w-2/3 text-left">
-              <h4 className="text-xl font-semibold text-gray-800 mb-4">Products</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4 transition-transform transform hover:scale-105">
+                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
                   <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
                   <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
                   <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
