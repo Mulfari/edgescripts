@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaEdit } from 'react-icons/fa';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -22,20 +22,23 @@ const Dashboard = () => {
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>
-            <p className="text-xl text-gray-700">{user.email}</p>
+            <p className="text-xl text-gray-700">{user.username}</p>
           </div>
         </div>
         <hr className="my-4" />
         <div className="mb-8 text-left">
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
-          <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.email}</p>
-          <p className="text-gray-700 mt-2"><strong>Password:</strong> ******</p>
-          <button
-            onClick={handleEditClick}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Edit
-          </button>
+          <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.username}</p>
+          <div className="flex items-center mt-2">
+            <p className="text-gray-700"><strong>Password:</strong> ••••••••</p>
+            <button
+              onClick={handleEditClick}
+              className="ml-4 text-blue-500 hover:text-blue-700"
+              title="Change Password"
+            >
+              <FaEdit className="text-2xl" />
+            </button>
+          </div>
         </div>
         <hr className="my-4" />
         <div>
