@@ -22,13 +22,12 @@ const Dashboard = () => {
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome!</h2>
-            <p className="text-gray-700 mt-1"> </p>
           </div>
         </div>
         <hr className="my-4" />
         <div className="mb-8 text-left">
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
-          <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.username}</p>
+          <p className="text-gray-700 mt-2"><strong>Email: </strong> {user.username}</p>
           <div className="flex items-center mt-2">
             <p className="text-gray-700"><strong>Password:</strong> ••••••••</p>
             <a
