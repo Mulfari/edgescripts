@@ -5,6 +5,7 @@ const VerifyEmail = () => {
   const location = useLocation();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -18,6 +19,9 @@ const VerifyEmail = () => {
         }
         const data = await response.json();
         setMessage(data.message);
+        if (data.message === 'Email verified successfully') {
+          setIsVerified(true);
+        }
       } catch (error) {
         console.error('Error verifying email:', error);
         setMessage('Error verifying email.');
@@ -39,9 +43,16 @@ const VerifyEmail = () => {
             <span className="text-xl text-black">Verifying...</span>
           </div>
         ) : (
-          <p className="text-black bg-gray-200 p-4 rounded-md text-center">
-            {message}
-          </p>
+          <>
+            <p className="text-black bg-gray-200 p-4 rounded-md text-center">
+              {message}
+            </p>
+            {isVerified && (
+              <p className="text-black bg-gray-200 p-4 rounded-md text-center mt-4">
+                Your email has been verified successfully. Please proceed to log in.
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>
