@@ -1,14 +1,19 @@
 import React from 'react';
 import { useAuth } from '../AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   if (!user) {
     return <Navigate to="/login" />;
   }
+
+  const handleEditClick = () => {
+    navigate('/recovery-password');
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
@@ -17,14 +22,20 @@ const Dashboard = () => {
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>
-            <p className="text-xl text-gray-700">John Doe</p>
+            <p className="text-xl text-gray-700">{user.email}</p>
           </div>
         </div>
         <hr className="my-4" />
         <div className="mb-8 text-left">
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
-          <p className="text-gray-700 mt-2"><strong>Username:</strong> {user.username}</p>
           <p className="text-gray-700 mt-2"><strong>Email:</strong> {user.email}</p>
+          <p className="text-gray-700 mt-2"><strong>Password:</strong> ******</p>
+          <button
+            onClick={handleEditClick}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Edit
+          </button>
         </div>
         <hr className="my-4" />
         <div>
@@ -38,7 +49,7 @@ const Dashboard = () => {
                   <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
                   <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
                 </div>
-                {/* Agrega más productos aquí si es necesario */}
+                {/* Add more products here if needed */}
               </div>
             </div>
             <div className="w-full lg:w-1/3 text-center mt-4 lg:mt-0 lg:ml-8">
