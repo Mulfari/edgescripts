@@ -35,8 +35,8 @@ const VerifyEmail = () => {
         <h2 className="text-3xl font-bold mb-6 text-center">Email Verification</h2>
         {isLoading ? (
           <div className="flex justify-center items-center">
-            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600"></div>
-            <span className="ml-4 text-xl">Verifying...</span>
+            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-t-4 border-gray-200"></div>
+            <span className="ml-4 text-xl text-black">Verifying...</span>
           </div>
         ) : (
           <p className="text-black bg-gray-200 p-4 rounded-md text-center">
