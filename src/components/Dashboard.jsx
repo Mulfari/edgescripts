@@ -22,7 +22,6 @@ const Dashboard = () => {
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome!</h2>
-            <p className="text-gray-700 mt-1">We're glad to have you back!</p>
           </div>
         </div>
         <hr className="my-4" />
