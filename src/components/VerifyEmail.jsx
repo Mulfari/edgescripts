@@ -7,6 +7,7 @@ const VerifyEmail = () => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [redirectMessage, setRedirectMessage] = useState('');
+  const [countdown, setCountdown] = useState(6);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -33,11 +34,18 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     if (!isLoading && message) {
-      setRedirectMessage('Serás redirigido en 10 segundos...');
-      const timer = setTimeout(() => {
-        navigate('/login');
-      }, 10000);
-      return () => clearTimeout(timer);
+      setRedirectMessage('You will be redirected in 6 seconds...');
+      const interval = setInterval(() => {
+        setCountdown((prevCountdown) => {
+          if (prevCountdown <= 1) {
+            clearInterval(interval);
+            navigate('/login');
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
     }
   }, [isLoading, message, navigate]);
 
@@ -52,8 +60,12 @@ const VerifyEmail = () => {
           </div>
         ) : (
           <div className="text-black bg-gray-200 p-4 rounded-md text-center">
-            <p>{message}</p>
-            {redirectMessage && <p>{redirectMessage}</p>}
+            <p className="text-lg font-semibold">{message}</p>
+            {redirectMessage && (
+              <p className="mt-4 text-sm text-gray-600">
+                {redirectMessage} {countdown}
+              </p>
+            )}
           </div>
         )}
       </div>
