@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
@@ -6,6 +6,31 @@ import { FaUserCircle } from 'react-icons/fa';
 const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [purchases, setPurchases] = useState([]);
+
+  useEffect(() => {
+    const fetchPurchases = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/purchases`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setPurchases(data);
+        } else {
+          console.error('Failed to fetch purchases');
+        }
+      } catch (error) {
+        console.error('Error fetching purchases:', error);
+      }
+    };
+
+    if (user) {
+      fetchPurchases();
+    }
+  }, [user]);
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -42,21 +67,25 @@ const Dashboard = () => {
         <hr className="my-4" />
         <div>
           <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4">Purchase History</h3>
-          <div className="flex flex-wrap justify-center">
-            <div className="w-full lg:w-2/3 text-left">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
-                  <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
-                  <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
-                  <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
+          {purchases.length > 0 ? (
+            <div className="flex flex-wrap justify-center">
+              <div className="w-full lg:w-2/3 text-left">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  {purchases.map((purchase) => (
+                    <div key={purchase.id} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+                      <p className="text-gray-700"><strong>Product Name:</strong> {purchase.description}</p>
+                      <p className="text-gray-700"><strong>Price:</strong> ${purchase.amount / 100}</p>
+                      <p className="text-gray-700"><strong>Date:</strong> {new Date(purchase.created * 1000).toLocaleDateString()}</p>
+                    </div>
+                  ))}
                 </div>
-                {/* Add more products here if needed */}
               </div>
             </div>
+          ) : (
             <div className="w-full lg:w-1/3 text-center mt-4 lg:mt-0 lg:ml-8">
               <p className="text-gray-700">No purchases found.</p>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
