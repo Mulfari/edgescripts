@@ -16,11 +16,16 @@ const Dashboard = () => {
 
     const fetchPurchases = async () => {
       try {
-        const response = await fetch(`/api/stripe/purchases?userId=${user._id}`, {
+        const response = await fetch(`/api/stripe/purchases?username=${user.username}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         setPurchases(data.purchases);
       } catch (error) {
