@@ -6,7 +6,7 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [redirectCountdown, setRedirectCountdown] = useState(5);
+  const [redirectMessage, setRedirectMessage] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -20,17 +20,6 @@ const VerifyEmail = () => {
         }
         const data = await response.json();
         setMessage(data.message);
-        if (data.message === 'Email verified successfully') {
-          const countdown = setInterval(() => {
-            setRedirectCountdown((prev) => {
-              if (prev === 1) {
-                clearInterval(countdown);
-                navigate('/login');
-              }
-              return prev - 1;
-            });
-          }, 1000);
-        }
       } catch (error) {
         console.error('Error verifying email:', error);
         setMessage('Error verifying email.');
@@ -40,7 +29,17 @@ const VerifyEmail = () => {
     };
 
     verifyEmail();
-  }, [location, navigate]);
+  }, [location]);
+
+  useEffect(() => {
+    if (!isLoading && message) {
+      setRedirectMessage('Serás redirigido en 10 segundos...');
+      const timer = setTimeout(() => {
+        navigate('/login');
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, message, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
@@ -52,16 +51,10 @@ const VerifyEmail = () => {
             <span className="text-xl text-black">Verifying...</span>
           </div>
         ) : (
-          <>
-            <p className="text-black bg-gray-200 p-4 rounded-md text-center">
-              {message}
-            </p>
-            {message === 'Email verified successfully' && (
-              <p className="text-black bg-gray-200 p-4 rounded-md text-center">
-                Redirecting in {redirectCountdown}...
-              </p>
-            )}
-          </>
+          <div className="text-black bg-gray-200 p-4 rounded-md text-center">
+            <p>{message}</p>
+            {redirectMessage && <p>{redirectMessage}</p>}
+          </div>
         )}
       </div>
     </div>
