@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const VerifyEmail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [isVerified, setIsVerified] = useState(false);
+  const [redirectCountdown, setRedirectCountdown] = useState(5);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -19,8 +20,18 @@ const VerifyEmail = () => {
         }
         const data = await response.json();
         setMessage(data.message);
-        if (data.message === 'Email verified successfully') {
-          setIsVerified(true);
+
+        // Iniciar la cuenta regresiva si la verificación es exitosa
+        if (data.message === 'Email confirmed successfully') {
+          const countdownInterval = setInterval(() => {
+            setRedirectCountdown((prev) => {
+              if (prev === 1) {
+                clearInterval(countdownInterval);
+                navigate('/login');
+              }
+              return prev - 1;
+            });
+          }, 1000);
         }
       } catch (error) {
         console.error('Error verifying email:', error);
@@ -31,7 +42,7 @@ const VerifyEmail = () => {
     };
 
     verifyEmail();
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
@@ -43,16 +54,12 @@ const VerifyEmail = () => {
             <span className="text-xl text-black">Verifying...</span>
           </div>
         ) : (
-          <>
-            <p className="text-black bg-gray-200 p-4 rounded-md text-center">
-              {message}
-            </p>
-            {isVerified && (
-              <p className="text-black bg-gray-200 p-4 rounded-md text-center mt-4">
-                Your email has been verified successfully. Please proceed to log in.
-              </p>
+          <div className="flex flex-col items-center">
+            <p className="text-black bg-gray-200 p-4 rounded-md text-center mb-4">{message}</p>
+            {message === 'Email confirmed successfully' && (
+              <p className="text-red-500 text-xl">Redirecting in {redirectCountdown}...</p>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>
