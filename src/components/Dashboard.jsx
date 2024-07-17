@@ -18,6 +18,7 @@ const Dashboard = () => {
         });
         if (response.ok) {
           const data = await response.json();
+          console.log('Purchases:', data);  // Agrega este log para verificar los datos
           setPurchases(data);
         } else {
           console.error('Failed to fetch purchases');
