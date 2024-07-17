@@ -32,7 +32,7 @@ const Dashboard = () => {
             <p className="text-gray-700"><strong>Password:</strong> ••••••••</p>
             <a
               onClick={handleEditClick}
-              className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer"
+              className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer underline"
               title="Change Password"
             >
               Change Password
@@ -46,7 +46,7 @@ const Dashboard = () => {
             <div className="w-full lg:w-2/3 text-left">
               <h4 className="text-xl font-semibold text-gray-800 mb-4">Products</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+                <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4 transition-transform transform hover:scale-105">
                   <p className="text-gray-700"><strong>Product Name:</strong> Example Product</p>
                   <p className="text-gray-700"><strong>Price:</strong> $49.99</p>
                   <p className="text-gray-700"><strong>Date:</strong> 2023-01-01</p>
