@@ -127,7 +127,25 @@ const Header = ({ cartItems, removeFromCart }) => {
 
   const handleCheckout = () => {
     if (user) {
-      // Proceed to checkout
+      const product = cartItems[0];
+      let checkoutUrl = '';
+      if (product) {
+        switch (product.option) {
+          case '1 arma':
+            checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi';
+            break;
+          case '2 armas':
+            checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi2';
+            break;
+          case 'custom':
+            checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi3';
+            break;
+          default:
+            console.error('Invalid product option');
+            return;
+        }
+        window.location.href = checkoutUrl;
+      }
     } else {
       setCheckoutNotification(true);
       setTimeout(() => {
