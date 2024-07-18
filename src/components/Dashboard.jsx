@@ -58,10 +58,10 @@ const Dashboard = () => {
               <div className="w-full lg:w-2/3 text-left">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
                   {purchases.map((purchase) => (
-                    <div key={purchase.id} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
-                      <p className="text-gray-700"><strong>Product Name:</strong> {purchase.description}</p>
-                      <p className="text-gray-700"><strong>Price:</strong> ${purchase.amount / 100}</p>
-                      <p className="text-gray-700"><strong>Date:</strong> {new Date(purchase.created * 1000).toLocaleDateString()}</p>
+                    <div key={purchase._id} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+                      <p className="text-gray-700"><strong>Product Name:</strong> {purchase.name}</p>
+                      <p className="text-gray-700"><strong>Quantity:</strong> {purchase.quantity}</p>
+                      <p className="text-gray-700"><strong>Date Added:</strong> {new Date(purchase.addedAt).toLocaleDateString()}</p>
                     </div>
                   ))}
                 </div>
