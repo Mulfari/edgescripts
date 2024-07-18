@@ -43,7 +43,7 @@
   --color-gray-light: #F3F4F6;
   --color-black: #1F2937;
   --color-white: #FFFFFF;
-  --color-gray-dark: #2D2D2D; /* Nuevo color gris oscuro */
+  --color-gray-dark: #2D2D2D;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -93,7 +93,7 @@ body {
 
 .Header, .Footer {
   width: 100%;
-  background-color: var(--color-gray-dark); /* Cambiado a gris oscuro */
+  background-color: var(--color-gray-dark);
   color: var(--color-white);
 }
 
