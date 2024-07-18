@@ -11,7 +11,7 @@ const InfoSection = () => {
     {
       icon: <FaSyncAlt size={40} className="text-green-400" />,
       title: 'Compatibility',
-      description: 'Royal Coders offers macros for various mouse brands. Please check the product page for details, as some of the macros may not be compatible with all mice specified.',
+      description: 'Compatibility with most mouse brands and devices.',
     },
     {
       icon: <FaCogs size={40} className="text-red-400" />,
