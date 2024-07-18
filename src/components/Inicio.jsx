@@ -4,11 +4,13 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import s1 from '../assets/s1.png'; // Asegúrate de que la ruta sea correcta
+import background from '../assets/background.jpg'; // Nueva imagen de fondo
 
 const Inicio = () => {
   return (
-    <section className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 pt-16">
-      <div className="container mx-auto px-4 py-8 lg:py-16">
+    <section className="relative pt-16 bg-cover bg-center" style={{ backgroundImage: `url(${background})` }}>
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="container relative mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
