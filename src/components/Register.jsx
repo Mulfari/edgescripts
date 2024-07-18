@@ -8,6 +8,9 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [dob, setDob] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [subscribeNewsletter, setSubscribeNewsletter] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(5);
@@ -37,15 +40,32 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    const age = new Date().getFullYear() - new Date(dob).getFullYear();
+    if (age < 18) {
+      setError('You must be at least 18 years old to register');
+      return;
+    }
+
+    if (!acceptTerms) {
+      setError('You must accept the terms and conditions');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
+
     const success = await handleRegister(email, password);
     if (success) {
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      setDob('');
+      setAcceptTerms(false);
+      setSubscribeNewsletter(false);
       setSuccess(true);
     }
   };
@@ -139,6 +159,39 @@ const Register = () => {
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Date of Birth</label>
+            <input
+              type="date"
+              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={acceptTerms}
+                onChange={(e) => setAcceptTerms(e.target.checked)}
+                required
+              />
+              Accept Terms and Conditions
+            </label>
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 mb-2">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={subscribeNewsletter}
+                onChange={(e) => setSubscribeNewsletter(e.target.checked)}
+              />
+              Subscribe to Newsletter
+            </label>
           </div>
           <button
             type="submit"
