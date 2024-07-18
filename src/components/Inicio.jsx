@@ -27,19 +27,19 @@ const Inicio = () => {
 
   return (
     <div
-      className="relative w-full h-[39rem] md:h-[19.5rem] lg:h-[39rem] bg-fixed bg-center bg-cover overflow-hidden"
+      className="relative w-full h-screen bg-fixed bg-center bg-cover overflow-hidden"
       style={{ backgroundImage: `url(${i1})` }}
     >
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black to-transparent opacity-50"></div>
-      <div className={`relative z-10 flex flex-col items-start justify-center h-full text-left text-white p-6 md:px-20 lg:px-32 ${isReduced ? 'animate-moveLeft' : 'animate-moveRight'}`} style={{ maxWidth: '70%' }}>
+      <div className={`relative z-10 flex flex-col items-start justify-center h-full text-left text-white p-6 md:p-20 ${isReduced ? 'animate-moveLeft' : 'animate-moveRight'}`} style={{ maxWidth: '70%' }}>
         <div className="mt-16 mb-6">
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed font-play">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed font-play">
             Welcome to EdgeScripts, your ultimate source for top-tier gaming scripts designed for online games. Elevate your gameplay with our cutting-edge solutions.
           </p>
         </div>
         <div className="mt-6 md:mt-8 lg:mt-10">
           <div style={{ height: '3rem', width: '100%' }}>
-            <h1 className="text-base md:text-lg lg:text-xl font-bold mb-4 whitespace-nowrap overflow-visible text-clip font-press-start text-blue-500">
+            <h1 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-4 whitespace-nowrap overflow-visible text-clip font-press-start text-blue-500">
               <Typewriter
                 words={['Unlock your gaming potential']}
                 loop={0}
