@@ -73,6 +73,8 @@ const Register = () => {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [emailBlurred, setEmailBlurred] = useState(false);
   const [passwordBlurred, setPasswordBlurred] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   // Validación en tiempo real del correo electrónico
