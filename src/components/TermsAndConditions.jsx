@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const TermsAndConditions = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white p-8 flex items-center justify-center">
-      <div className="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl max-w-3xl mx-auto transform transition-transform duration-500 hover:scale-105">
+    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white pt-16 p-8 flex items-center justify-center">
+      <div className="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-6 border-b-4 border-gray-800 pb-2">Terms and Conditions</h1>
         <p className="mb-6 text-lg leading-relaxed">
           Welcome to EdgeScripts. These terms and conditions outline the rules and regulations for the use of our website.
