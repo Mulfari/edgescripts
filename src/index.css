@@ -124,7 +124,7 @@ button:focus-visible {
     background-color: var(--color-gray-light);
   }
   a:hover {
-    color: var(--color-blue-dark);
+    color: var (--color-blue-dark);
   }
   button {
     background-color: var(--color-white);
@@ -345,7 +345,7 @@ button:focus-visible {
 }
 
 .bg-animated-gradient {
-  background: linear-gradient(-45deg, #1E293B, #3B82F6, #1E293B, #1F2937);
+  background: linear-gradient(135deg, #0b0c10, #1f2833, #0b0c10, #0b0c10);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
@@ -357,7 +357,7 @@ html, body {
 }
 
 body {
-  background-color: #1E293B; /* Cambia el color de fondo del body */
+  background-color: #0b0c10; /* Cambia el color de fondo del body */
 }
 
 canvas#stars {
