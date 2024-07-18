@@ -6,7 +6,7 @@ import Stars from './Stars'; // Importa el componente Stars
 
 const Inicio = () => {
   return (
-    <section className="relative bg-gradient-radial from-purple-400 via-pink-500 to-red-500 pt-16">
+    <section className="relative bg-gradient-radial from-blue-900 via-gray-800 to-gray-900 pt-16">
       <Stars width={window.innerWidth} height={window.innerHeight} />
       <div className="relative z-20 container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">

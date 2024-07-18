@@ -124,7 +124,7 @@ button:focus-visible {
     background-color: var(--color-gray-light);
   }
   a:hover {
-    color: var(--color-blue-dark);
+    color: var (--color-blue-dark);
   }
   button {
     background-color: var(--color-white);
@@ -344,8 +344,7 @@ html, body {
 }
 
 body {
-  background-color: #31102F;
-  background: radial-gradient(ellipse at center, rgba(49,16,47,1) 0%, rgba(40,11,41,1) 100%);
+  background-color: #1E293B; /* Cambia el color de fondo del body */
 }
 
 canvas#stars {
