@@ -148,6 +148,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             console.error('Invalid product option:', option);
             return;
         }
+        removeFromCart();  // Clear the cart
         window.location.href = checkoutUrl;
       } else {
         console.error('No product in the cart');
