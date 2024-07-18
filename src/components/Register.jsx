@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
