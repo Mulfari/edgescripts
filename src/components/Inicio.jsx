@@ -12,11 +12,14 @@ const Inicio = () => {
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
-            Your ultimate source for gaming scripts.
+            Your ultimate source for gaming scripts
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-200 lg:mb-8 md:text-lg lg:text-xl">
-            Elevate your gameplay with our cutting-edge solutions.
+            Elevate your gameplay with our cutting-edge solutions
             </p>
+            <p className="max-w-3xl mb-6 font-light text-gray-200 md:text-xl lg:text-2xl">
+                Unlock your gaming potential
+              </p>
             <a 
                 href="/register" 
                 className="inline-flex items-center justify-center px-12 py-3 text-lg font-medium text-center text-white rounded-full bg-gradient-to-r from-blue-500 to-teal-400 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
