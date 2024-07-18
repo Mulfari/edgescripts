@@ -19,6 +19,7 @@
     "react-lazy-load-image-component": "^1.6.2",
     "react-router-dom": "^6.24.0",
     "react-simple-typewriter": "^5.0.1",
+    "tsparticles": "^3.5.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
