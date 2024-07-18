@@ -124,7 +124,7 @@ button:focus-visible {
     background-color: var(--color-gray-light);
   }
   a:hover {
-    color: var (--color-blue-dark);
+    color: var(--color-blue-dark);
   }
   button {
     background-color: var(--color-white);
@@ -335,6 +335,19 @@ button:focus-visible {
 .warzone-link,
 .support-link {
   color: black;
+}
+
+/* CSS para gradiente animado */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-animated-gradient {
+  background: linear-gradient(-45deg, #1E293B, #3B82F6, #1E293B, #1F2937);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
 }
 
 /* Estilos para el canvas de estrellas */
