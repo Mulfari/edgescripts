@@ -11,19 +11,21 @@ const Inicio = () => {
       <div className="relative z-20 container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7" style={{ marginTop: '-3%' }}>
-            <h1 className="max-w-2xl mb-2 text-5xl font-extrabold tracking-tight leading-none md:text-6xl xl:text-7xl text-white whitespace-nowrap">
+            <h1 className="max-w-2xl mb-6 text-5xl font-extrabold tracking-tight leading-none md:text-6xl xl:text-7xl text-white whitespace-nowrap">
               Welcome to EdgeScripts
             </h1>
-            <p className="max-w-2xl mb-1 font-light text-gray-200 md:text-lg lg:text-xl">
-              Your ultimate source for top-tier gaming scripts designed for online games.
-            </p>
-            <p className="max-w-2xl mb-6 font-light text-gray-200 md:text-lg lg:text-xl">
-              Elevate your gameplay with our cutting-edge solutions.
-            </p>
-            <div className="flex space-x-4" style={{ marginLeft: '5%' }}>
+            <div style={{ marginLeft: '3%' }}>
+              <p className="max-w-3xl mb-1 font-light text-gray-200 md:text-xl lg:text-2xl">
+                Your ultimate source for scripts designed for online games.
+              </p>
+              <p className="max-w-3xl mb-6 font-light text-gray-200 md:text-xl lg:text-2xl">
+                Elevate your gameplay with our cutting-edge solutions.
+              </p>
+            </div>
+            <div className="flex space-x-6" style={{ marginLeft: '2%', marginTop: '2%' }}>
               <a 
                 href="#" 
-                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-white rounded-full bg-gradient-to-r from-blue-500 to-teal-400 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 Get started
                 <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +34,7 @@ const Inicio = () => {
               </a>
               <a 
                 href="#" 
-                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-full shadow-lg transform transition duration-500 hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100"
               >
                 Speak to Sales
               </a> 
