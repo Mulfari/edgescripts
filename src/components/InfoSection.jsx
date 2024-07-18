@@ -15,8 +15,8 @@ const InfoSection = () => {
     },
     {
       icon: <FaCogs size={40} className="text-red-400" />,
-      title: 'How does it work?',
-      description: 'Macro makes specific mouse movements to counteract recoil. It works as if you would move the mouse yourself to control recoil precisely. Some macros offer a humanizer function.',
+      title: 'Customized',
+      description: 'We work with custom code tailored to the client’s needs.',
     },
     {
       icon: <FaQuestionCircle size={40} className="text-yellow-400" />,
