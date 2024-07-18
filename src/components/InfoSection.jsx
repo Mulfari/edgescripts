@@ -20,7 +20,7 @@ const InfoSection = () => {
     },
     {
       icon: <FaQuestionCircle size={40} className="text-yellow-400" />,
-      title: 'Support',
+      title: 'asd Support',
       description: 'We offer personalized customer support to ensure your needs are met.',
     },
   ];
