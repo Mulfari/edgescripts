@@ -24,20 +24,14 @@ const Inicio = () => {
             </div>
             <div className="flex space-x-6" style={{ marginLeft: '2%', marginTop: '2%' }}>
               <a 
-                href="#" 
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-white rounded-full bg-gradient-to-r from-blue-500 to-teal-400 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                href="/register" 
+                className="inline-flex items-center justify-center px-12 py-3 text-lg font-medium text-center text-white rounded-full bg-gradient-to-r from-blue-500 to-teal-400 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
-                Get started
+                Register
                 <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a 1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
               </a>
-              <a 
-                href="#" 
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-full shadow-lg transform transition duration-500 hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100"
-              >
-                Speak to Sales
-              </a> 
             </div>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex justify-center">
