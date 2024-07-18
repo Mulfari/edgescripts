@@ -15,7 +15,7 @@ const Inicio = () => {
             Your ultimate source for gaming scripts
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-200 lg:mb-8 md:text-lg lg:text-xl">
-             Elevate your gameplay with our cutting-edge solutions.
+                 Elevate your gameplay with our cutting-edge solutions.
             </p>
             <p className="max-w-3xl mb-6 font-light text-gray-200 md:text-xl lg:text-2xl">
                 Unlock your gaming potential.
