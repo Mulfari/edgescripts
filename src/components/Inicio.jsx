@@ -7,14 +7,14 @@ import s1 from '../assets/s1.png'; // Asegúrate de que la ruta sea correcta
 
 const Inicio = () => {
   return (
-    <section className="bg-gradient-to-r from-gray-700 via-gray-900 to-black dark:bg-gray-900 pt-16">
+    <section className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 pt-16">
       <div className="container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
               Payments tool for software companies
             </h1>
-            <p className="max-w-2xl mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">
+            <p className="max-w-2xl mb-6 font-light text-gray-200 lg:mb-8 md:text-lg lg:text-xl">
               From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.
             </p>
             <a 
