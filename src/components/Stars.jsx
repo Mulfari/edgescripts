@@ -13,8 +13,8 @@ const Stars = ({ width, height }) => {
           linkLengthMax = 7, linkOpacity = 0.25, linkFade = 90, linkSpeed = 1, glareAngle = -60,
           glareOpacityMultiplier = 0.05, renderParticles = true, renderParticleGlare = true, renderLinks = true,
           renderMesh = false, flicker = true, flickerSmoothing = 15, blurSize = 0, orbitTilt = true,
-          randomMotion = true, noiseLength = 1000, noiseStrength = 1;
-    
+          randomMotion = true, noiseLength = 1000, noiseStrength = 1, renderFlares = true;
+
     let c = 1000, n = 0, nAngle = (Math.PI * 2) / noiseLength, nRad = 100, nScale = 0.5, nPos = {x: 0, y: 0},
         points = [], vertices = [], triangles = [], links = [], particles = [], flares = [];
 
