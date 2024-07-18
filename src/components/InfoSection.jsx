@@ -6,7 +6,7 @@ const InfoSection = () => {
     {
       icon: <FaShieldAlt size={40} className="text-blue-400" />,
       title: 'Safe to use',
-      description: 'Our macros work on mouse software level. It doesn’t interfere with any game files and doesn’t require any external applications.',
+      description: 'Our macros are completely safe, do not interfere with game files, and do not require any external applications.',
     },
     {
       icon: <FaSyncAlt size={40} className="text-green-400" />,
