@@ -1,6 +1,8 @@
 // src/components/Inicio.jsx
 
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import s1 from '../assets/s1.png'; // Asegúrate de que la ruta sea correcta
 
 const Inicio = () => {
@@ -32,7 +34,12 @@ const Inicio = () => {
             </a> 
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex justify-center">
-            <img src={s1} alt="mockup" className="max-w-full h-auto" />
+            <LazyLoadImage
+              src={s1}
+              alt="mockup"
+              effect="blur"
+              className="max-w-full h-auto"
+            />
           </div>                
         </div>
       </div>
