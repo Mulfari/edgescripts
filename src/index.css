@@ -337,18 +337,16 @@ button:focus-visible {
   color: black;
 }
 
-/* CSS para gradiente animado menos predecible */
+/* CSS para gradiente animado */
 @keyframes gradientAnimation {
   0% { background-position: 0% 50%; }
-  25% { background-position: 50% 0%; }
   50% { background-position: 100% 50%; }
-  75% { background-position: 50% 100%; }
   100% { background-position: 0% 50%; }
 }
 
 .bg-animated-gradient {
-  background: radial-gradient(circle, #0b0c10, #1f2833, #0b0c10, #1b262c, #0b0c10);
-  background-size: 200% 200%;
+  background: linear-gradient(135deg, #0b0c10, #1f2833, #0b0c10, #1b262c);
+  background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
 
