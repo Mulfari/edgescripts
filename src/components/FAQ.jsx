@@ -48,24 +48,21 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white p-8">
-      <div className="max-w-4xl mx-auto bg-white text-gray-900 p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
+    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white pt-32 p-8">
+      <div className="max-w-4xl mx-auto bg-white text-gray-900 p-8 rounded-2xl shadow-2xl">
+        <h1 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h1>
         {faqs.map((faq, index) => (
-          <div key={index} className="mb-4">
+          <div key={index} className="mb-4 border-b border-gray-200">
             <button
               onClick={() => toggleCollapse(index)}
-              className="w-full text-left text-lg font-semibold focus:outline-none"
+              className="w-full text-left text-lg font-semibold focus:outline-none py-2 flex justify-between items-center"
             >
-              {faq.question}
-              <span className="float-right">
-                {activeIndex === index ? '-' : '+'}
-              </span>
+              <span>{faq.question}</span>
+              <span className="text-2xl">{activeIndex === index ? '-' : '+'}</span>
             </button>
             <Collapse isOpened={activeIndex === index}>
-              <div className="mt-2 text-gray-700">{faq.answer}</div>
+              <div className="mt-2 mb-4 text-gray-700">{faq.answer}</div>
             </Collapse>
-            {index < faqs.length - 1 && <hr className="mt-4" />}
           </div>
         ))}
       </div>
