@@ -16,28 +16,6 @@ const Register = () => {
   const [countdown, setCountdown] = useState(5);
   const navigate = useNavigate();
 
-  const handleRegister = async (email, password) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password }), // Asegúrate de enviar el campo 'username'
-      });
-      const data = await response.json();
-      if (response.ok) {
-        return true;
-      } else {
-        setError(data.error || 'Failed to register');
-        return false;
-      }
-    } catch (error) {
-      setError('An error occurred');
-      return false;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -58,15 +36,36 @@ const Register = () => {
       return;
     }
 
-    const success = await handleRegister(email, password);
-    if (success) {
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setDob('');
-      setAcceptTerms(false);
-      setSubscribeNewsletter(false);
-      setSuccess(true);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password,
+          dateOfBirth: dob,
+          acceptedTerms: acceptTerms,
+          subscribedToNewsletter: subscribeNewsletter
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setDob('');
+        setAcceptTerms(false);
+        setSubscribeNewsletter(false);
+        setSuccess(true);
+      } else {
+        setError(data.message || 'Failed to register');
+      }
+    } catch (error) {
+      setError('An error occurred');
     }
   };
 
