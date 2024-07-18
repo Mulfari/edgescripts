@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import Delaunator from 'delaunator';
 
 const Stars = () => {
   const canvasRef = useRef(null);
@@ -71,10 +72,12 @@ const Stars = () => {
       for (let i = 0; i < particleCount; i++) {
         const p = new Particle();
         particles.push(p);
-        points.push([p.x*c, p.y*c]);
+        points.push([p.x * canvas.width, p.y * canvas.height]);
       }
 
-      vertices = Delaunay.triangulate(points);
+      const delaunay = Delaunator.from(points);
+      vertices = delaunay.triangles;
+
       let tri = [];
       for (let i = 0; i < vertices.length; i++) {
         if (tri.length === 3) {
