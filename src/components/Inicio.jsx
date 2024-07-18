@@ -1,66 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Typewriter } from 'react-simple-typewriter';
-import i1 from '../assets/i1.jpg';
-import s1 from '../assets/s1.png';
+// src/components/Inicio.jsx
+
+import React from 'react';
 
 const Inicio = () => {
-  const [isReduced, setIsReduced] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const imageElement = document.getElementById('characterImage');
-      if (imageElement) {
-        const rect = imageElement.getBoundingClientRect();
-        if (rect.top <= window.innerHeight) {
-          setIsReduced(true);
-        } else {
-          setIsReduced(false);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
-    <div
-      className="relative w-full h-screen bg-fixed bg-center bg-cover overflow-hidden"
-      style={{ backgroundImage: `url(${i1})` }}
-    >
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black to-transparent opacity-50"></div>
-      <div className={`relative z-10 flex flex-col items-start justify-center h-full text-left text-white p-6 md:p-20 ${isReduced ? 'animate-moveLeft' : 'animate-moveRight'}`} style={{ maxWidth: '70%' }}>
-        <div className="mt-16 mb-6">
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed font-play">
-            Welcome to EdgeScripts, your ultimate source for top-tier gaming scripts designed for online games. Elevate your gameplay with our cutting-edge solutions.
+    <section className="bg-white dark:bg-gray-900">
+      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7">
+          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+            Payments tool for software companies
+          </h1>
+          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.
           </p>
+          <a 
+            href="#" 
+            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+          >
+            Get started
+            <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+            </svg>
+          </a>
+          <a 
+            href="#" 
+            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            Speak to Sales
+          </a> 
         </div>
-        <div className="mt-6 md:mt-8 lg:mt-10">
-          <div style={{ height: '3rem', width: '100%' }}>
-            <h1 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-4 whitespace-nowrap overflow-visible text-clip font-press-start text-blue-500">
-              <Typewriter
-                words={['Unlock your gaming potential']}
-                loop={0}
-                cursor
-                cursorStyle='_'
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={1000}
-              />
-            </h1>
-          </div>
-        </div>
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
+        </div>                
       </div>
-      <img
-        id="characterImage"
-        src={s1}
-        alt="Character"
-        className="hidden xl:block absolute bottom-10 right-8 md:right-20 lg:right-32 z-20 animate-fadeInUp"
-        style={{ width: '30vw', height: 'auto', maxWidth: '600px' }}
-      />
-    </div>
+    </section>
   );
 };
 
