@@ -20,8 +20,8 @@ const InfoSection = () => {
     },
     {
       icon: <FaQuestionCircle size={40} className="text-yellow-400" />,
-      title: 'Personalized Support',
-      description: 'We offer personalized customer support to ensure your needs are met. Our detailed tutorials guide you on how to install and use our macros effectively.',
+      title: 'Support',
+      description: 'We offer personalized customer support to ensure your needs are met.',
     },
   ];
 
