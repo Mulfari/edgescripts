@@ -17,6 +17,7 @@ import Register from './components/Register';
 import VerifyEmail from './components/VerifyEmail';
 import Dashboard from './components/Dashboard';
 import TermsAndConditions from './components/TermsAndConditions';
+import FAQ from './components/FAQ';
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/support/terms" element={<TermsAndConditions />} />
+            <Route path="/support/faq" element={<FAQ />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Inicio />} />
