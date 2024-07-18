@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Delaunator from 'delaunator';
 
-const Stars = () => {
+const Stars = ({ width, height }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -136,8 +136,8 @@ const Stars = () => {
     }
 
     const resize = () => {
-      canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
-      canvas.height = canvas.width * (canvas.clientHeight / canvas.clientWidth);
+      canvas.width = width;
+      canvas.height = height;
     }
 
     const noisePoint = (i) => {
@@ -163,12 +163,12 @@ const Stars = () => {
     }
 
     if (canvas) init();
-  }, []);
+  }, [width, height]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="block w-full h-screen relative z-10"
+      className="absolute top-0 left-0 w-full h-full z-10"
       id="stars"
     />
   );
