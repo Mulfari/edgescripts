@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -67,7 +67,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
+      const response = await fetch(${import.meta.env.VITE_BACKEND_URL}/api/auth/register, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,9 +127,9 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       {success ? (
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center transition-transform transform duration-500 ease-in-out">
-          <FaCheckCircle className="text-green-500 text-5xl mb-4" />
+          <FaCheckCircle className="text-green-500 text-5xl mb-4 animate-bounce" />
           <h2 className="text-3xl font-bold mb-6 text-gray-900">Registration Successful</h2>
-          <p className="text-green-500 mb-4">Please check your email to confirm your account.</p>
+          <p className="text-green-500 mb-4">Please check your email.</p>
           <p className="text-gray-700">You will be redirected in <span className="text-red-500 font-bold">{countdown}</span> seconds...</p>
         </div>
       ) : (
