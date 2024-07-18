@@ -3,25 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
 
-// Validación del formato del correo electrónico
-const isValidEmail = (email) => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-};
-
-// Validación de la fuerza de la contraseña
-const isValidPassword = (password) => {
-  const minLength = 8;
-  return password.length >= minLength;
-};
-
-// Indicador de fuerza de la contraseña
-const getPasswordStrength = (password) => {
-  const result = zxcvbn(password);
-  return result.score;
-};
-
-// Spinner
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidPassword = (password) => password.length >= 8;
+const getPasswordStrength = (password) => zxcvbn(password).score;
 const Spinner = () => <div className="loader">Loading...</div>;
 
 const Register = () => {
@@ -38,19 +22,18 @@ const Register = () => {
   const [countdown, setCountdown] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   const [failedAttempts, setFailedAttempts] = useState(0);
+  const [emailBlurred, setEmailBlurred] = useState(false);
   const [passwordBlurred, setPasswordBlurred] = useState(false);
   const navigate = useNavigate();
 
-  // Validación en tiempo real del correo electrónico
   useEffect(() => {
-    if (email && !isValidEmail(email)) {
+    if (emailBlurred && email && !isValidEmail(email)) {
       setError('Invalid email format');
     } else {
       setError('');
     }
-  }, [email]);
+  }, [email, emailBlurred]);
 
-  // Validación en tiempo real de la contraseña
   useEffect(() => {
     if (passwordBlurred && password && !isValidPassword(password)) {
       setError('Password must be at least 8 characters long');
@@ -64,7 +47,6 @@ const Register = () => {
     setError('');
     setIsLoading(true);
 
-    // Validar edad y términos
     const age = new Date().getFullYear() - new Date(dob).getFullYear();
     if (age < 18) {
       setError('You must be at least 18 years old to register');
@@ -84,7 +66,6 @@ const Register = () => {
       return;
     }
 
-    // Enviar solicitud de registro
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
         method: 'POST',
@@ -115,11 +96,7 @@ const Register = () => {
         setFailedAttempts((prev) => prev + 1);
       }
     } catch (error) {
-      if (error.message.includes('NetworkError')) {
-        setError('Network error, please try again later');
-      } else {
-        setError('An error occurred');
-      }
+      setError(error.message.includes('NetworkError') ? 'Network error, please try again later' : 'An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -143,13 +120,8 @@ const Register = () => {
     }
   }, [success, navigate]);
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+  const toggleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
@@ -175,8 +147,19 @@ const Register = () => {
               className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setEmailBlurred(true)}
               required
               placeholder="Enter your email"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Date of Birth</label>
+            <input
+              type="date"
+              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              required
             />
           </div>
           <div className="mb-4">
@@ -222,16 +205,6 @@ const Register = () => {
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Date of Birth</label>
-            <input
-              type="date"
-              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              required
-            />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">
