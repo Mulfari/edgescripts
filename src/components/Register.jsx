@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
+import './Spinner.css'; // Importar el archivo CSS para el spinner
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
 const getPasswordStrength = (password) => zxcvbn(password).score;
-const Spinner = () => <div className="loader">Loading...</div>;
+
+const Spinner = () => <div className="spinner"></div>; // Nuevo componente de spinner
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -67,7 +69,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch(${import.meta.env.VITE_BACKEND_URL}/api/auth/register, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
