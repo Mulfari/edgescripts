@@ -20,13 +20,13 @@ const InfoSection = () => {
     },
     {
       icon: <FaQuestionCircle size={40} className="text-yellow-400" />,
-      title: 'Support',
-      description: 'We have created detailed tutorials on how to install and use our macros. In case you have any problems, feel free to contact our support.',
+      title: 'Personalized Support',
+      description: 'We offer personalized customer support to ensure your needs are met. Our detailed tutorials guide you on how to install and use our macros effectively.',
     },
   ];
 
   return (
-    <div className="py-8 bg-gray-200"> {/* Reducir el margen superior y opacar el fondo */}
+    <div className="py-8 bg-gray-200">
       <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {infoData.map((item, index) => (
