@@ -23,7 +23,7 @@ const Inicio = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen bg-fixed bg-center bg-cover overflow-hidden" style={{ backgroundImage: `url(${i1})` }}>
+    <div className="relative w-full min-h-screen bg-fixed bg-center bg-cover overflow-hidden" style={{ backgroundImage: `url(${i1})` }}>
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black to-transparent opacity-50"></div>
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center h-full text-center lg:text-left text-white p-6 lg:p-16">
         <div className="flex flex-col items-center lg:items-start lg:w-1/2 mb-8 lg:mb-0">
@@ -50,7 +50,7 @@ const Inicio = () => {
             src={s1}
             alt="Character"
             className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-            style={{ width: '300px', height: 'auto' }}
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
         </div>
       </div>
