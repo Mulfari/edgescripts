@@ -6,7 +6,7 @@ import Stars from './Stars'; // Importa el componente Stars
 
 const Inicio = () => {
   return (
-    <section className="relative bg-animated-gradient pt-16">
+    <section className="relative bg-gradient-to-r from-black via-gray-800 to-black pt-16">
       <Stars width={window.innerWidth} height={window.innerHeight} />
       <div className="relative z-20 container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
@@ -23,7 +23,7 @@ const Inicio = () => {
             >
               Get started
               <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a 1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
               </svg>
             </a>
             <a 
