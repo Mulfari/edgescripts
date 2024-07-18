@@ -10,7 +10,7 @@ const Inicio = () => {
       <Stars width={window.innerWidth} height={window.innerHeight} />
       <div className="relative z-20 container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
-          <div className="mr-auto place-self-center lg:col-span-7">
+          <div className="mr-auto place-self-center lg:col-span-7" style={{ marginTop: '-3%' }}>
             <h1 className="max-w-2xl mb-2 text-5xl font-extrabold tracking-tight leading-none md:text-6xl xl:text-7xl text-white whitespace-nowrap">
               Welcome to EdgeScripts
             </h1>
@@ -20,10 +20,10 @@ const Inicio = () => {
             <p className="max-w-2xl mb-6 font-light text-gray-200 md:text-lg lg:text-xl">
               Elevate your gameplay with our cutting-edge solutions.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" style={{ marginLeft: '5%' }}>
               <a 
                 href="#" 
-                className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
                 Get started
                 <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
