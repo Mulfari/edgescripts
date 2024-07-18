@@ -12,9 +12,7 @@ const isValidEmail = (email) => {
 // Validación de la fuerza de la contraseña
 const isValidPassword = (password) => {
   const minLength = 8;
-  const hasNumber = /\d/;
-  const hasSpecialChar = /[!@#$%^&*]/;
-  return password.length >= minLength && hasNumber.test(password) && hasSpecialChar.test(password);
+  return password.length >= minLength;
 };
 
 // Indicador de fuerza de la contraseña
@@ -40,6 +38,7 @@ const Register = () => {
   const [countdown, setCountdown] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   const [failedAttempts, setFailedAttempts] = useState(0);
+  const [passwordBlurred, setPasswordBlurred] = useState(false);
   const navigate = useNavigate();
 
   // Validación en tiempo real del correo electrónico
@@ -53,12 +52,12 @@ const Register = () => {
 
   // Validación en tiempo real de la contraseña
   useEffect(() => {
-    if (password && !isValidPassword(password)) {
-      setError('Password must be at least 8 characters long and include a number and a special character');
+    if (passwordBlurred && password && !isValidPassword(password)) {
+      setError('Password must be at least 8 characters long');
     } else {
       setError('');
     }
-  }, [password]);
+  }, [password, passwordBlurred]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -188,6 +187,7 @@ const Register = () => {
                 className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onBlur={() => setPasswordBlurred(true)}
                 required
                 placeholder="Enter your password"
               />
@@ -242,7 +242,7 @@ const Register = () => {
                 onChange={(e) => setAcceptTerms(e.target.checked)}
                 required
               />
-              Accept Terms and Conditions
+              Accept <Link to="/support/terms" className="text-blue-600">Terms and Conditions</Link>
             </label>
           </div>
           <div className="mb-6">
