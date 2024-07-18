@@ -7,7 +7,6 @@ module.exports = {
     extend: {
       fontFamily: {
         play: ['"Play"', 'sans-serif'],
-        'press-start': ['"Press Start 2P"', 'cursive'], // Agregar esta línea si falta
       },
       colors: {
         'green-500': '#00ff00',
