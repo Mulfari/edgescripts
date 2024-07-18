@@ -156,20 +156,23 @@ button:focus-visible {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-.spinner {
-  border: 8px solid rgba(255, 255, 255, 0.3);
-  border-left-color: #ffffff;
+.loader {
+  border: 8px solid #f3f3f3;
   border-radius: 50%;
+  border-top: 8px solid #3498db;
   width: 60px;
   height: 60px;
-  animation: spin 1s linear infinite;
-  display: inline-block;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Estilos para la paginación */
