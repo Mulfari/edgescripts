@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const isValidPassword = (password) => password.length >= 8;
+const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
 const getPasswordStrength = (password) => zxcvbn(password).score;
 const Spinner = () => <div className="loader">Loading...</div>;
 
@@ -36,7 +36,7 @@ const Register = () => {
 
   useEffect(() => {
     if (passwordBlurred && password && !isValidPassword(password)) {
-      setError('Password must be at least 8 characters long');
+      setError('Password must be between 8 and 32 characters long');
     } else {
       setError('');
     }
