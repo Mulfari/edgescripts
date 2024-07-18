@@ -15,7 +15,7 @@ const Inicio = () => {
             Welcome to EdgeScripts
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-200 lg:mb-8 md:text-lg lg:text-xl">
-            Elevate your gameplay with our cutting-edge solutions.
+            Your ultimate source for scripts designed for online games. Elevate your gameplay with our cutting-edge solutions.
             </p>
             <a 
                 href="/register" 
