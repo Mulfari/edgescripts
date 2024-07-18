@@ -12,11 +12,8 @@ const Inicio = () => {
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
-              Welcome to
+              Welcome to EdgeScripts
             </h1>
-            <h2 className="max-w-2xl mb-4 text-5xl font-extrabold tracking-tight leading-none md:text-6xl xl:text-7xl text-white">
-              EdgeScripts
-            </h2>
             <p className="max-w-2xl mb-1 font-light text-gray-200 lg:mb-2 md:text-lg lg:text-xl">
               Your ultimate source for top-tier gaming scripts designed for online games.
             </p>
