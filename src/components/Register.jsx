@@ -1,6 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
+import zxcvbn from 'zxcvbn';
+
+// Validación del formato del correo electrónico
+const isValidEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+// Validación de la fuerza de la contraseña
+const isValidPassword = (password) => {
+  const minLength = 8;
+  const hasNumber = /\d/;
+  const hasSpecialChar = /[!@#$%^&*]/;
+  return password.length >= minLength && hasNumber.test(password) && hasSpecialChar.test(password);
+};
+
+// Indicador de fuerza de la contraseña
+const getPasswordStrength = (password) => {
+  const result = zxcvbn(password);
+  return result.score;
+};
+
+// Spinner
+const Spinner = () => <div className="loader">Loading...</div>;
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -14,28 +38,54 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(5);
+  const [isLoading, setIsLoading] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
   const navigate = useNavigate();
+
+  // Validación en tiempo real del correo electrónico
+  useEffect(() => {
+    if (email && !isValidEmail(email)) {
+      setError('Invalid email format');
+    } else {
+      setError('');
+    }
+  }, [email]);
+
+  // Validación en tiempo real de la contraseña
+  useEffect(() => {
+    if (password && !isValidPassword(password)) {
+      setError('Password must be at least 8 characters long and include a number and a special character');
+    } else {
+      setError('');
+    }
+  }, [password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
+    // Validar edad y términos
     const age = new Date().getFullYear() - new Date(dob).getFullYear();
     if (age < 18) {
       setError('You must be at least 18 years old to register');
+      setIsLoading(false);
       return;
     }
 
     if (!acceptTerms) {
       setError('You must accept the terms and conditions');
+      setIsLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      setIsLoading(false);
       return;
     }
 
+    // Enviar solicitud de registro
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
         method: 'POST',
@@ -63,9 +113,20 @@ const Register = () => {
         setSuccess(true);
       } else {
         setError(data.message || 'Failed to register');
+        setFailedAttempts((prev) => prev + 1);
       }
     } catch (error) {
-      setError('An error occurred');
+      if (error.message.includes('NetworkError')) {
+        setError('Network error, please try again later');
+      } else {
+        setError('An error occurred');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (failedAttempts >= 3) {
+      setError('Too many failed attempts, please try again later');
     }
   };
 
@@ -138,6 +199,9 @@ const Register = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
+            <div className="password-strength mt-2">
+              <meter value={getPasswordStrength(password)} max="4"></meter>
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-gray-700 mb-2">Confirm Password</label>
@@ -195,8 +259,9 @@ const Register = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg"
+            disabled={isLoading}
           >
-            Register
+            {isLoading ? <Spinner /> : 'Register'}
           </button>
           <p className="mt-6 text-center text-gray-700">
             Already have an account? <Link to="/login" className="text-blue-600 font-semibold">Login</Link>
