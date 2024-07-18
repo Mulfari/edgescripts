@@ -3,64 +3,12 @@
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import Particles from 'react-tsparticles';
 import s1 from '../assets/s1.png'; // Asegúrate de que la ruta sea correcta
-
-const particlesOptions = {
-  background: {
-    color: {
-      value: "#0d47a1",
-    },
-  },
-  fpsLimit: 60,
-  particles: {
-    color: {
-      value: "#ffffff",
-    },
-    links: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.5,
-      width: 1,
-    },
-    collisions: {
-      enable: true,
-    },
-    move: {
-      direction: "none",
-      enable: true,
-      outMode: "bounce",
-      random: false,
-      speed: 2,
-      straight: false,
-    },
-    number: {
-      density: {
-        enable: true,
-        value_area: 800,
-      },
-      value: 80,
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: "circle",
-    },
-    size: {
-      random: true,
-      value: 5,
-    },
-  },
-  detectRetina: true,
-};
 
 const Inicio = () => {
   return (
-    <section className="relative pt-16 h-screen">
-      <Particles className="absolute inset-0" options={particlesOptions} />
-      <div className="relative container mx-auto px-4 py-8 lg:py-16">
+    <section className="bg-gradient-radial from-purple-400 via-pink-500 to-red-500 pt-16">
+      <div className="container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-0">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
