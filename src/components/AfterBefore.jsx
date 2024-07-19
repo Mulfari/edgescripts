@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import beforeImage from '../assets/before.jpg';  // Asegúrate de tener una imagen para "antes"
-import afterImage from '../assets/after.jpg';    // Asegúrate de tener una imagen para "después"
+import beforeImage from '../assets/wt.png';  // Asegúrate de tener una imagen para "antes"
+import afterImage from '../assets/w.png';    // Asegúrate de tener una imagen para "después"
 import 'tailwindcss/tailwind.css'; // Asegúrate de tener TailwindCSS configurado
 
 const AfterBefore = () => {

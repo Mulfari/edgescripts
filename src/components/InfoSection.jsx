@@ -16,12 +16,12 @@ const InfoSection = () => {
     {
       icon: <FaCogs size={40} className="text-red-400" />,
       title: 'Customized',
-      description: 'We work with custom code tailored to the client’s needs.',
+      description: 'We specialize in developing custom code that is specifically designed to meet the unique needs of each client.',
     },
     {
       icon: <FaQuestionCircle size={40} className="text-yellow-400" />,
       title: 'Support',
-      description: 'We offer personalized customer support to ensure your needs are met.',
+      description: 'We offer personalized attention to each client, customizing our services to their specific configuration to provide only high-quality scripts.',
     },
   ];
 
