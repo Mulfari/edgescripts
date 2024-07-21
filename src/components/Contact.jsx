@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { getCsrfToken } from '../utils/Utils';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const Contact = () => {
   const [subject, setSubject] = useState('');
@@ -50,17 +51,19 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full transition-transform transform hover:scale-105">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Contact Support</h2>
         {error && (
-          <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
-            {error}
-          </p>
+          <div className="flex items-center bg-red-100 text-red-700 p-4 rounded-lg mb-4">
+            <FaTimesCircle className="mr-2" />
+            <p>{error}</p>
+          </div>
         )}
         {success && (
-          <p className="text-green-500 bg-green-100 p-3 rounded-lg mb-4">
-            {success}
-          </p>
+          <div className="flex items-center bg-green-100 text-green-700 p-4 rounded-lg mb-4">
+            <FaCheckCircle className="mr-2" />
+            <p>{success}</p>
+          </div>
         )}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Subject</label>
