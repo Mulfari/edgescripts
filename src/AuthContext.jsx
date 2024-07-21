@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getCsrfToken } from './utils/Utils';
 
 const AuthContext = createContext();
 
@@ -15,11 +16,13 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password, callback) => {
+    const csrfToken = getCsrfToken(); // Obtener el token CSRF
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken, // Incluir el token CSRF
         },
         body: JSON.stringify({ username: email, password }),
       });

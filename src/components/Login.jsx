@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
+import { getCsrfToken } from '../utils/Utils';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,6 +20,8 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const csrfToken = getCsrfToken(); // Obtener el token CSRF
+
     const response = await login(email, password, async (loggedInUser) => {
       const cartItem = JSON.parse(localStorage.getItem('cartItem'));
       if (cartItem && loggedInUser) {
