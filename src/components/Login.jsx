@@ -25,26 +25,27 @@ const Login = () => {
     try {
       const csrfToken = await getCsrfToken(); // Obtener el token CSRF
 
-      const response = await login(email, password, async (loggedInUser) => {
-        const cartItem = JSON.parse(localStorage.getItem('cartItem'));
-        if (cartItem && loggedInUser) {
-          const { brand, dpi, sensitivity } = cartItem;
-          const updateFields = {};
-          if (loggedInUser.brand === null) updateFields.brand = brand;
-          if (loggedInUser.dpi === null) updateFields.dpi = dpi;
-          if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
-
-          if (Object.keys(updateFields).length > 0) {
-            await updateUser(loggedInUser._id, updateFields);
-          }
-        }
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken, // Incluir el token CSRF
+        },
+        body: JSON.stringify({ username: email, password }),
       });
 
-      if (response.ok) {
-        navigate('/');
-      } else {
-        setError(response.error.error || response.error);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
       }
+
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(data.user);
+
+      if (callback) callback(data.user);
+      return { ok: true, data };
     } catch (error) {
       setError(error.message || 'An error occurred during login. Please try again later.');
     }
