@@ -69,10 +69,16 @@ const Contact = () => {
           <h2 className="text-3xl font-bold mb-6 text-gray-900">Access Restricted</h2>
           <p className="text-gray-700 mb-4">You need to be logged in to access this section.</p>
           <div className="flex justify-around">
-            <Link to="/login" className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg">
+            <Link
+              to="/login"
+              className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300"
+            >
               Login
             </Link>
-            <Link to="/register" className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-lg">
+            <Link
+              to="/register"
+              className="px-6 py-2 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300"
+            >
               Register
             </Link>
           </div>
@@ -125,7 +131,7 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg"
+          className="w-full bg-blue-600 text-white py-3 rounded-full shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 font-semibold text-lg"
         >
           Send Message
         </button>
