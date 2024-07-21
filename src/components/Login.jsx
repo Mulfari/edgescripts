@@ -20,7 +20,7 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const csrfToken = getCsrfToken(); // Obtener el token CSRF
+    const csrfToken = await getCsrfToken(); // Obtener el token CSRF
 
     const response = await login(email, password, async (loggedInUser) => {
       const cartItem = JSON.parse(localStorage.getItem('cartItem'));
