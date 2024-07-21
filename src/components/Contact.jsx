@@ -36,7 +36,7 @@ const Contact = () => {
         },
         body: JSON.stringify({ message }),
       });
-
+  
       if (response.ok) {
         setFeedback('Your message has been sent successfully!');
         setMessage('');
@@ -46,7 +46,7 @@ const Contact = () => {
     } catch (error) {
       setFeedback('An error occurred. Please try again later.');
     }
-  };
+  };  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
