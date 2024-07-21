@@ -1,4 +1,3 @@
-// src/components/Contact.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
@@ -38,7 +37,7 @@ const Contact = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error);
+        throw new Error(errorData.error || 'An error occurred.');
       }
 
       setSuccess('Message sent successfully.');
