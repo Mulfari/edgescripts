@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getCsrfToken } from './utils/Utils';
+import { getCsrfToken } from '../utils/Utils';
 
 const AuthContext = createContext();
 
