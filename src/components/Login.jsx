@@ -20,27 +20,33 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const csrfToken = await getCsrfToken(); // Obtener el token CSRF
+    setError('');
 
-    const response = await login(email, password, async (loggedInUser) => {
-      const cartItem = JSON.parse(localStorage.getItem('cartItem'));
-      if (cartItem && loggedInUser) {
-        const { brand, dpi, sensitivity } = cartItem;
-        const updateFields = {};
-        if (loggedInUser.brand === null) updateFields.brand = brand;
-        if (loggedInUser.dpi === null) updateFields.dpi = dpi;
-        if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
+    try {
+      const csrfToken = await getCsrfToken(); // Obtener el token CSRF
 
-        if (Object.keys(updateFields).length > 0) {
-          await updateUser(loggedInUser._id, updateFields);
+      const response = await login(email, password, async (loggedInUser) => {
+        const cartItem = JSON.parse(localStorage.getItem('cartItem'));
+        if (cartItem && loggedInUser) {
+          const { brand, dpi, sensitivity } = cartItem;
+          const updateFields = {};
+          if (loggedInUser.brand === null) updateFields.brand = brand;
+          if (loggedInUser.dpi === null) updateFields.dpi = dpi;
+          if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
+
+          if (Object.keys(updateFields).length > 0) {
+            await updateUser(loggedInUser._id, updateFields);
+          }
         }
-      }
-    });
+      });
 
-    if (response.ok) {
-      navigate('/');
-    } else {
-      setError(response.error.error || response.error);
+      if (response.ok) {
+        navigate('/');
+      } else {
+        setError(response.error.error || response.error);
+      }
+    } catch (error) {
+      setError(error.message || 'An error occurred during login. Please try again later.');
     }
   };
 
