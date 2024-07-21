@@ -19,7 +19,7 @@ const Contact = () => {
     }
 
     try {
-      const response = await fetch('/api/contact/send-message', { // Asegúrate de que la URL es correcta
+      const response = await fetch('/api/contact/send-message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
