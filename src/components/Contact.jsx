@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { getCsrfToken } from '../utils/Utils';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
@@ -12,26 +12,39 @@ const Contact = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const MAX_SUBJECT_LENGTH = 100;
+  const MAX_MESSAGE_LENGTH = 1000;
+
   useEffect(() => {
     if (!user) {
-      navigate('/login'); // Redirigir a la página de inicio de sesión si el usuario no está autenticado
+      setError('You need to be logged in to access this section.');
     }
-  }, [user, navigate]);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
 
+    if (subject.length > MAX_SUBJECT_LENGTH) {
+      setError(`Subject must be less than ${MAX_SUBJECT_LENGTH} characters.`);
+      return;
+    }
+
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      setError(`Message must be less than ${MAX_MESSAGE_LENGTH} characters.`);
+      return;
+    }
+
     try {
-      const csrfToken = await getCsrfToken(); // Obtener el token CSRF
+      const csrfToken = await getCsrfToken();
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'CSRF-Token': csrfToken, // Incluir el token CSRF
+          'CSRF-Token': csrfToken,
         },
         body: JSON.stringify({ subject, message }),
       });
@@ -48,6 +61,25 @@ const Contact = () => {
       setError(error.message || 'An error occurred. Please try again later.');
     }
   };
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">Access Restricted</h2>
+          <p className="text-gray-700 mb-4">You need to be logged in to access this section.</p>
+          <div className="flex justify-around">
+            <Link to="/login" className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg">
+              Login
+            </Link>
+            <Link to="/register" className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-lg">
+              Register
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
@@ -74,7 +106,9 @@ const Contact = () => {
             onChange={(e) => setSubject(e.target.value)}
             required
             placeholder="Enter the subject"
+            maxLength={MAX_SUBJECT_LENGTH}
           />
+          <small className="text-gray-500">{subject.length}/{MAX_SUBJECT_LENGTH}</small>
         </div>
         <div className="mb-6">
           <label className="block text-gray-700 mb-2">Message</label>
@@ -85,7 +119,9 @@ const Contact = () => {
             required
             placeholder="Enter your message"
             rows="5"
+            maxLength={MAX_MESSAGE_LENGTH}
           />
+          <small className="text-gray-500">{message.length}/{MAX_MESSAGE_LENGTH}</small>
         </div>
         <button
           type="submit"
