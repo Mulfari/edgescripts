@@ -1,8 +1,7 @@
-// src/components/Contact.jsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { getCsrfToken } from '../utils/Utils';
 
 const Contact = () => {
   const [subject, setSubject] = useState('');
@@ -12,16 +11,11 @@ const Contact = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900">Contact Support</h2>
-          <p className="text-red-500">You need to be logged in to access this section.</p>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/login'); // Redirigir a la página de inicio de sesión si el usuario no está autenticado
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +23,14 @@ const Contact = () => {
     setSuccess('');
 
     try {
+      const csrfToken = await getCsrfToken(); // Obtener el token CSRF
+
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'CSRF-Token': csrfToken, // Incluir el token CSRF
         },
         body: JSON.stringify({ subject, message }),
       });
