@@ -51,7 +51,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full transition-transform transform hover:scale-105">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Contact Support</h2>
         {error && (
           <div className="flex items-center bg-red-100 text-red-700 p-4 rounded-lg mb-4">
