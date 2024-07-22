@@ -13,8 +13,8 @@ const Contact = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const MAX_SUBJECT_LENGTH = 100;
-  const MAX_MESSAGE_LENGTH = 1000;
+  const MAX_SUBJECT_LENGTH = 42;
+  const MAX_MESSAGE_LENGTH = 420;
 
   useEffect(() => {
     if (!user) {
@@ -117,25 +117,24 @@ const Contact = () => {
         <div className="mb-4 relative">
           <label className="block text-gray-700 mb-2">Subject</label>
           <div className="relative">
-            <FaPen className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
-              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
               placeholder="Enter the subject"
               maxLength={MAX_SUBJECT_LENGTH}
             />
+            <FaPen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <small className="text-gray-500">{subject.length}/{MAX_SUBJECT_LENGTH}</small>
         </div>
         <div className="mb-6 relative">
           <label className="block text-gray-700 mb-2">Message</label>
           <div className="relative">
-            <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <textarea
-              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -143,6 +142,7 @@ const Contact = () => {
               rows="5"
               maxLength={MAX_MESSAGE_LENGTH}
             />
+            <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <small className="text-gray-500">{message.length}/{MAX_MESSAGE_LENGTH}</small>
         </div>
