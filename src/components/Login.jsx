@@ -104,6 +104,9 @@ const Login = () => {
             </button>
           </div>
         </div>
+        <p className="mb-4 text-center text-gray-700">
+          Forgot your password? <Link to="/password-reset" className="text-blue-600 font-semibold">Reset it here</Link>
+        </p>
         <button
           type="submit"
           className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -115,14 +118,9 @@ const Login = () => {
             'Login'
           )}
         </button>
-        <div className="mt-6 text-center">
-          <p className="text-gray-700">
-            Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register</Link>
-          </p>
-          <p className="mt-2 text-gray-700">
-            Forgot your password? <Link to="/password-reset" className="text-blue-600 font-semibold">Reset it here</Link>
-          </p>
-        </div>
+        <p className="mt-6 text-center text-gray-700">
+          Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register</Link>
+        </p>
       </form>
     </div>
   );
