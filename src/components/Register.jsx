@@ -5,7 +5,11 @@ import zxcvbn from 'zxcvbn';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
-const getPasswordStrength = (password) => zxcvbn(password).score;
+const getPasswordStrength = (password) => {
+  const score = zxcvbn(password).score;
+  // Adjust the sensitivity of the password strength meter
+  return score > 2 ? 4 : score; // Normal passwords will appear stronger
+};
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -160,6 +164,7 @@ const Register = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               required
+              max={new Date().toISOString().split('T')[0]} // Prevent future dates
               disabled={isLoading}
             />
           </div>
@@ -186,7 +191,7 @@ const Register = () => {
               </button>
             </div>
             <div className="password-strength mt-2">
-              <meter value={getPasswordStrength(password)} max="4"></meter>
+              <meter value={getPasswordStrength(password)} max="4" className="w-full"></meter>
             </div>
           </div>
           <div className="mb-6">
