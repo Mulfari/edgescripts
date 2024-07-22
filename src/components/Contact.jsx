@@ -53,8 +53,12 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'An error occurred.');
+        try {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'An error occurred.');
+        } catch (jsonError) {
+          throw new Error('Please try again later.');
+        }
       }
 
       setSuccess('Message sent successfully.');
@@ -76,7 +80,7 @@ const Contact = () => {
           <div className="flex justify-around">
             <Link
               to="/login"
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               Login
               <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +89,7 @@ const Contact = () => {
             </Link>
             <Link
               to="/register"
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-gray-600 to-gray-800 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300"
+              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-gray-600 to-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-300"
             >
               Register
               <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -102,9 +106,7 @@ const Contact = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
         {loading && (
-          <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-10">
-            <FaSpinner className="animate-spin text-white text-4xl" />
-          </div>
+          <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-10" />
         )}
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Contact Support</h2>
         {error && (
@@ -130,6 +132,7 @@ const Contact = () => {
               required
               placeholder="Enter the subject"
               maxLength={MAX_SUBJECT_LENGTH}
+              disabled={loading}
             />
             <FaPen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
@@ -146,6 +149,7 @@ const Contact = () => {
               placeholder="Enter your message"
               rows="5"
               maxLength={MAX_MESSAGE_LENGTH}
+              disabled={loading}
             />
             <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
@@ -153,7 +157,7 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
           disabled={loading}
         >
           {loading ? (

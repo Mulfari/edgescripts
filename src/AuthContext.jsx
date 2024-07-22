@@ -29,7 +29,6 @@ const AuthProvider = ({ children }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error logging in:', errorData);
         return { ok: false, error: errorData };
       }
 
@@ -41,7 +40,6 @@ const AuthProvider = ({ children }) => {
       if (callback) callback(data.user);
       return { ok: true, data };
     } catch (error) {
-      console.error('Error logging in:', error);
       return { ok: false, error: 'An error occurred during login. Please try again later.' };
     }
   };
@@ -72,7 +70,6 @@ const AuthProvider = ({ children }) => {
         const data = await response.json();
         setUser(data.user);
       } catch (error) {
-        console.error('Error verifying token:', error);
         logout();
       }
     }
@@ -92,7 +89,6 @@ const AuthProvider = ({ children }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error updating user:', errorData);
         return false;
       }
 
