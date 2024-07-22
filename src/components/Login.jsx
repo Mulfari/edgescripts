@@ -154,8 +154,8 @@ const Login = () => {
             'Login'
           )}
         </button>
-        <div className="mt-6 text-center">
-          <p className="mt-2 text-gray-700">
+        <div className="mt-8 text-center text-lg space-y-4">
+          <p className="text-gray-700">
             Forgot your password? <Link to="/password-reset" className="text-blue-600 font-semibold">Reset it here</Link>
           </p>
           <p className="text-gray-700">
