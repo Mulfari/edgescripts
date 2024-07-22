@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaSpinner, FaCheckCircle } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
 import { getCsrfToken } from '../utils/Utils';
 
@@ -95,19 +95,16 @@ const Login = () => {
           <div className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
             <p>{error}</p>
             {error === 'Please verify your email address to log in.' && (
-              <button
-                type="button"
-                className="text-blue-600 font-semibold mt-2"
-                onClick={resendVerificationEmail}
-                disabled={loading}
-              >
-                Resend Verification Email
-              </button>
+              <p className="mt-2 text-gray-700">
+                Email not confirmed. Please check your email to verify your account. <Link to="#" onClick={resendVerificationEmail} className="text-blue-600 font-semibold">Resend verification email</Link>
+              </p>
             )}
           </div>
         )}
         {resendMessage && (
-          <p className="text-green-500 bg-green-100 p-3 rounded-lg mb-4">{resendMessage}</p>
+          <p className="text-green-500 bg-green-100 p-3 rounded-lg mb-4 flex items-center justify-center">
+            <FaCheckCircle className="mr-2" /> {resendMessage}
+          </p>
         )}
         {resendError && (
           <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">{resendError}</p>
