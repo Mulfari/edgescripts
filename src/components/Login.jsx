@@ -115,12 +115,14 @@ const Login = () => {
             'Login'
           )}
         </button>
-        <p className="mt-6 text-center text-gray-700">
-          Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register</Link>
-        </p>
-        <p className="mt-4 text-center text-gray-700">
-          Forgot your password? <Link to="/password-reset" className="text-blue-600 font-semibold">Reset it here</Link>
-        </p>
+        <div className="mt-6 text-center">
+          <p className="text-gray-700">
+            Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register</Link>
+          </p>
+          <p className="mt-2 text-gray-700">
+            Forgot your password? <Link to="/password-reset" className="text-blue-600 font-semibold">Reset it here</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
