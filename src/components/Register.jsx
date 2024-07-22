@@ -139,6 +139,8 @@ const Register = () => {
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
+  const maxDate = new Date().toISOString().split('T')[0];
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       {success ? (
@@ -177,7 +179,8 @@ const Register = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               required
-              max="1900-12-31" // Limitar hasta el año 1900
+              min="1900-01-01"
+              max={maxDate} // Limitar hasta la fecha actual
               disabled={isLoading}
             />
           </div>
