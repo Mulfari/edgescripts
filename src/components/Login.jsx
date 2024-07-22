@@ -96,11 +96,11 @@ const Login = () => {
             />
             <button
               type="button"
-              className="ml-3 text-gray-700 border border-gray-300 rounded-lg p-2 focus:outline-none"
+              className="ml-3 text-gray-700 border border-gray-300 rounded-lg p-3 focus:outline-none"
               onClick={toggleShowPassword}
               disabled={loading}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </button>
           </div>
         </div>
