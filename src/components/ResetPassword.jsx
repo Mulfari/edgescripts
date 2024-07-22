@@ -1,7 +1,7 @@
 // src/components/ResetPassword.js
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaSpinner } from 'react-icons/fa';  // Importar FaSpinner
+import { FaSpinner } from 'react-icons/fa';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
