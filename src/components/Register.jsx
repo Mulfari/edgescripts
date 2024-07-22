@@ -10,19 +10,17 @@ const getPasswordStrength = (password) => {
   return score > 2 ? 4 : score; // Normal passwords will appear stronger
 };
 
-const getMeterColor = (score) => {
+const getMeterSegments = (score) => {
   switch (score) {
-    case 0:
     case 1:
-      return 'bg-red-500'; // Weak
+      return ['bg-green-500', 'bg-gray-300', 'bg-gray-300']; // Decente
     case 2:
-      return 'bg-yellow-500'; // Fair
+      return ['bg-yellow-500', 'bg-yellow-500', 'bg-gray-300']; // Medianamente difícil
     case 3:
-      return 'bg-green-500'; // Good
     case 4:
-      return 'bg-blue-500'; // Strong
+      return ['bg-red-500', 'bg-red-500', 'bg-red-500']; // Fuerte
     default:
-      return 'bg-gray-500';
+      return ['bg-gray-300', 'bg-gray-300', 'bg-gray-300']; // Inicial
   }
 };
 
@@ -205,8 +203,10 @@ const Register = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            <div className="password-strength mt-2 w-full h-2 rounded-full overflow-hidden">
-              <div className={`h-full ${getMeterColor(getPasswordStrength(password))}`} style={{ width: `${(getPasswordStrength(password) + 1) * 25}%` }}></div>
+            <div className="password-strength mt-2 w-full h-2 rounded-full overflow-hidden flex">
+              {getMeterSegments(getPasswordStrength(password)).map((color, index) => (
+                <div key={index} className={`flex-1 ${color}`}></div>
+              ))}
             </div>
           </div>
           <div className="mb-6">
