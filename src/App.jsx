@@ -19,6 +19,7 @@ import Dashboard from './components/Dashboard';
 import TermsAndConditions from './components/TermsAndConditions';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
+import PasswordReset from './components/PasswordReset';
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/products/*" element={<InicioProducts />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/password-reset" element={<PasswordReset />} />
             <Route path="/support/terms" element={<TermsAndConditions />} />
             <Route path="/support/faq" element={<FAQ />} />
             <Route path="/support/contact" element={<Contact />} />
