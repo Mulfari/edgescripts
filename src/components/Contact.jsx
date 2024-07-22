@@ -119,10 +119,11 @@ const Contact = () => {
         )}
         <div className="mb-4 relative">
           <label className="block text-gray-700 mb-2">Subject</label>
-          <div className="relative">
+          <div className="relative flex items-center">
+            <FaPen className="absolute left-3 text-gray-400" />
             <input
               type="text"
-              className="block w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
@@ -130,15 +131,15 @@ const Contact = () => {
               maxLength={MAX_SUBJECT_LENGTH}
               disabled={loading}
             />
-            <FaPen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <small className="text-gray-500">{subject.length}/{MAX_SUBJECT_LENGTH}</small>
         </div>
         <div className="mb-6 relative">
           <label className="block text-gray-700 mb-2">Message</label>
-          <div className="relative">
+          <div className="relative flex items-center">
+            <FaEnvelope className="absolute left-3 text-gray-400" />
             <textarea
-              className="block w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -147,7 +148,6 @@ const Contact = () => {
               maxLength={MAX_MESSAGE_LENGTH}
               disabled={loading}
             />
-            <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <small className="text-gray-500">{message.length}/{MAX_MESSAGE_LENGTH}</small>
         </div>
