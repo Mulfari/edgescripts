@@ -6,9 +6,23 @@ import zxcvbn from 'zxcvbn';
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
 const getPasswordStrength = (password) => {
-  const score = zxcvbn(password).score;
-  // Adjust the sensitivity of the password strength meter
-  return score > 2 ? 4 : score; // Normal passwords will appear stronger
+  const result = zxcvbn(password);
+  return result.score;
+};
+
+const getPasswordStrengthClass = (score) => {
+  switch (score) {
+    case 0:
+    case 1:
+      return 'bg-red-500';
+    case 2:
+      return 'bg-yellow-500';
+    case 3:
+    case 4:
+      return 'bg-green-500';
+    default:
+      return 'bg-gray-300';
+  }
 };
 
 const Register = () => {
@@ -191,7 +205,7 @@ const Register = () => {
               </button>
             </div>
             <div className="password-strength mt-2">
-              <meter value={getPasswordStrength(password)} max="4" className="w-full"></meter>
+              <div className={`w-full h-2 rounded ${getPasswordStrengthClass(getPasswordStrength(password))}`}></div>
             </div>
           </div>
           <div className="mb-6">
