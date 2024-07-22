@@ -121,9 +121,10 @@ const Contact = () => {
           <label className="block text-gray-700 mb-2">Subject</label>
           <div className="relative flex items-center">
             <FaPen className="absolute left-3 text-gray-400" />
+            <div className="absolute left-8 top-0 bottom-0 border-r border-gray-300"></div>
             <input
               type="text"
-              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
@@ -138,8 +139,9 @@ const Contact = () => {
           <label className="block text-gray-700 mb-2">Message</label>
           <div className="relative flex items-center">
             <FaEnvelope className="absolute left-3 text-gray-400" />
+            <div className="absolute left-8 top-0 bottom-0 border-r border-gray-300"></div>
             <textarea
-              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
