@@ -122,7 +122,7 @@ const Contact = () => {
           <div className="relative flex items-center">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <FaPen className="text-gray-400" />
-              <div className="w-px h-5 bg-gray-500 mx-3"></div>
+              <div className="w-px h-10 bg-gray-600 mx-3"></div>
             </div>
             <input
               type="text"
@@ -142,7 +142,7 @@ const Contact = () => {
           <div className="relative flex items-center">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <FaEnvelope className="text-gray-400" />
-              <div className="w-px h-5 bg-gray-500 mx-3"></div>
+              <div className="w-px h-10 bg-gray-600 mx-3"></div>
             </div>
             <textarea
               className="block w-full pl-14 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
