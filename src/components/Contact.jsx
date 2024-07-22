@@ -53,19 +53,15 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        try {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Ocurrió un error. Intente nuevamente después.');
-        } catch (jsonError) {
-          throw new Error('Ocurrió un error. Intente nuevamente después.');
-        }
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'An error occurred. Please try again later.');
       }
 
       setSuccess('Message sent successfully.');
       setSubject('');
       setMessage('');
     } catch (error) {
-      setError(error.message || 'Ocurrió un error. Intente nuevamente después.');
+      setError(error.message || 'An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -74,7 +70,7 @@ const Contact = () => {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
           <h2 className="text-3xl font-bold mb-6 text-gray-900">Access Restricted</h2>
           <p className="text-gray-700 mb-8">You need to be logged in to access this section.</p>
           <div className="flex flex-col space-y-4">
@@ -104,7 +100,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg sm:max-w-xl md:max-w-2xl relative">
         {loading && (
           <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-10" />
         )}
