@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaCheckCircle, FaSpinner } from 'react-icons/fa';
 import zxcvbn from 'zxcvbn';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
 const getPasswordStrength = (password) => zxcvbn(password).score;
-const Spinner = () => <div className="loader">Loading...</div>;
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -133,7 +132,12 @@ const Register = () => {
           <p className="text-gray-700">You will be redirected in <span className="text-red-500 font-bold">{countdown}</span> seconds...</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
+          {isLoading && (
+            <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-10">
+              <FaSpinner className="animate-spin text-white text-4xl" />
+            </div>
+          )}
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Register</h2>
           {error && (
             <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
@@ -150,6 +154,7 @@ const Register = () => {
               onBlur={() => setEmailBlurred(true)}
               required
               placeholder="Enter your email"
+              disabled={isLoading}
             />
           </div>
           <div className="mb-4">
@@ -160,6 +165,7 @@ const Register = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
           <div className="mb-4">
@@ -173,11 +179,13 @@ const Register = () => {
                 onBlur={() => setPasswordBlurred(true)}
                 required
                 placeholder="Enter your password"
+                disabled={isLoading}
               />
               <button
                 type="button"
                 className="ml-2 text-gray-700"
                 onClick={toggleShowPassword}
+                disabled={isLoading}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -196,11 +204,13 @@ const Register = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 placeholder="Confirm your password"
+                disabled={isLoading}
               />
               <button
                 type="button"
                 className="ml-2 text-gray-700"
                 onClick={toggleShowConfirmPassword}
+                disabled={isLoading}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -214,6 +224,7 @@ const Register = () => {
                 checked={acceptTerms}
                 onChange={(e) => setAcceptTerms(e.target.checked)}
                 required
+                disabled={isLoading}
               />
               Accept <Link to="/support/terms" className="text-blue-600">Terms and Conditions</Link>
             </label>
@@ -225,16 +236,21 @@ const Register = () => {
                 className="mr-2"
                 checked={subscribeNewsletter}
                 onChange={(e) => setSubscribeNewsletter(e.target.checked)}
+                disabled={isLoading}
               />
               Subscribe to Newsletter
             </label>
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg"
+            className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : 'Register'}
+            {isLoading ? (
+              <FaSpinner className="animate-spin mr-2" />
+            ) : (
+              'Register'
+            )}
           </button>
           <p className="mt-6 text-center text-gray-700">
             Already have an account? <Link to="/login" className="text-blue-600 font-semibold">Login</Link>
