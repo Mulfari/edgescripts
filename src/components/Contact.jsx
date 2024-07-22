@@ -55,9 +55,9 @@ const Contact = () => {
       if (!response.ok) {
         try {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'An error occurred.');
+          throw new Error(errorData.error || 'Ocurrió un error. Intente nuevamente después.');
         } catch (jsonError) {
-          throw new Error('Please try again later.');
+          throw new Error('Ocurrió un error. Intente nuevamente después.');
         }
       }
 
@@ -65,7 +65,7 @@ const Contact = () => {
       setSubject('');
       setMessage('');
     } catch (error) {
-      setError(error.message || 'An error occurred. Please try again later.');
+      setError(error.message || 'Ocurrió un error. Intente nuevamente después.');
     } finally {
       setLoading(false);
     }
@@ -76,8 +76,8 @@ const Contact = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
           <h2 className="text-3xl font-bold mb-6 text-gray-900">Access Restricted</h2>
-          <p className="text-gray-700 mb-4">You need to be logged in to access this section.</p>
-          <div className="flex justify-around">
+          <p className="text-gray-700 mb-8">You need to be logged in to access this section.</p>
+          <div className="flex flex-col space-y-4">
             <Link
               to="/login"
               className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"

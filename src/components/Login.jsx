@@ -96,7 +96,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="ml-3 text-gray-700"
+              className="ml-3 text-gray-700 border border-gray-300 rounded-lg p-2 focus:outline-none"
               onClick={toggleShowPassword}
               disabled={loading}
             >
