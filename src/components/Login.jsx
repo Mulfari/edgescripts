@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
 import { getCsrfToken } from '../utils/Utils';
 
@@ -9,8 +9,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, updateUser, user, setUser } = useAuth();
+  const { login, updateUser, user } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -21,6 +22,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
       const csrfToken = await getCsrfToken(); // Obtener el token CSRF
@@ -47,6 +49,8 @@ const Login = () => {
       }
     } catch (error) {
       setError(error.message || 'An error occurred during login. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,12 +78,12 @@ const Login = () => {
             placeholder="Enter your email"
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label className="block text-gray-700 mb-2">Password</label>
-          <div className="relative flex items-center">
+          <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
-              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -87,7 +91,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="ml-2 text-gray-700"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-700"
               onClick={toggleShowPassword}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -96,9 +100,14 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold text-lg"
+          className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          disabled={loading}
         >
-          Login
+          {loading ? (
+            <FaSpinner className="animate-spin mr-2" />
+          ) : (
+            'Login'
+          )}
         </button>
         <p className="mt-6 text-center text-gray-700">
           Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register</Link>
