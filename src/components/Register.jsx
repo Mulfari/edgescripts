@@ -182,6 +182,7 @@ const Register = () => {
               min="1900-01-01"
               max={maxDate} // Limitar hasta la fecha actual
               disabled={isLoading}
+              style={{ fontSize: '16px' }}
             />
           </div>
           <div className="mb-4">
