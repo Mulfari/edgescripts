@@ -6,22 +6,23 @@ import zxcvbn from 'zxcvbn';
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPassword = (password) => password.length >= 8 && password.length <= 32;
 const getPasswordStrength = (password) => {
-  const result = zxcvbn(password);
-  return result.score;
+  const score = zxcvbn(password).score;
+  return score > 2 ? 4 : score; // Normal passwords will appear stronger
 };
 
-const getPasswordStrengthClass = (score) => {
+const getMeterColor = (score) => {
   switch (score) {
     case 0:
     case 1:
-      return 'bg-red-500';
+      return 'bg-red-500'; // Weak
     case 2:
-      return 'bg-yellow-500';
+      return 'bg-yellow-500'; // Fair
     case 3:
+      return 'bg-green-500'; // Good
     case 4:
-      return 'bg-green-500';
+      return 'bg-blue-500'; // Strong
     default:
-      return 'bg-gray-300';
+      return 'bg-gray-500';
   }
 };
 
@@ -178,7 +179,7 @@ const Register = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               required
-              max={new Date().toISOString().split('T')[0]} // Prevent future dates
+              max="1900-12-31" // Limitar hasta el año 1900
               disabled={isLoading}
             />
           </div>
@@ -204,8 +205,8 @@ const Register = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            <div className="password-strength mt-2">
-              <div className={`w-full h-2 rounded ${getPasswordStrengthClass(getPasswordStrength(password))}`}></div>
+            <div className="password-strength mt-2 w-full h-2 rounded-full overflow-hidden">
+              <div className={`h-full ${getMeterColor(getPasswordStrength(password))}`} style={{ width: `${(getPasswordStrength(password) + 1) * 25}%` }}></div>
             </div>
           </div>
           <div className="mb-6">
