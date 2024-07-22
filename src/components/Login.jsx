@@ -10,6 +10,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState('');
+  const [resendError, setResendError] = useState('');
   const navigate = useNavigate();
   const { login, updateUser, user } = useAuth();
 
@@ -58,6 +60,30 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const resendVerificationEmail = async () => {
+    setResendMessage('');
+    setResendError('');
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/resend-verification-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setResendMessage(data.message);
+      } else {
+        setResendError(data.error);
+      }
+    } catch (error) {
+      setResendError('An error occurred while resending the verification email. Please try again later.');
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       <form onSubmit={onSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
@@ -66,9 +92,25 @@ const Login = () => {
         )}
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Login</h2>
         {error && (
-          <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
-            {error}
-          </p>
+          <div className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
+            <p>{error}</p>
+            {error === 'Please verify your email address to log in.' && (
+              <button
+                type="button"
+                className="text-blue-600 font-semibold mt-2"
+                onClick={resendVerificationEmail}
+                disabled={loading}
+              >
+                Resend Verification Email
+              </button>
+            )}
+          </div>
+        )}
+        {resendMessage && (
+          <p className="text-green-500 bg-green-100 p-3 rounded-lg mb-4">{resendMessage}</p>
+        )}
+        {resendError && (
+          <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">{resendError}</p>
         )}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
