@@ -120,11 +120,13 @@ const Contact = () => {
         <div className="mb-4 relative">
           <label className="block text-gray-700 mb-2">Subject</label>
           <div className="relative flex items-center">
-            <FaPen className="absolute left-3 text-gray-400" />
-            <div className="absolute left-8 top-0 bottom-0 border-r border-gray-300"></div>
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FaPen className="text-gray-400" />
+              <div className="w-px h-6 bg-gray-300 mx-3"></div>
+            </div>
             <input
               type="text"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-12 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
@@ -138,10 +140,12 @@ const Contact = () => {
         <div className="mb-6 relative">
           <label className="block text-gray-700 mb-2">Message</label>
           <div className="relative flex items-center">
-            <FaEnvelope className="absolute left-3 text-gray-400" />
-            <div className="absolute left-8 top-0 bottom-0 border-r border-gray-300"></div>
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FaEnvelope className="text-gray-400" />
+              <div className="w-px h-6 bg-gray-300 mx-3"></div>
+            </div>
             <textarea
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="block w-full pl-12 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
