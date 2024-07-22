@@ -82,7 +82,7 @@ const Login = () => {
             disabled={loading}
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-gray-700 mb-2">Password</label>
           <div className="flex items-center">
             <input
