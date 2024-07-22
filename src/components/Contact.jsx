@@ -13,7 +13,7 @@ const Contact = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const MAX_SUBJECT_LENGTH = 42;
+  const MAX_SUBJECT_LENGTH = 36;
   const MAX_MESSAGE_LENGTH = 420;
 
   useEffect(() => {
