@@ -132,12 +132,7 @@ const Register = () => {
           <p className="text-gray-700">You will be redirected in <span className="text-red-500 font-bold">{countdown}</span> seconds...</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
-          {isLoading && (
-            <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-10">
-              <FaSpinner className="animate-spin text-white text-4xl" />
-            </div>
-          )}
+        <form onSubmit={handleSubmit} className={`bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative ${isLoading ? 'opacity-50' : ''}`}>
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Register</h2>
           {error && (
             <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
