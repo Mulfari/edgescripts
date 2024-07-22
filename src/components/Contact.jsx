@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { getCsrfToken } from '../utils/Utils';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaTimesCircle, FaSpinner, FaEnvelope, FaPen } from 'react-icons/fa';
 
 const Contact = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -36,6 +37,8 @@ const Contact = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const csrfToken = await getCsrfToken();
 
@@ -59,6 +62,8 @@ const Contact = () => {
       setMessage('');
     } catch (error) {
       setError(error.message || 'An error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,40 +114,53 @@ const Contact = () => {
             <p>{success}</p>
           </div>
         )}
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label className="block text-gray-700 mb-2">Subject</label>
-          <input
-            type="text"
-            className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-            placeholder="Enter the subject"
-            maxLength={MAX_SUBJECT_LENGTH}
-          />
+          <div className="relative">
+            <FaPen className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              required
+              placeholder="Enter the subject"
+              maxLength={MAX_SUBJECT_LENGTH}
+            />
+          </div>
           <small className="text-gray-500">{subject.length}/{MAX_SUBJECT_LENGTH}</small>
         </div>
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label className="block text-gray-700 mb-2">Message</label>
-          <textarea
-            className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            placeholder="Enter your message"
-            rows="5"
-            maxLength={MAX_MESSAGE_LENGTH}
-          />
+          <div className="relative">
+            <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <textarea
+              className="block w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              placeholder="Enter your message"
+              rows="5"
+              maxLength={MAX_MESSAGE_LENGTH}
+            />
+          </div>
           <small className="text-gray-500">{message.length}/{MAX_MESSAGE_LENGTH}</small>
         </div>
         <button
           type="submit"
           className="w-full inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-full bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg transform transition duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          disabled={loading}
         >
-          Send Message
-          <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a 1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-          </svg>
+          {loading ? (
+            <FaSpinner className="animate-spin mr-2" />
+          ) : (
+            <>
+              Send Message
+              <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a 1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+              </svg>
+            </>
+          )}
         </button>
       </form>
     </div>
