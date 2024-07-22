@@ -175,14 +175,13 @@ const Register = () => {
             <label className="block text-gray-700 mb-2">Date of Birth</label>
             <input
               type="date"
-              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-700 sm:text-base text-sm"
+              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               required
               min="1900-01-01"
               max={maxDate} // Limitar hasta la fecha actual
               disabled={isLoading}
-              style={{ WebkitAppearance: 'textfield', fontSize: '16px', lineHeight: '1.5' }}
             />
           </div>
           <div className="mb-4">
