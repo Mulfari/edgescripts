@@ -134,7 +134,7 @@ const Header = ({ cartItems, removeFromCart }) => {
           await updateUser(user._id, {
             brand: user.brand === null ? brand : user.brand,
             dpi: user.dpi === null ? dpi : user.dpi,
-            sensibilidad: user.sensitivity === null ? sensitivity : user.sensitivity,
+            sensitivity: user.sensitivity === null ? sensitivity : user.sensitivity,
           });
         }
         let checkoutUrl = '';
