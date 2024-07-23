@@ -113,8 +113,8 @@ const Header = ({ cartItems, removeFromCart }) => {
   const handleLogin = async (email, password) => {
     const success = await login(email, password, async (loggedInUser) => {
       if (cartItems.length > 0) {
-        const { brand, dpi, sensibilidad } = cartItems[0];
-        await updateUser(loggedInUser._id, { brand, dpi, sensibilidad });
+        const { brand, dpi, sensitivity } = cartItems[0];
+        await updateUser(loggedInUser._id, { brand, dpi, sensitivity });
       }
     });
     if (success) {
@@ -129,12 +129,12 @@ const Header = ({ cartItems, removeFromCart }) => {
     if (user) {
       const product = cartItems[0];
       if (product) {
-        const { option, brand, dpi, sensibilidad } = product;
-        if (user.brand === null || user.dpi === null || user.sensibilidad === null) {
+        const { option, brand, dpi, sensitivity } = product;
+        if (user.brand === null || user.dpi === null || user.sensitivity === null) {
           await updateUser(user._id, {
             brand: user.brand === null ? brand : user.brand,
             dpi: user.dpi === null ? dpi : user.dpi,
-            sensibilidad: user.sensibilidad === null ? sensibilidad : user.sensibilidad,
+            sensibilidad: user.sensitivity === null ? sensitivity : user.sensitivity,
           });
         }
         let checkoutUrl = '';
