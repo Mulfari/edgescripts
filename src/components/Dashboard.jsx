@@ -70,9 +70,6 @@ const Dashboard = () => {
                   {purchases.map((purchase) => (
                     <div key={purchase._id} className="bg-gray-100 p-6 rounded-lg shadow-md mb-4">
                       <p className="text-gray-700"><strong>Product Name:</strong> {purchase.name}</p>
-                      <p className="text-gray-700"><strong>Brand:</strong> {purchase.brand}</p>
-                      <p className="text-gray-700"><strong>DPI:</strong> {purchase.dpi}</p>
-                      <p className="text-gray-700"><strong>Sensitivity:</strong> {purchase.sensitivity}</p>
                       <p className="text-gray-700"><strong>Date Added:</strong> {new Date(purchase.addedAt).toLocaleDateString()}</p>
                     </div>
                   ))}
