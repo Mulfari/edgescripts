@@ -53,7 +53,7 @@ const Dashboard = () => {
           <p className="text-gray-700 mt-2"><strong>Email: </strong> {user.username}</p>
           <div className="flex items-center mt-2">
             <strong className="text-gray-700">Password: </strong> 
-            <span className="ml-2">******</span>
+            <span className="ml-2 text-black">******</span>
             <FaEdit 
               className="ml-2 text-blue-500 cursor-pointer"
               onClick={() => navigate('/change-password')}
