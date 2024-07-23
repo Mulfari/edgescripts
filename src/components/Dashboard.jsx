@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-5xl w-full transition-transform transform duration-500 ease-in-out">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-5xl w-full">
         <div className="flex items-center mb-8">
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
@@ -66,9 +66,9 @@ const Dashboard = () => {
           {purchases.length > 0 ? (
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-2/3 text-left">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1">
                   {purchases.map((purchase) => (
-                    <div key={purchase._id} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+                    <div key={purchase._id} className="bg-gray-100 p-6 rounded-lg shadow-md mb-4">
                       <p className="text-gray-700"><strong>Product Name:</strong> {purchase.name}</p>
                       <p className="text-gray-700"><strong>Quantity:</strong> {purchase.quantity}</p>
                       <p className="text-gray-700"><strong>Date Added:</strong> {new Date(purchase.addedAt).toLocaleDateString()}</p>
