@@ -43,21 +43,22 @@ const Dashboard = () => {
         <div className="flex items-center mb-8">
           <FaUserCircle className="text-6xl text-gray-700 mr-4" />
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Welcome!</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Welcome, {user.username.split('@')[0]}!</h2>
+            <p className="text-gray-600">Here is your account information and purchase history.</p>
           </div>
         </div>
         <hr className="my-4" />
         <div className="mb-8 text-left">
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
           <p className="text-gray-700 mt-2"><strong>Email: </strong> {user.username}</p>
-          <p className="text-gray-700 mt-2 flex items-center">
-            <strong>Password: </strong> 
+          <div className="flex items-center mt-2">
+            <strong className="text-gray-700">Password: </strong> 
             <span className="ml-2">******</span>
             <FaEdit 
               className="ml-2 text-blue-500 cursor-pointer"
               onClick={() => navigate('/change-password')}
             />
-          </p>
+          </div>
         </div>
         <hr className="my-4" />
         <div>
