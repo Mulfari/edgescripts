@@ -125,14 +125,20 @@ const Header = ({ cartItems, removeFromCart }) => {
     }
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (user) {
       const product = cartItems[0];
-      let checkoutUrl = '';
       if (product) {
-        const option = product.option.toLowerCase();
-        console.log('Product option:', option);
-        switch (option) {
+        const { option, brand, dpi, sensibilidad } = product;
+        if (user.brand === null || user.dpi === null || user.sensibilidad === null) {
+          await updateUser(user._id, {
+            brand: user.brand === null ? brand : user.brand,
+            dpi: user.dpi === null ? dpi : user.dpi,
+            sensibilidad: user.sensibilidad === null ? sensibilidad : user.sensibilidad,
+          });
+        }
+        let checkoutUrl = '';
+        switch (option.toLowerCase()) {
           case '1 arma':
           case '1 weapon':
             checkoutUrl = 'https://buy.stripe.com/bIYdThbU88YM0es4gi';
