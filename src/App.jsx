@@ -21,6 +21,7 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import PasswordReset from './components/PasswordReset';
 import ResetPassword from './components/ResetPassword';
+import ChangePassword from './components/ChangePassword'; // Importar el nuevo componente
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -58,6 +59,7 @@ const App = () => {
             <Route path="/support/contact" element={<Contact />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/change-password" element={<ChangePassword />} /> {/* Añadir la nueva ruta */}
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">

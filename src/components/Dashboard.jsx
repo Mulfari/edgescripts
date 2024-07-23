@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [purchases, setPurchases] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPurchases = async () => {
@@ -50,6 +51,12 @@ const Dashboard = () => {
           <h3 className="text-2xl font-semibold text-gray-800">User Information</h3>
           <p className="text-gray-700 mt-2"><strong>Email: </strong> {user.username}</p>
         </div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={() => navigate('/change-password')}
+        >
+          Change Password
+        </button>
         <hr className="my-4" />
         <div>
           <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4">Purchase History</h3>
