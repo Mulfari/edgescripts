@@ -396,7 +396,7 @@ const ProductWarzone = ({ addToCart, removeFromCart }) => {
   const productsInCategory = productos.filter(product => product.categoria === category);
 
   return (
-    <div className="bg-gray-100 min-h-screen py-6">
+    <div className="bg-gray-100 min-h-screen py-6 pt-16">
       <div className="container mx-auto px-4">
         <Breadcrumb />
         {productsInCategory.map(productDetail => (
