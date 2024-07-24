@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
-import InicioProducts from './components/InicioProducts';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProductosPage from './components/ProductosPage';
@@ -21,7 +20,7 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import PasswordReset from './components/PasswordReset';
 import ResetPassword from './components/ResetPassword';
-import ChangePassword from './components/ChangePassword'; // Importar el nuevo componente
+import ChangePassword from './components/ChangePassword';
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -49,7 +48,7 @@ const App = () => {
         <div className="App">
           <Header cartItems={cartItems} removeFromCart={removeFromCart} />
           <Routes>
-            <Route path="/products/*" element={<InicioProducts />} />
+            <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/password-reset" element={<PasswordReset />} />
@@ -59,14 +58,13 @@ const App = () => {
             <Route path="/support/contact" element={<Contact />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/change-password" element={<ChangePassword />} /> {/* Añadir la nueva ruta */}
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
             <Routes>
               <Route path="/" element={<><InfoSection /><AfterBefore /><Paso /><Purchase /><Reviews /></>} />
               <Route path="/products" element={<ProductosPage />} />
-              <Route path="/products/warzone" element={<ProductWarzone addToCart={addToCart} removeFromCart={removeFromCart} />} />
             </Routes>
           </div>
           <Footer className="Footer" />
