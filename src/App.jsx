@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import Inicio from './components/Inicio';
 import Header from './components/Header';
@@ -59,6 +59,7 @@ const App = () => {
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/products" element={<Navigate to="/" replace />} />
             <Route path="*" element={<Inicio />} />
           </Routes>
           <div className="Content">
