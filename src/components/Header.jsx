@@ -186,7 +186,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             onMouseEnter={() => setIsDropdownVisible(true)} 
             onMouseLeave={() => setIsDropdownVisible(false)}
           >
-            <span className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</span>
+            <Link to="/products" className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</Link>
             {isDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
@@ -211,7 +211,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             onMouseEnter={() => setIsSupportDropdownVisible(true)} 
             onMouseLeave={() => setIsSupportDropdownVisible(false)}
           >
-            <span className="nav-item" onMouseEnter={() => setIsSupportDropdownVisible(true)}>Support</span>
+            <Link to="#support" className="nav-item" onMouseEnter={() => setIsSupportDropdownVisible(true)}>Support</Link>
             {isSupportDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
@@ -403,7 +403,6 @@ const Header = ({ cartItems, removeFromCart }) => {
           display: flex;
           align-items: center;
           transition: all 0.3s ease-in-out;
-          cursor: pointer; /* Added to make it consistent with a Link */
         }
         .nav-item::before {
           content: '';
