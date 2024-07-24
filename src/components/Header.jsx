@@ -186,7 +186,7 @@ const Header = ({ cartItems, removeFromCart }) => {
             onMouseEnter={() => setIsDropdownVisible(true)} 
             onMouseLeave={() => setIsDropdownVisible(false)}
           >
-            <Link to="/products" className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</Link>
+            <span className="nav-item" onMouseEnter={() => setIsDropdownVisible(true)}>Products</span>
             {isDropdownVisible && (
               <div 
                 className="absolute left-0 top-full w-64 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform opacity-0 translate-y-2"
