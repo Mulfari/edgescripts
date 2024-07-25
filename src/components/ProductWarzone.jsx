@@ -73,8 +73,6 @@ const Step1 = ({ handleOptionChange }) => {
       description: 'Perfect for casual gamers or those just starting out.',
       features: [
         'Access to all game servers',
-        '100 GB of cloud storage',
-        'Basic customer support',
       ],
     },
     {
@@ -83,9 +81,6 @@ const Step1 = ({ handleOptionChange }) => {
       description: 'For serious gamers who demand the best performance.',
       features: [
         'Access to all game servers',
-        '500 GB of cloud storage',
-        'Priority customer support',
-        'Exclusive in-game rewards',
       ],
     },
     {
@@ -94,10 +89,6 @@ const Step1 = ({ handleOptionChange }) => {
       description: 'For the ultimate gaming experience.',
       features: [
         'Access to all game servers',
-        'Unlimited cloud storage',
-        'Priority customer support',
-        'Exclusive in-game rewards',
-        'Early access to new games',
       ],
     },
   ];
