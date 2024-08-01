@@ -6,9 +6,13 @@ import razerLogo from '../assets/Categorias/razerlogo.png';
 import weaponImage from '../assets/Categorias/1w_rotated.png';
 import newWeaponImage from '../assets/Categorias/2w_rotated.png';
 import uploadedImage from '../assets/Categorias/rotated_image.png';
+import InfoSectionWZ from './InfoSectionWz'; // Importa el nuevo componente
+import Info2SectionWZ from './Info2SectionWz';
+import WeaponArticleList from './WeaponArticleList';
+import InfoWz from './InfoWz';
 
 const productos = [
-  { id: 1, imagen: wzLogo, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true, reviews: 10, detalles: 'Detalles del producto', caracteristicas: ['Característica 1', 'Característica 2'] },
+  { id: 1, imagen: wzLogo, descripcion: 'COD Warzone 3 No Recoil Macro', precioOriginal: '18.99 $', precioDescuento: '14.99 $', descuento: '21%', categoria: 'Warzone', popularidad: 5, nuevo: true, reviews: 10, detalles: 'No recoil script for Call of Duty Warzone 3 (2024)', caracteristicas: ['Does not interfere with the game files', 'Customizable mouse and *keyboard hotkeys (*for Logitech G series keyboards)', 'Smooth no recoil – no screen shaking', 'Works with any DPI and FOV', 'Secure and Easy to use!', 'Compatible with Modern Warfare 2'] },
 ];
 
 const Breadcrumb = () => (
@@ -246,8 +250,6 @@ const Step2 = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, ha
   );
 };
 
-
-
 const Step3 = ({ option, brand, dpi, sensitivity, handleBackStep, handleAddToCart }) => (
   <div className="flex flex-col mt-6 h-full">
     <label className="block text-gray-700 mb-4 text-2xl font-semibold">Step 3: Checkout</label>
@@ -286,33 +288,6 @@ const OrderCompleted = ({ handleCheckout, handleBack }) => (
         Proceed to Checkout
       </button>
     </div>
-  </div>
-);
-
-
-const ProductDetails = ({ details, features }) => (
-  <div className="border-t border-gray-200 mt-6 pt-4">
-    <h2 className="text-xl font-bold text-gray-900 mb-2">INFO</h2>
-    <p className="text-gray-700 mb-4">{details}</p>
-    <ul className="list-disc list-inside text-gray-700">
-      {features.map((feature, index) => (
-        <li key={index}>{feature}</li>
-      ))}
-    </ul>
-  </div>
-);
-
-const ProductDescription = () => (
-  <div className="mt-6">
-    <h3 className="text-xl font-bold text-gray-900 mb-2">DESCRIPTION</h3>
-    <p className="text-gray-700">Detailed description of the product goes here.</p>
-  </div>
-);
-
-const ProductReviews = ({ reviews }) => (
-  <div className="mt-6">
-    <h3 className="text-xl font-bold text-gray-900 mb-2">REVIEWS ({reviews})</h3>
-    <p className="text-gray-700">Customer reviews will be displayed here.</p>
   </div>
 );
 
@@ -481,9 +456,10 @@ const ProductCard = ({ productDetail, addToCart, removeFromCart }) => {
           )}
         </div>
       </div>
-      <ProductDetails details={productDetail.detalles} features={productDetail.caracteristicas} />
-      <ProductDescription />
-      <ProductReviews reviews={productDetail.reviews} />
+      <InfoSectionWZ />
+      <Info2SectionWZ />
+      <WeaponArticleList />
+      <InfoWz />
     </div>
   );
 };
