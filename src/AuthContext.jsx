@@ -16,13 +16,13 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password, callback) => {
-    const csrfToken = await getCsrfToken(); // Obtener el token CSRF
+    const csrfToken = await getCsrfToken();
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'CSRF-Token': csrfToken, // Incluir el token CSRF
+          'CSRF-Token': csrfToken,
         },
         body: JSON.stringify({ username: email, password }),
       });

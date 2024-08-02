@@ -13,7 +13,7 @@ const Login = () => {
   const [resendMessage, setResendMessage] = useState('');
   const [resendError, setResendError] = useState('');
   const navigate = useNavigate();
-  const { login, updateUser, user } = useAuth();
+  const { login, user } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -29,23 +29,10 @@ const Login = () => {
     try {
       const csrfToken = await getCsrfToken(); // Obtener el token CSRF
 
-      const response = await login(email, password, async (loggedInUser) => {
-        const cartItem = JSON.parse(localStorage.getItem('cartItem'));
-        if (cartItem && loggedInUser) {
-          const { brand, dpi, sensitivity } = cartItem;
-          const updateFields = {};
-          if (loggedInUser.brand === null) updateFields.brand = brand;
-          if (loggedInUser.dpi === null) updateFields.dpi = dpi;
-          if (loggedInUser.sensitivity === null) updateFields.sensitivity = sensitivity;
-
-          if (Object.keys(updateFields).length > 0) {
-            await updateUser(loggedInUser._id, updateFields);
-          }
-        }
-      });
+      const response = await login(email, password);
 
       if (response.ok) {
-        navigate('/');
+        navigate('/device'); // Redirigir a /device después de iniciar sesión
       } else {
         setError(response.error.error || response.error);
       }
