@@ -1,9 +1,8 @@
-// Device.jsx
 import React, { useState } from 'react';
 import logitechLogo from '../assets/Categorias/logitechlogo.png';
 import razerLogo from '../assets/Categorias/razerlogo.png';
 
-const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, handleNextStep, handleBackStep }) => {
+const Device = () => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [dpi, setDpi] = useState('');
   const [sensitivity, setSensitivity] = useState('');
@@ -13,7 +12,6 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
 
   const handleBrandSelection = (brand) => {
     setSelectedBrand(brand);
-    if (handleBrandChange) handleBrandChange(brand);
     setBrandError('');
   };
 
@@ -26,7 +24,6 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
       setDpiError('');
     }
     setDpi(value);
-    if (handleDpiChange) handleDpiChange(value);
   };
 
   const handleSensitivityInput = (event) => {
@@ -38,12 +35,11 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
       setSensitivityError('');
     }
     setSensitivity(value);
-    if (handleSensitivityChange) handleSensitivityChange(value);
   };
 
   const updateUserData = async () => {
     try {
-      const response = await fetch('/update-user', {
+      const response = await fetch('https://www.edgescripts.com/update-user', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +77,6 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
     }
     if (!hasError) {
       updateUserData();
-      if (handleNextStep) handleNextStep();
     }
   };
 
