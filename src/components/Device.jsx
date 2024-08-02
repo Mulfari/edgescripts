@@ -80,6 +80,11 @@ const Device = () => {
     }
   };
 
+  const handleBackStep = () => {
+    // Implement your back step logic here
+    console.log('Back button clicked');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4">
       <form className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative" onSubmit={(e) => e.preventDefault()}>
