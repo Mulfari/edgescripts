@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getCsrfToken } from './utils/Utils';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -8,7 +7,6 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -40,13 +38,6 @@ const AuthProvider = ({ children }) => {
       setUser(data.user);
 
       if (callback) callback(data.user);
-
-      if (data.user.brand === null || data.user.dpi === null || data.user.sensitivity === null) {
-        navigate('/device');
-      } else {
-        navigate('/');
-      }
-
       return { ok: true, data };
     } catch (error) {
       return { ok: false, error: 'An error occurred during login. Please try again later.' };
@@ -78,12 +69,6 @@ const AuthProvider = ({ children }) => {
 
         const data = await response.json();
         setUser(data.user);
-
-        if (data.user.brand === null || data.user.dpi === null || data.user.sensitivity === null) {
-          navigate('/device');
-        } else {
-          navigate('/');
-        }
       } catch (error) {
         logout();
       }
