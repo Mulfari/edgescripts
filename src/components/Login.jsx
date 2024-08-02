@@ -17,7 +17,11 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/'); // Redirigir a la página de inicio si el usuario está logueado
+      if (user.sensitivity === null || user.dpi === null || user.brand === null) {
+        navigate('/device');
+      } else {
+        navigate('/');
+      }
     }
   }, [user, navigate]);
 
@@ -32,7 +36,11 @@ const Login = () => {
       const response = await login(email, password);
 
       if (response.ok) {
-        navigate('/device'); // Redirigir a /device después de iniciar sesión
+        if (response.data.sensitivity === null || response.data.dpi === null || response.data.brand === null) {
+          navigate('/device');
+        } else {
+          navigate('/');
+        }
       } else {
         setError(response.error.error || response.error);
       }

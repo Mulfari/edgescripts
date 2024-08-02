@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, password, callback) => {
+  const login = async (email, password) => {
     const csrfToken = await getCsrfToken();
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
@@ -37,8 +37,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
 
-      if (callback) callback(data.user);
-      return { ok: true, data };
+      return { ok: true, data: data.user };
     } catch (error) {
       return { ok: false, error: 'An error occurred during login. Please try again later.' };
     }
