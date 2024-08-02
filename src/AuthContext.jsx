@@ -8,7 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // Asegúrate de importar useNavigate
+  const navigate = useNavigate(); // Importar y utilizar useNavigate
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
