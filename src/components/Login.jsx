@@ -17,11 +17,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.brand === null || user.dpi === null || user.sensitivity === null) {
-        navigate('/device'); // Redirigir a la página de dispositivo si alguna propiedad está en null
-      } else {
-        navigate('/'); // Redirigir a la página de inicio si el usuario está logueado
-      }
+      navigate('/'); // Redirigir a la página de inicio si el usuario está logueado
     }
   }, [user, navigate]);
 
@@ -46,15 +42,11 @@ const Login = () => {
             await updateUser(loggedInUser._id, updateFields);
           }
         }
-
-        if (loggedInUser.brand === null || loggedInUser.dpi === null || loggedInUser.sensitivity === null) {
-          navigate('/device');
-        } else {
-          navigate('/');
-        }
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        navigate('/');
+      } else {
         setError(response.error.error || response.error);
       }
     } catch (error) {
