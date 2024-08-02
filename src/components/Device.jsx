@@ -13,7 +13,7 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
 
   const handleBrandSelection = (brand) => {
     setSelectedBrand(brand);
-    handleBrandChange(brand);
+    if (handleBrandChange) handleBrandChange(brand);
     setBrandError('');
   };
 
@@ -26,7 +26,7 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
       setDpiError('');
     }
     setDpi(value);
-    handleDpiChange(value);
+    if (handleDpiChange) handleDpiChange(value);
   };
 
   const handleSensitivityInput = (event) => {
@@ -38,7 +38,7 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
       setSensitivityError('');
     }
     setSensitivity(value);
-    handleSensitivityChange(value);
+    if (handleSensitivityChange) handleSensitivityChange(value);
   };
 
   const updateUserData = async () => {
@@ -81,7 +81,7 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
     }
     if (!hasError) {
       updateUserData();
-      handleNextStep();
+      if (handleNextStep) handleNextStep();
     }
   };
 
