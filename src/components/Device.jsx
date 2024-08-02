@@ -39,10 +39,12 @@ const Device = () => {
 
   const updateUserData = async () => {
     try {
-      const response = await fetch('https://www.edgescripts.com/update-user', {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/update-user`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           brand: selectedBrand,
