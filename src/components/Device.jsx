@@ -41,6 +41,30 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
     handleSensitivityChange(value);
   };
 
+  const updateUserData = async () => {
+    try {
+      const response = await fetch('/update-user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          brand: selectedBrand,
+          dpi,
+          sensitivity,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log('User updated successfully:', data);
+      } else {
+        console.error('Error updating user:', data);
+      }
+    } catch (error) {
+      console.error('An error occurred while updating the user:', error);
+    }
+  };
+
   const handleNext = () => {
     let hasError = false;
     if (!selectedBrand) {
@@ -56,6 +80,7 @@ const Device = ({ handleBrandChange, handleDpiChange, handleSensitivityChange, h
       hasError = true;
     }
     if (!hasError) {
+      updateUserData();
       handleNextStep();
     }
   };
